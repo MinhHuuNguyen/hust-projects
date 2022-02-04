@@ -1,4 +1,4 @@
-\def \makegans{
+\def\gans{
     \section{Mô hình Generative Adversarial Networks}
     \subsection{Giới thiệu chung}
     Ngày nay, công nghệ phát triển kéo theo nhu cầu sử dụng những nội dung số như hình ảnh, âm thanh hay video càng ngày càng lớn. Bên cạnh đó, cách mạng công nghiệp 4.0 cũng mang đến một nhu cầu lớn về dữ liệu để sử dụng trong các mô hình deep learning\index{deep learning}. Do đó, ta cần đến những mô hình sinh dữ liệu (generative model\index{generative model}) có khả năng tạo ra những bộ dữ liệu hoàn toàn mới và rất giống với những bộ dữ liệu do con người tạo ra, từ đó, cải thiện chất lượng của các mô hình deep learning\index{deep learning}.\\
@@ -127,7 +127,7 @@
     \end{figure}
     \noindent Ta tính điểm inception\index{điểm inception} bằng công thức Kullback–Leibler divergence\index{Kullback–Leibler divergence} (gọi tắt là KL divergence\index{KL divergence}). KL divergence\index{KL divergence} nhận đầu vào là hai phân phối xác suất\index{phân phối xác suất} và đưa đầu ra là độ tương đồng giữa hai phân phối đó. Nếu 2 phân phối đó gần giống nhau thì giá trị KL divergence\index{KL divergence} gần tới 0, còn nếu hai phân phối càng khác nhau thì giá KL divergence\index{KL divergence}càng lớn.
     \begin{align}
-        D_{KL}(P||Q) = \intP(x)\log\frac{P(x)}{Q(x)}dx
+        D_{KL}(P||Q) = \int P(x) \log \frac {P(x)}{Q(x)}dx
     \end{align}
     Ta gọi xác suất với đầu ra của InceptionNet\index{InceptionNet} là lớp $y$ với ảnh đầu vào $x$ là $P(y|x)$, giá trị này được gọi là label distribution\index{label distribution}. Ngoài ra, ta gọi tổng các label distribution\index{label distribution} của tất cả các ảnh đầu vào (đã được chuẩn hoá) là $P(y)$, giá trị này được gọi là marginal distribution\index{marginal distribution}. Quan hệ giữa hai phân phối xác suất này và giá trị KL divergence\index{KL divergence} được mô tả ở hình \ref{fig:is_kl}.\\
     Để ảnh sinh ra từ mô hình GANs\index{GANs} tốt (chất lượng ảnh tốt và đa dạng), thì ta muốn label distribution\index{label distribution} cao ở một lớp, thấp ở các lớp khác và marginal distribution\index{marginal distribution} cân bằng giữa các lớp, khi đó, hai phân phối xác suất này khác xa nhau, dẫn đến giá trị KL divergence\index{KL divergence} cao. Nếu label distribution\index{label distribution} cao ở nhiều lớp và marginal distribution\index{marginal distribution} cân bằng giữa các lớp thì giá trị KL divergence\index{KL divergence} cũng không cao. Nếu label distribution\index{label distribution} cân bằng và marginal distribution\index{marginal distribution} cũng có dạng cân bằng thì giá trị KL divergence\index{KL divergence} cũng thấp.\\
