@@ -1,54 +1,71 @@
 \documentclass[a4paper,14pt]{extarticle}
+% Thay doi chieu cao cua header va top margin
+% de fix warning `\headheight is too small`
+\setlength{\headheight}{17pt}
+\addtolength{\topmargin}{-3pt}
 
-% Render ngon ngu tieng Viet
+% Package render ngon ngu tieng Viet
 \usepackage[utf8]{vietnam}
-% Can le tren, duoi, trai, phai
-\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
-\usepackage{amsmath,amssymb}
-\usepackage{amsthm}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{bm}
-\usepackage{natbib}
-\usepackage{xcolor}
-\usepackage[toc,page]{appendix}
-\usepackage{setspace}
 
+% Package can le tren, duoi, trai, phai
+\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+
+% Packages de viet cong thuc Toan hoc
+\usepackage{amsmath,amssymb, amsthm}
+% Package de viet in dam cong thuc Toan hoc (bm = bold math)
+\usepackage{bm}
+
+% Package su dung de giu figure/table o dung vi tri
+% \begin{figure}[H]
+%     ... figure contents...
+% \end{figure}
+% Note: can check lai (comment ko thay khac biet)
 \usepackage{float}
-% remove space between image and caption
+
+% Package custom style cua caption
+% (kich thuoc font chu, khoang cach so voi anh, ...)
 \usepackage[font=small,skip=0pt]{caption}
-% remove space between lines in list
+
+% Package custom khoang cach
+% giua cac gach dau dong trong danh sach
 \usepackage{enumitem}
 \setlist{nosep}
-% adjust space between lines
-\renewcommand{\baselinestretch}{1.25}
-% choose font to use in whole document
-\usepackage{mathptmx}
 
+% Custom khoang cach giua cac dong (gian dong)
+% Note: can check lai dong `usepackage` (comment ko thay khac biet)
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.25}
+
+% Package su dung font Times la font cho text va
+% cung cap mot so syntax Toan hoc
+\usepackage{mathptmx}
 
 % Package su dung de reference/citation co the click
 \usepackage{hyperref}
+
 % Package su dung cho viec danh `chi muc tu khoa`
 \usepackage{imakeidx}
 \makeindex[columns=2, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
+
 % Package su dung cho `khungtrangbia`
 \usepackage{tikz}
+
 % Package su dung cho `pythoncodestyle`
 \usepackage{listings}
+
 % Package su dung cho `headerfooterstyle`
 \usepackage{fancyhdr}
 \input{utils/custom_header_footer.tex}
 \headerfooterstyle
+
+% Package su dung de ve bang `tab_result` trong file `4_munit_results.tex`
 \usepackage[flushleft]{threeparttable}
 
+% Khai bao ky tu unicode de sua error
+% Package inputenc: Unicode character − (U+2212) (inputenc) not set up for use with LaTeX.
 \DeclareUnicodeCharacter{2212}{-}
 
 \begin{document}
-    \setlength{\abovedisplayskip}{0.1pt}
-    \setlength{\belowdisplayskip}{0.1pt}
-    \setlength{\abovedisplayshortskip}{0.1pt}
-    \setlength{\belowdisplayshortskip}{0.1pt}
-
 
     % BAT DAU CAC TRANG CHUC NANG
     % Xoa page number
