@@ -22,6 +22,9 @@
 % Note: can check lai (comment ko thay khac biet)
 \usepackage{float}
 
+% Package de su dung duoc `subfigure`
+\usepackage{subfigure}
+
 % Package custom style cua caption
 % (kich thuoc font chu, khoang cach so voi anh, ...)
 \usepackage[font=small,skip=0pt]{caption}
@@ -60,6 +63,9 @@
 
 % Package su dung de ve bang `tab_result` trong file `4_munit_results.tex`
 \usepackage[flushleft]{threeparttable}
+
+% Package su dung de dung `tab` \tab
+\usepackage{tabto}
 
 % Khai bao ky tu unicode de sua error
 % Package inputenc: Unicode character − (U+2212) (inputenc) not set up for use with LaTeX.
@@ -100,7 +106,7 @@
 
     \newpage
     \listoftables
-    \addcontentsline{toc}{section}{Danh sách bảng}
+    \addcontentsline{toc}{section}{Danh sách bảng biểu}
     % KET THUC CAC TRANG CHUC NANG
 
     % BAT DAU PHAN NOI DUNG CHINH
@@ -108,16 +114,35 @@
     \pagestyle{fancy}
 
     \newpage
-    hello content \cite{test}
-
-
-    \newpage
-
+    \input{1_problems.tex}
+    \cacbaitoan
 
     \newpage
-
+    \input{2_object_detection.tex}
+    \objectdetection
 
     \newpage
+    \input{3_object_detection_high_res.tex}
+    \objectdetectionhighres
+
+    \newpage
+    \input{4_face_detection_high_res.tex}
+    \facedetectionhighres
+
+    \newpage
+    \input{5_face_recognition.tex}
+    \facerecognition
+
+    
+    % hello content \cite{test}
+
+    % \newpage
+
+
+    % \newpage
+
+
+    % \newpage
 
     % % KET THUC PHAN NOI DUNG CHINH
 
@@ -133,9 +158,9 @@
     \printindex
 
 
-    \newpage
-    \input{utils/code.tex}
-    \code
+    % \newpage
+    % \input{utils/code.tex}
+    % \code
 
     \newpage
     \addcontentsline{toc}{section}{Tài liệu tham khảo}
