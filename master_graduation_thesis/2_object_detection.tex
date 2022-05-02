@@ -1,268 +1,28 @@
 \def\objectdetection{
-    \section{Các mô hình giải quyết bài toán Object Detection}
-    \subsection{Các mô hình two-stage giải quyết bài toán Object Detection}
-    Các mô hình two-stage giải quyết bài toán Object Detection có đặc điểm chung về kiến trúc mô hình gồm hai phần: \\
-    - Phần thứ nhất được gọi là \textit{Region proposals module}, mô đun nhận đầu vào là ảnh ban đầu và trả đầu ra giúp đề xuất ra các khu vực trên ảnh mà có khả năng chứa object. \\
-    - Phần thứ hai được gọi là \textit{Feature extraction module}, mô đun nhận đầu vào là kết quả của Region proposals module giúp xác định chính xác object trong khu vực đó là object nào và tinh chỉnh toạ độ của khu vực chính xác hơn. \\
-    Nổi bật trong nhóm các mô hình two-stage là chuỗi các mô hình R-CNN, Fast R-CNN và Faster R-CNN.
+    \section{Các mô hình giải quyết bài toán object detection}
+    Các mô hình giải quyết bài toán object detection theo kiến trúc mô hình thường được chia thành hai nhóm: nhóm các mô hình two-stage và nhóm các mô hình single-stage.
 
-    \subsubsection{Mô hình R-CNN}
-        Một trong các mô hình đầu tiên ứng dụng deep learning giải quyết bài toán Object Detection là Regions with CNN features \cite{girshick2014rich} (gọi tắt là R-CNN).
-        Tuy nhiên, ở thời điểm mà mô hình R-CNN ra đời, do các mô hình deep learning chưa thật sự phát triển nên mô hình R-CNN không hoàn toàn sử dụng deep learning mà vẫn dựa trên kết quả của thuật toán xử lý ảnh như Graph-Based Image Segmentation \cite{felzenszwalb2004efficient} và Selective Search \cite{uijlings2013selective}.
-        \noindent
-        \textbf{\textit{Thuật toán Graph-Based Image Segmentation}} \\
-        \noindent
-        \textbf{\textit{Thuật toán Selective Search}} \\
-        
-        \noindent
-        \textbf{\textit{Kiến trúc mô hình R-CNN}} \\
-        Là một trong số các mô hình two-stage, mô hình R-CNN bao gồm hai thành phần: \\
-        - Phần Region proposals module mà mô hình R-CNN sử dụng là thuật toán Selective Search ở trên.
-        Nhận đầu vào là ảnh, thuật toán Selective Search trả đầu ra là khoảng 2000 khu vực và mô hình R-CNN sử dụng các khu vực này làm đầu vào cho thành phần thứ hai. \\
-        - Phần Feature extraction module của mô hình R-CNN là một mô hình phân lớp ảnh, cụ thể theo \cite{girshick2014rich} là AlexNet.
-        Mô hình R-CNN sử dụng AlexNet nhằm đánh giá xem khu vực đã được đề xuất bởi Selective Search có chứa object hay không và nếu có thì khu vực đó chứa object nào. \\
+    \noindent
+    Các mô hình two-stage giải quyết bài toán object detection có đặc điểm chung về kiến trúc mô hình gồm hai phần: \\
+    - Phần thứ nhất được gọi là \textit{Region proposals module}, mô đun nhận đầu vào là ảnh ban đầu và trả đầu ra giúp đề xuất ra các khu vực trên ảnh mà có khả năng chứa đối tượng. \\
+    - Phần thứ hai được gọi là \textit{Feature extraction module}, mô đun nhận đầu vào là kết quả của Region proposals module giúp xác định chính xác đối tượng trong khu vực đó là đối tượng nào và tinh chỉnh toạ độ của khu vực chính xác hơn. \\
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=13cm] {images/rcnn_model}
-            \caption{Kiến trúc mô hình R-CNN (Nguồn: \cite{girshick2014rich})}
-            \label{fig:rcnn_model}
-        \end{figure}
+    Nổi bật trong nhóm các mô hình two-stage là nhóm các mô hình R-CNN, Fast R-CNN và Faster R-CNN.
 
-        \noindent
-        Đến đây, nhóm tác giả thực hiện hai bước: \\
-        \textit{Bước 1}: Finetune mô hình phân lớp CNN \\
-        Nhóm tác giả thay thế lớp fully-connected cuối cùng của mô hình AlexNet (gồm 1000 lớp theo bộ dữ liệu ImageNet) bằng một lớp fully-connected mới (gồm 21 lớp: 20 lớp của bộ dữ liệu VOC và 1 lớp ứng với background).
-        Và họ finetune lại mô hình này với thuật toán tối ưu là SGC và learning rate rất nhỏ.
-        Các khu vực đã được đề xuất bởi thuật toán Selective Search được sử dụng làm dữ liệu cho bước này, trong đó: \\
-        - Những khu vực có chỉ số IoU với groundtruth bounding box >= 0.5 sẽ được gán nhãn là lớp của bounding box đó. \\
-        - Những khu vực không có chỉ số IoU với bất kỳ groundtruth bounding box nào >= 0.5 sẽ được gán nhãn là lớp background. \\
-        TODO Appendix B \\
-        Lý do ta cần có bước finetune này được nhóm tác giả giải thích rằng có những điểm khác nhau giữa bộ dữ liệu gốc ImageNet đã được train cho mô hình AlexNet và bộ dữ liệu gồm các khu vực được đề xuất bởi Selective Search.
-        Hiệu quả của việc finetune này sẽ được nói đến ở dưới đây. \\
-        \textit{Bước 2}: Xây dựng bộ phân lớp object bằng SVM \\
-        Với mô hình AlexNet đã được finetune lại như trên, nhóm tác giả sử dụng nó để lấy ra các đặc trưng của ảnh đầu vào và từ đó train các mô hình SVM.
-        Mỗi mô hình SVM tương ứng với một lớp đối tượng và mỗi mô hình SVM trả lời cho câu hỏi, đặc trưng của khu vực đó có phải là object đó hay không.
-        Những đặc trưng của khu vực có chỉ số IoU với groundtruth bounding box >= 0.3 sẽ được gán nhãn là lớp của bounding box đó.
-        Và ngược lại, những đặc trưng của khu vực có chỉ số IoU với groundtruth bounding box < 0.3 sẽ được gán nhãn không phải là lớp của bounding box đó. \\
-        TODO Appendix B \\
-        \textit{Bước 3 (Tuỳ chọn)}: Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực \\
-        TODO Appendix C \\
+    \subsection{Nhóm các mô hình R-CNN, Fast R-CNN và Faster R-CNN}
 
-        \noindent
-        \textbf{\textit{Kết quả của mô hình R-CNN}} \\
-        Kết quả của mô hình R-CNN trên bộ dữ liệu VOC 2010 test rất đáng chú ý.
-        Trong hình \ref{fig:rcnn_results_3}, ta xét đến hai cấu hình của mô hình R-CNN: \\
-        - Cấu hình cơ bản không bao gồm bước Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực được gọi là R-CNN. \\
-        - Cấu hình nâng cao Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực được gọi là R-CNN BB. \\
-        Với cấu hình cơ bản, R-CNN đạt được chỉ số average precision cao hơn trên tất cả các lớp đối tượng và chỉ số mAP cao hơn 10\% so với các mô hình hiện đại nhất tại thời điểm đó.
-        Hơn nữa, với cấu hình R-CNN BB, mô hình còn đạt được chỉ số AP trên tất cả các lớp đối tượng và chỉ số mAP cao hơn 3\% so với cấu hình cơ bản R-CNN.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm] {images/rcnn_results_3}
-            \caption{Kết quả của mô hình R-CNN trên bộ dữ liệu VOC 2010 test. So sánh kết quả của R-CNN và của các mô hình khác nhau (Nguồn: \cite{girshick2014rich})}
-            \label{fig:rcnn_results_3}
-        \end{figure}
-        \noindent
-        Ngoài ra, nhóm tác giả cũng nghiên cứu kết quả giữa các cấu hình khác nhau của mô hình R-CNN.
-        Trong hình \ref{fig:rcnn_results_1}, nhóm tác giả xét đến hai nhóm cấu hình khác nhau: \\
-        - Nhóm cấu hình không finetune và sử dụng đặc trưng ở các vị trí khác nhau cho mô hình phân lớp SVM: \par
-        + Cấu hình lấy đặc trưng ở lớp pooling thứ 5: R-CNN ${pool}_{5}$. \par
-        + Cấu hình lấy đặc trưng ở lớp fully-connected thứ 6: R-CNN ${fc}_{6}$. \par
-        + Cấu hình lấy đặc trưng ở lớp fully-connected thứ 7: R-CNN ${fc}_{7}$. \\
-        - Nhóm cấu hình có finetune và sử dụng đặc trưng ở các vị trí khác nhau cho mô hình phân lớp SVM: \par
-        + Cấu hình lấy đặc trưng ở lớp pooling thứ 5: R-CNN FT ${pool}_{5}$. \par
-        + Cấu hình lấy đặc trưng ở lớp fully-connected thứ 6: R-CNN FT ${fc}_{6}$. \par
-        + Cấu hình lấy đặc trưng ở lớp fully-connected thứ 7: R-CNN FT ${fc}_{7}$. \par
-        + Cấu hình lấy đặc trưng ở lớp fully-connected thứ 7 kết hợp với hàm loss cải thiện khả năng định vị khu vực: R-CNN FT ${fc}_{7}$ BB. \\
-        Với việc finetune lại mô hình với dữ liệu VOC, nhóm cấu hình có finetune mang lại kết quả tốt hơn rất nhiều.
-        Trong việc lựa chọn vị trí lấy đặc trưng, vị trí lớp fully-connected thứ 6 là tốt nhất trong nhóm các mô hình không finetune.
-        Còn đối với nhóm các mô hình có finetune, vị trí lớp fully-connected thứ 7 là mô hình có kết quả tốt nhất.
-        Kết hợp tất cả các kết quả trên, cấu hình R-CNN FT ${fc}_{7}$ BB cho kết quả tốt nhất so sánh với tất cả các cấu hình khác.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm] {images/rcnn_results_1}
-            \caption{Kết quả của mô hình R-CNN trên bộ dữ liệu VOC 2007 test. So sánh kết quả của các cấu hình khác nhau của mô hình R-CNN và của mô hình DPM (Nguồn: \cite{girshick2014rich})}
-            \label{fig:rcnn_results_1}
-        \end{figure}
-        \noindent
-        Cuối cùng, nhóm tác giả so sánh vai trò của Feature extraction module đối với kết quả chung của mô hình R-CNN.
-        Trong hình \ref{fig:rcnn_results_2}, nhóm tác giả xét đến hai mô hình có thể sử dụng trong Feature extraction module: \\
-        - Cấu hình sử dụng mô hình AlexNet: R-CNN T-Net và R-CNN T-Net BB. \\
-        - Cấu hình sử dụng mô hình VGG16: R-CNN O-Net và R-CNN O-Net BB. \\
-        Trong thí nghiệm này, mô hình VGG16 cho kết quả tốt hơn khá nhiều so với mô hình AlexNet.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm] {images/rcnn_results_2}
-            \caption{Kết quả của mô hình R-CNN trên bộ dữ liệu VOC 2007 test (Nguồn: \cite{girshick2014rich})}
-            \label{fig:rcnn_results_2}
-        \end{figure}
+    \input{content/chapter_2/2_1_rcnn}
+    \rcnn
 
-        \noindent
-        \textbf{\textit{Vấn đề tồn đọng của mô hình R-CNN}} \\
-        Vấn đề lớn nhất của mô hình R-CNN là thời gian mà mô hình cần cho quá trình train và quá trình test là rất lớn.
-        Trong quá trình test, mô hình R-CNN sử dụng tới 47 giây để hoàn thành việc xử lý một ảnh.
-        Kết quả này khiến cho mô hình R-CNN gần như không có giá trị thực tiễn.
+    \input{content/chapter_2/2_1_fast_rcnn}
+    \fastrcnn
 
-    \subsubsection{Mô hình Fast R-CNN}
-        Fast R-CNN \cite{girshick2015fast}, được phát triển bởi một trong nhóm tác giả của mô hình R-CNN, và là một mô hình nâng cấp hơn so với R-CNN giúp phần nào giải quyết được một phần điểm yếu về tốc độ của mô hình R-CNN.
-        \noindent
-        \textbf{\textit{Kiến trúc mô hình Fast R-CNN}} \\
-        Là một phiên bản nâng cấp của mô hình R-CNN, nên Fast R-CNN cũng bao gồm hai thành phần: \\
-        - Phần Region proposals module mà mô hình Fast R-CNN sử dụng vẫn là thuật toán Selective Search tương tự như R-CNN. \\
-        - Phần Feature extraction module của mô hình R-CNN là một mô hình phân lớp ảnh, cụ thể theo \cite{girshick2015fast} là VGG16. \\
-        Các thành phần của mô hình Fast R-CNN không có thay đổi gì quá nổi bật so với R-CNN, tuy nhiên, điểm khác biệt mang lại giá trị của Fast R-CNN nằm ở cách mà mô hình này kết hợp hai thành phần trên.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=13cm] {images/fast_rcnn_model}
-            \caption{Kiến trúc mô hình Fast R-CNN (Nguồn: \cite{girshick2015fast})}
-            \label{fig:fast_rcnn_model}
-        \end{figure}
-        \noindent
-        Khác với R-CNN, mô hình Fast R-CNN đưa toàn bộ ảnh ban đầu qua các lớp conv và pooling của Feature extraction module để tạo ra được đặc trưng của toàn bộ ảnh.
-        Tiếp theo, với mỗi khu vực mà thuật toán Selective Search đề xuất (các khu vực này, theo \cite{girshick2015fast}, gọi là các \textit{regions of interest} hay \textit{RoIs}), mô hình Fast R-CNN trích xuất từ đặc trưng của toàn bộ ảnh ra đặc trưng đại diện cho khu vực đề xuất đó.
-        Cuối cùng, mỗi đặc trưng đại diện cho mỗi khu vực đề xuất được đưa qua các lớp fully-connected và trả hai đầu ra gồm giá trị xác suất khu vực đó là đối tượng nào và giá trị độ lệch của bounding box. \\
-        Tuy nhiên, có một vấn xảy ra với cách thiết kế mô hình trên, đó là mỗi khu vực đề xuất từ thuật toán Selective Search có kích thước khác nhau, do đó, kích thước của đặc trưng đại diện cho mỗi khu vực đề xuất cũng khác nhau và ta cần các đặc trưng này có cùng kích thước để có thể đưa vào cùng chung các lớp fully-connected.
-        Tác giả giải quyết vấn đề này bằng cách xây dựng một lớp mới trong kiến trúc mô hình Fast R-CNN, tên là \textit{RoI pooling}. \\
+    \input{content/chapter_2/2_1_faster_rcnn}
+    \fasterrcnn
 
-        \textbf{\textit{Lớp RoI pooling}} \\
-        Trước khi đi sâu vào chi tiết của lớp RoI pooling, ta sẽ cùng bàn luận về lớp pooling thông thường.
-        Có hai phương pháp pooling phổ biến là max pooling và average pooling.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=8cm] {images/pooling}
-            \caption{Kết quả sau khi thực hiện max pooling và average pooling (Nguồn: media.springernature.com)}
-            \label{fig:pooling}
-        \end{figure}
+    \subsection{Kiến trúc Feature Pyramid Network}
 
-        \noindent
-        Tuy nhiên, hai phương pháp trên đều có cách thực hiện dựa trên kernel và stride, nghĩa là kích thước của đặc trưng sau khi đi qua lớp pooling phụ thuộc vào kích thước đặc trưng trước khi đi qua lớp pooling, kích thước của kernel pooling và kích thước của stride pooling. \\
-        Cụ thể hơn, với một đặc trưng từ lớp conv có kích thước chiều rộng và chiều cao lần lượt là ${W}_{1}$ và ${H}_{1}$ và lớp pooling có kích thước kernel là K, kích thước stride là S, ta sẽ thu được đặc trưng sau khi đi qua lớp pooling này có kích thước chiều rộng và chiều cao lần lượt là ${W}_{2} = \frac{{W}_{1} - (K - 1) - 1}{S} + 1$ và ${H}_{2} = \frac{{H}_{1} - (K - 1) - 1}{S} + 1$.
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=10cm] {images/roi_pooling}
-            \caption{Kết quả sau khi thực hiện RoI max pooling}
-            \label{fig:roi_pooling}
-        \end{figure}
-
-        \noindent
-        Trong khi đó, RoIs pooling được giới thiệu bởi tác giả không hoạt động như vậy.
-        Thay vì yêu cầu ta phải định nghĩa kích thước kernel và kích thước stride, RoI pooling yêu cầu ta phải định nghĩa kích thước của đặc trưng đầu ra, từ đó, RoI pooling sẽ tính toán và chia đặc trưng đầu vào thành các vùng trước khi thực hiện phép max pooling. \\
-        Cụ thể hơn, với một đặc trưng từ lớp conv có kích thước chiều rộng và chiều cao lần lượt là ${W}_{1}$ và ${H}_{1}$ và ta định nghĩa kích thước của đặc trưng đầu ra có kích thước chiều rộng và chiều cao lần lượt là ${W}_{2}$ và ${H}_{2}$, RoI pooling sẽ tính toán được kích thước và vị trí của từng khu vực pooling: \\
-        - Theo chiều W, ta có ${W}_{2}$ phần pooling và mỗi phần có kích thước là ${K}_{w} = \lfloor\frac{{W}_{1}}{{W}_{2}}\rfloor$, ngoại trừ phần cuối có kích thước ${K}_{w} + ({W}_{1} - {W}_{2} * {K}_{w})$. \\
-        - Theo chiều H, ta có ${H}_{2}$ phần pooling và mỗi phần có kích thước là ${K}_{h} = \lfloor\frac{{H}_{1}}{{H}_{2}}\rfloor$, ngoại trừ phần cuối có kích thước ${K}_{h} + ({H}_{1} - {H}_{2} * {K}_{h})$. \\
-
-        \noindent
-        \textbf{\textit{Hàm loss multi-task và cách finetune mô hình Fast R-CNN}} \\
-        Một điểm cải tiến khác của mô hình Fast R-CNN so với mô hình R-CNN đó là việc sử dụng hàm loss multi-task và finetune toàn bộ mô hình. \\
-        Trong quá trình train mô hình, tác giả lấy ngẫu nhiên N ảnh và lấy ngẫu nhiên $\frac{R}{N}$ RoIs trên mỗi ảnh.
-        Nhằm đảm bảo vấn đề về bộ nhớ không xảy ra trong suốt quá trình train, tác giả lựa chọn N = 2 và R = 128.
-        Ngoài ra, tác giả cũng đề cập đến một lo ngại khác, đó là việc sử dụng nhiều RoIs trên một số ít ảnh có thể dẫn đến quá trình tối ưu chậm và mất nhiều thời gian để mô hình đạt được điểm hội tụ.
-        Tuy nhiên, trong thực tế, điều này đã không xảy ra. \\
-        Mô hình Fast R-CNN có hai lớp đầu ra: \\
-        - Một là giá trị xác suất một khu vực nào đó là đối tượng nào $p = (p_0, \dots, p_K)$, tương ứng với $K + 1$ lớp đối tượng ($K$ lớp đối tượng từ bộ dữ liệu và 1 lớp background). \\
-        - Còn lại là giá trị độ lệch bounding box của khu vực đó $t^{k} = (t^{k}_{x}, t^{k}_{y}, t^{k}_{w}, t^{k}_{h})$, tương ứng với $K$ lớp đối tượng từ bộ dữ liệu. \\
-        Với groundtruth lớp đối tượng $u$ và groundtruth toạ độ bounding box $v$, ta có hàm loss multi-task với mỗi RoI như sau:
-        \begin{equation}
-            \label{eq:fast_rcnn_loss}
-            L(p, u, t^u, v) = L_{cls}(p, u) + \lambda [u \ge 1] L_{loc}(t^u, v)
-        \end{equation}
-        Hàm loss trên gồm các thành phần: \\
-        Đầu tiên, thành phần $L_{cls}(p, u) = -\log p_u$ là hàm log loss với groundtruth lớp đối tượng $u$ \\
-        Tiếp theo, thành phần $[u \ge 1]$ là hàm chỉ định. Thành phần này bằng 1 nếu $u \ge 1$ và bằng 0 trong các trường hợp còn lại. Thành phần này tồn tại nhằm loại bỏ phần hàm loss tính toán độ lệch bounding box nếu lớp đối tượng $u = 0$ bởi vì khi đó, $u$ đại diện cho lớp background. \\
-        Cuối cùng, thành phần $L_{loc}(t^u, v)$ là hàm loss tính toán độ lệch giữa groundtruth toạ độ bounding box $v = (v_{x}, v_{y}, v_{w}, v_{h})$ và bounding box dự đoán $t^u = (t^u_{x}, t^u_{y}, t^u_{w}, t^u_{h})$ tương ứng với groundtruth lớp đối tượng $u$. Mỗi bounding box được biểu diễn bởi bốn giá trị, x - toạ độ x của góc trái trên, y - toạ độ y của góc trái trên, w - chiều rộng của bounding box và h - chiều cao của bounding box.
-        Công thức cụ thể của thành phần $L_{loc}(t^u, v)$ như sau:
-        \begin{equation}
-            \label{eq:fast_rcnn_bb_loss}
-            L_{loc}(t^u, v) = \sum_{i \in \{{x},{y},{w},{h}\}} {smooth}_{L_1}(t^u_i - v_i),
-        \end{equation}
-        trong đó:
-        \begin{equation}
-            \label{eq:fast_rcnn_bb_loss_l1}
-            {smooth}_{L_1}(x) =
-            \begin{cases}
-                0.5x^2& {if} |x| < 1 \\
-                |x| - 0.5& {otherwise},
-            \end{cases}
-        \end{equation}
-        Tác giả giải thích việc sử dụng hàm ${smooth}_{L_1}(x)$ bởi vì nó ít nhạy cảm hơn với outliers so với hàm ${L_2}$ được sử dụng trong mô hình R-CNN.
-        Ngoài ra, tác giả cũng chuẩn hoá các toạ độ $v$ với trung bình bằng 0 và phương sai đơn vị.
-        Giá trị $\lambda$ được tác giả sử dụng nhằm cân bằng giữa hai thành phần loss, và trong các thí nghiệm của mô hình Fast R-CNN, tác giả lựa chọn $\lambda = 1$. \\
-        TODO: bổ sung backprop cho pooling \\
-        TODO: tăng tốc độ tính toán bằng SVD \\
-
-        \noindent
-        \textbf{\textit{Kết quả của mô hình Fast R-CNN}} \\
-        Đầu tiên, kết quả của mô hình Fast R-CNN trên bộ dữ liệu VOC 2007 test đáng chú ý.
-        Trong hình \ref{fig:fast_rcnn_results_1}, tác giả xét đến ba cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần Feature extraction module) nhưng khác nhau về bộ dữ liệu train mà mỗi cấu hình sử dụng: \\
-        - Cấu hình sử dụng bộ dữ liệu train là VOC07 trainval: ký hiệu là \textbf{07} \\
-        - Cấu hình sử dụng bộ dữ liệu train là VOC07 trainval nhưng loại đi các dữ liệu khó: ký hiệu là \textbf{07 $\setminus$ diff} \\
-        - Cấu hình sử dụng bộ dữ liệu train là sự kết hợp giữa VOC07 trainval và VOC12 trainval: ký hiệu là \textbf{07+12} \\
-        Trong nhóm các mô hình so sánh, có kết quả của cấu hình tốt nhất của mô hình R-CNN là R-CNN BB.
-        Ngoài ra còn có mô hình SPPnet BB. \\
-        Kết quả tất cả các cấu hình của Fast R-CNN đều cho kết quả trên mAP tốt hơn khoảng 4\% so với kết quả của R-CNN BB hay SPPnet BB.
-        Trong đó, kết quả của cấu hình \textbf{07 + 12} mô hình Fast R-CNN cho kết quả tốt nhất.
-        Tuy nhiên, vẫn tồn tại một số lớp đối tượng mà chỉ số AP của cấu hình này làm chưa tốt so với các cấu hình khác hay các mô hình khác như lớp \textit{bike, bottle, plant ...}.
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm] {images/fast_rcnn_results_1}
-            \caption{Kết quả của mô hình Fast R-CNN với các cấu hình khác nhau cùng các mô hình khác trên bộ dữ liệu VOC 2007 test}
-            \label{fig:fast_rcnn_results_1}
-        \end{figure}
-
-        \noindent
-        Tiếp theo, mô hình Fast R-CNN cũng có kết quả tốt trên bộ dữ liệu VOC 2010 test.
-        Trong hình \ref{fig:fast_rcnn_results_2}, tác giả xét đến hai cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần Feature extraction module) nhưng khác nhau về bộ dữ liệu train mà mỗi cấu hình sử dụng: \\
-        - Cấu hình sử dụng bộ dữ liệu train là VOC12 trainval: ký hiệu là \textbf{12} \\
-        - Cấu hình sử dụng bộ dữ liệu train là sự kết hợp giữa VOC07 trainval, VOC07 test và VOC12 trainval: ký hiệu là \textbf{07 ++ 12} \\
-        Trong nhóm các mô hình so sánh, có kết quả của cấu hình tốt nhất của mô hình R-CNN là R-CNN BB.
-        Ngoài ra còn có các mô hình BabyLearning (được train với bộ dữ liệu độc quyền) và mô hình SegDeepM (được train với bộ dữ liệu VOC 12 trainval bổ sung thêm các groundtruth segmentation). \\
-        Kết quả của cấu hình \textbf{07 ++ 12} mô hình Fast R-CNN cho mAP cao hơn khoảng 2\% so với các cấu hình và mô hình khác.
-        Tuy nhiên, vẫn tồn tại một số lớp đối tượng mà chỉ số AP của cấu hình này làm chưa tốt so với các cấu hình khác hay các mô hình khác như lớp \textit{bottle, plant, sheep, tv ...}.
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm] {images/fast_rcnn_results_2}
-            \caption{Kết quả của mô hình Fast R-CNN với các cấu hình khác nhau cùng các mô hình khác trên bộ dữ liệu VOC 2010 test}
-            \label{fig:fast_rcnn_results_2}
-        \end{figure}
-
-        \noindent
-        Đối với bộ dữ liệu VOC 2012 test, tác giả vẫn sử dụng hai cấu hình \textbf{12} và \textbf{07 ++ 12} của mô hình Fast R-CNN từ kết quả trên. Nhóm các mô hình so sánh gồm cấu hình R-CNN BB của mô hình R-CNN, mô hình BabyLearning (được train với bộ dữ liệu độc quyền) và mô hình NUS\_NIN\_c2000. \\
-        Trong hình \ref{fig:fast_rcnn_results_3}, kết quả của cấu hình \textbf{07 ++ 12} mô hình Fast R-CNN cho mAP cao hơn khoảng 3-5\% so với các cấu hình và mô hình khác. \\
-        Kết quả này vẫn tồn tại một số lớp đối tượng mà chỉ số AP của cấu hình này làm chưa tốt so với các cấu hình khác hay các mô hình khác như lớp \textit{bottle, plant}.
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm] {images/fast_rcnn_results_3}
-            \caption{Kết quả của mô hình Fast R-CNN với các cấu hình khác nhau cùng các mô hình khác trên bộ dữ liệu VOC 2012 test}
-            \label{fig:fast_rcnn_results_3}
-        \end{figure}
-
-        \noindent
-        Cuối cùng, tác giả chia sẻ kết quả khi so sánh về mặt tốc độ trong quá trình train và quá trình test và đây là một trong số những thành quả chính. \\
-        Trong hình \ref{fig:fast_rcnn_results_4}, tác giả so sánh tốc độ xử lý mỗi ảnh trong quá trình train và test giữa mô hình Fast R-CNN, R-CNN và SPPnet.
-        Cụ thể hơn, trong quá trình train, thời gian train của mô hình Fast R-CNN giảm tới 8.8 lần so với mô hình R-CNN.
-        Trong quá trình test, thời gian mà mô hình Fast R-CNN xử lý một ảnh nhanh hơn tới 146 (khi không sử dụng SVD) và tới 213 lần (khi sử dụng SVD) so với mô hình R-CNN.
-        Không những thế, với việc cải thiện đáng kể tốc độ train và test, kết quả về độ chính xác của Fast R-CNN vẫn tốt hơn so với R-CNN khi so sánh trên chỉ số mAP.
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=10cm] {images/fast_rcnn_results_4}
-            \caption{Kết quả so sánh về mặt tốc độ và độ chính xác giữa các cấu hình khác nhau của mô hình Fast R-CNN, R-CNN và SPPnet.}
-            \label{fig:fast_rcnn_results_4}
-        \end{figure}
-
-        \noindent
-        \textbf{\textit{Vấn đề tồn đọng của mô hình Fast R-CNN}} \\
-        Những kết quả vượt bậc về mặt tốc độ của mô hình Fast R-CNN đã giải quyết được vấn đề tồn đọng của R-CNN trong khi vẫn duy trì được độ chính xác cao.
-        Tuy nhiên, kiến trúc của mô hình Fast R-CNN vẫn phụ thuộc vào một thuật toán đề xuất khu vực như Selective Search và điều này tạo động lực để các nhà nghiên cứu xây dựng mô hình deep learning thay thế cho các thuật toán này.
-
-    \subsubsection{Mô hình Faster R-CNN}
-    
-    \subsection{Các mô hình single-stage giải quyết bài toán Object Detection}
+    \subsection{Các mô hình single-stage giải quyết bài toán object detection}
     \subsection{Mô hình SSD}
 
     \subsection{Nhóm các mô hình YOLO}
