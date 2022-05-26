@@ -55,8 +55,103 @@
     \end{figure}
 
     \noindent
-    \textbf{\textit{Kết hợp kiến trúc mô hình FPN vào RPN}} \\
+    \textbf{\textit{Sử dụng kiến trúc FPN cho mô hình RPN}} \\
+    Kiến trúc của mô hình RPN đã được phần tích ở \textit{phần 2.1.3. Mô hình Faster R-CNN}. \\
+    Ý tưởng về việc sử dụng kiến trúc FPN cho mô hình RPN được nhóm tác giả đề xuất nhằm cải thiện khả năng đề xuất ra các khu vực có kích thước chênh lệch nhau.
+    Cụ thể, thay vì việc sử dụng một feature map thu được từ Feature extraction module, nhóm tác giả sử dụng các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} (nhóm tác giả sử dụng thêm feature map ${P}_{6}$ nhằm đề xuất ra những khu vực có kích thước lớn hơn).
+    Các feature maps này cùng được đưa qua một bộ các lớp Conv 3x3 và Conv 1x1 chung để trả đầu ra kết quả anchor có chứa đối tượng hay không và toạ độ của khu vực mà mô hình đề xuất.
+    Với việc sử dụng nhiều feature maps có các kích thước khác nhau, trên mỗi feature map, nhóm tác giả chỉ sử dụng một kích thước anchor lần lượt tương ứng \textit{{${32}^{2}, {64}^{2}, {128}^{2}, {256}^{2}, {512}^{2},$}} với ba tỷ lệ chiều dài giữa chiều rộng là \textit{1:2, 1:1, 2:1}.
+    Để có thể train được, nhóm tác giả cũng sử dụng cơ chế gán positive/negative anchor tương tự như chiến lược được đề xuất trong \cite{ren2015faster}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm] {images/fpn_results_1}
+        \caption{Kết quả của thí nghiệm sử dụng kiến trúc FPN cho mô hình RPN (Nguồn: \cite{lin2017feature})}
+        \label{fig:fpn_results}
+    \end{figure}
 
     \noindent
-    \textbf{\textit{Kết hợp kiến trúc mô hình FPN vào Fast R-CNN}} \\
+    Kết quả của thí nghiệm sử dụng kiến trúc FPN cho mô hình RPN được nhóm tác giả chia sẻ khá khả quan.
+    Ngoài việc so sánh việc sử dụng kiến trúc FPN với các kiến trúc trước đây của mô hình RPN, nhóm tác giả còn so sánh thêm một số cấu hình khác của kiến trúc FPN.
+    Cụ thể các cấu hình như sau: \\
+    - \textit{baseline on conv4} là cấu hình sử dụng feature map từ lớp Conv thứ 4 của Feature extraction module cho mô hình RPN. \\
+    - \textit{baseline on conv5} là cấu hình sử dụng feature map từ lớp Conv thứ 5 của Feature extraction module cho mô hình RPN. \\
+    - \textit{FPN} là cấu hình sử dụng kiến trúc FPN trích xuất các feature maps cho mô hình RPN. \\
+    - \textit{bottom-up pyramid} là cấu hình sử dụng các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} cho mô hình RPN.
+    Tuy nhiên, giữa các feature maps này không có top-down pathway với nhau (hay nói cách khác, các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} được sinh một cách độc lập từ các feature maps \textit{{${C}_{2}, {C}_{3}, {C}_{4}, {C}_{5}, {C}_{6}$}}). \\
+    - \textit{top-down pyramid, w/o lateral} là cấu hình sử dụng các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} cho mô hình RPN.
+    Tuy nhiên, giữa các feature maps \textit{{${P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} không có lateral connections với các feature maps \textit{{${C}_{3}, {C}_{4}, {C}_{5}, {C}_{6}$}} (hay nói cách khác, các feature maps \textit{{${P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} chỉ được sinh từ các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}$}}). \\
+    - \textit{only finest level} là cấu hình chỉ sử dụng duy nhất feature map \textit{${P}_{2}$} cho mô hình RPN. \\
+    Trong đó, tất cả các cấu hình được train với bộ dữ liệu \textit{COCO trainval135k} và kết quả thu được đánh giá trên bộ dữ liệu \textit{COCO minival}.
+    Feature maps sử dụng trong cấu hình được ghi chú tại cột \textbf{feature}, số lượng khu vực được đề xuất trong quá trình test được thống kê tại cột \textbf{\# anchors}, cấu hình có sử dụng lateral connections và top-down pathway hay không được chú thích tại cột \textbf{lateral} và \textbf{top-down}. \\
+    Cấu hình \textit{FPN} đạt kết quả cao hơn vượt trội so với các cấu hình \textit{baseline on conv4} và \textit{baseline on conv5} nguyên bản.
+    Cấu hình \textit{FPN} chỉ đạt kết quả kém hơn so với cấu hình \textit{bottom-up pyramid} khi so sánh trên chỉ số đánh giá với những bounding box có kích thước lớn, tuy nhiên, sự chênh lệch giữa hai cấu hình là không quá khác biệt.
+
+    \noindent
+    \textbf{\textit{Sử dụng kiến trúc FPN cho mô hình Fast R-CNN}} \\
+    Kiến trúc của mô hình Fast R-CNN đã được phần tích ở \textit{phần 2.1.2. Mô hình Fast R-CNN}. \\
+    Ý tưởng về việc sử dụng kiến trúc FPN cho mô hình Fast R-CNN được nhóm tác giả đề xuất nhằm cải thiện khả năng định vị ra bounding box từ các khu vực đã được đề xuất từ mô hình RPN.
+    Cụ thể, sau khi đưa ảnh qua Region proposals module của mô hình Fast R-CNN là Selective Search, ta thu được toạ độ của khu vực được đề xuất trên ảnh đầu vào.
+    Đối với mô hình Fast R-CNN nguyên bản, ta dễ dàng lấy được khu vực đề xuất trên feature maps của ảnh đầu vào, tuy nhiên, với việc sử dụng kiến trúc FPN cho Feature extraction module, câu hỏi đặt ra là đối với từng khu vực đề xuất ta xác định feature maps nào trong số \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}$}} để lấy làm đầu vào cho lớp RoI pooling?
+    Nhóm tác giả đã coi danh sách feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}$}} sinh ra bởi FPN tương tự với các feature maps được sinh ra từ việc sử dụng image pyramids và áp dụng công thức sau để xác định feature maps phù hợp cho từng khu vực làm đầu vào của lớp RoI pooling.
+
+    \begin{equation}
+        \label{eq:roi_mapping}
+        k = \lfloor k_0 + \log_2(\sqrt{wh} / 224) \rfloor.
+    \end{equation}
+
+    trong đó: \\
+    \textit{k} là index của feature maps sử dụng làm đầu vào cho lớp RoI pooling tương ứng với khu vực đề xuất có kích thước chiều rộng là \textit{w} và chiều cao là \textit{h} \\
+    $k_0$ là index của feature maps sử dụng làm đầu vào cho lớp RoI pooling tương ứng với khu vực đề xuất có kích thước chiều rộng và chiều cao lần lượt là 224 và 224 \\
+    Tác giả lựa chọn con số 224 bởi đây là kích thước ảnh của pretrained ImageNet và lựa chọn $k_0 = 4$. \\
+    Các feature maps được lấy ra tương ứng với từng khu vực đề xuất được đưa qua lớp lớp RoI pooling có kích thước đầu ra là 7x7 và được đưa qua chung các lớp Conv và lớp fully connected để xác định lớp của đối tượng và toạ độ của bounding box.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm] {images/fpn_results_2}
+        \caption{Kết quả của thí nghiệm sử dụng kiến trúc FPN cho mô hình Fast R-CNN (Nguồn: \cite{lin2017feature})}
+        \label{fig:fpn_results}
+    \end{figure}
+    
+    Kết quả của thí nghiệm sử dụng kiến trúc FPN cho mô hình Fast R-CNN được nhóm tác giả chia sẻ khá ấn tượng.
+    Ngoài việc so sánh việc sử dụng kiến trúc FPN với các kiến trúc trước đây của mô hình Fast R-CNN, nhóm tác giả còn so sánh thêm một số cấu hình khác của kiến trúc FPN.
+    Cụ thể các cấu hình như sau: \\
+    - \textit{baseline on conv4} là cấu hình sử dụng feature map từ lớp Conv thứ 4 của Feature extraction module cho mô hình Fast R-CNN. \\
+    - \textit{baseline on conv5} là cấu hình sử dụng feature map từ lớp Conv thứ 5 của Feature extraction module cho mô hình Fast R-CNN. \\
+    - \textit{FPN} là cấu hình sử dụng kiến trúc FPN trích xuất feature maps cho mô hình Fast R-CNN như mô tả ở trên. \\
+    - \textit{bottom-up pyramid} là cấu hình sử dụng các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} cho mô hình Fast R-CNN.
+    Tuy nhiên, giữa các feature maps này không có top-down pathway với nhau (hay nói cách khác, các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} được sinh một cách độc lập từ các feature maps \textit{{${C}_{2}, {C}_{3}, {C}_{4}, {C}_{5}, {C}_{6}$}}). \\
+    - \textit{top-down pyramid, w/o lateral} là cấu hình sử dụng các feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} cho mô hình Fast R-CNN.
+    - \textit{only finest level} là cấu hình chỉ sử dụng duy nhất feature map \textit{${P}_{2}$} cho mô hình Fast R-CNN. \\
+    Trong đó, tất cả các cấu hình được train với bộ dữ liệu \textit{COCO trainval135k} và kết quả thu được đánh giá trên bộ dữ liệu \textit{COCO minival} và cùng sử dụng chung một bộ khu vực đề xuất từ mô hình RPN.
+    Feature maps sử dụng trong cấu hình được ghi chú tại cột \textbf{feature}, kiến trúc mô hình RPN sử dụng trong từng cấu hình được chú thích tại cột \textbf{proposals}, cấu hình của phần head của mô hình Fast R-CNN được chú thích tại cột \textbf{head}, cấu hình có sử dụng lateral connections và top-down pathway hay không được chú thích tại cột \textbf{lateral} và \textbf{top-down}. \\
+    Cấu hình \textit{FPN} đạt kết quả cao hơn vượt trội so với các cấu hình \textit{baseline on conv4}, \textit{baseline on conv5} nguyên bản và cả các cấu hình tuỳ chọn như \textit{bottom-up pyramid}, \textit{top-down pyramid, w/o lateral}, \textit{only finest level}.
+
+    \noindent
+    \textbf{\textit{Sử dụng kiến trúc FPN cho toàn bộ các thành phần của mô hình Faster R-CNN}} \\
+    Nhóm tác giả còn thực hiện một thí nghiệm nữa với kiến trúc FPN khi sử dụng FPN chung cho toàn bộ cả mô hình RPN và mô hình Fast R-CNN (mô hình RPN và mô hình Fast R-CNN sử dụng chung một kiến trúc backbone FPN) và cũng đạt kết quả tương đối tốt.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm] {images/fpn_results_3}
+        \caption{Kết quả của thí nghiệm sử dụng kiến trúc FPN cho mô hình Faster R-CNN (Nguồn: \cite{lin2017feature})}
+        \label{fig:fpn_results_3}
+    \end{figure}
+
+    Cụ thể các cấu hình như sau: \\
+    - \textit{baseline from He et al.} là mô hình ResNet được sử dụng cho bài toán object detection. \\
+    - \textit{baseline on conv4} là cấu hình sử dụng feature map từ lớp Conv thứ 4 của Feature extraction module cho cả hai nhánh của mô hình Faster R-CNN. \\
+    - \textit{baseline on conv5} là cấu hình sử dụng feature map từ lớp Conv thứ 5 của Feature extraction module cho cả hai nhánh của mô hình Faster R-CNN. \\
+    - \textit{FPN} là cấu hình sử dụng kiến trúc FPN trích xuất feature maps cho cả hai nhánh của mô hình Faster R-CNN. \\
+    Trong đó, tất cả các cấu hình được train với bộ dữ liệu \textit{COCO trainval135k} và kết quả thu được đánh giá trên bộ dữ liệu \textit{COCO minival}.
+    Feature maps sử dụng trong cấu hình được ghi chú tại cột \textbf{feature}, kiến trúc mô hình RPN sử dụng trong từng cấu hình được chú thích tại cột \textbf{proposals}, cấu hình của phần head của mô hình Fast R-CNN được chú thích tại cột \textbf{head}, cấu hình có sử dụng lateral connections và top-down pathway hay không được chú thích tại cột \textbf{lateral} và \textbf{top-down}. \\
+    Cấu hình \textit{FPN} đạt kết quả cao hơn vượt trội so với các cấu hình còn lại trên hầu hết các chỉ số đánh giá.
+    Chỉ có duy nhất chỉ số trên đối với các bounding box có kích thước lớn thì kết quả của cấu hình \textit{FPN} kém hơn một chút so với cấu hình \textit{baseline on conv4}.
+
+    \noindent
+    \textbf{\textit{Vấn đề tồn đọng của kiến trúc mô hình FPN}} \\
+    Kiến trúc FPN ra đời đã tạo ra một trong số những kiến trúc backbone kinh điển trong các bài toán computer vision nói chung và bài toán object detection nói riêng.
+    Kiến trúc FPN đã giúp cho nhiều mô hình đạt độ chính xác cao hơn và trong khi tốc độ của mô hình không bị tăng một cách đáng kể.
+    Tuy nhiên, đối với cụ thể bài toán object detection, việc kết hợp kiến trúc FPN vào mô hình Faster R-CNN mới chỉ cải thiện về mặt độ chính xác cho mô hình Faster R-CNN mà chưa giúp tăng tốc mô hình Faster R-CNN.
+    Vẫn còn một câu hỏi cần phải được giải quyết đó là làm sao để duy trì được độ chính xác mà FPN mang lại những mô hình object detection vẫn có để đạt tốc độ nhanh hơn nữa.
 }
