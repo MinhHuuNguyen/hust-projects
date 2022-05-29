@@ -3,14 +3,19 @@
     Các mô hình giải quyết bài toán object detection theo kiến trúc mô hình thường được chia thành hai nhóm: nhóm các mô hình two-stage và nhóm các mô hình single-stage.
 
     \noindent
-    Các mô hình two-stage giải quyết bài toán object detection có đặc điểm chung về kiến trúc mô hình gồm hai phần: \\
+    Các mô hình thuộc nhóm two-stage ra đời khá sớm từ năm 2014 đến 2017.
+    Các mô hình trong nhóm này có đặc điểm chung về kiến trúc mô hình gồm hai phần: \\
     - Phần thứ nhất được gọi là \textit{Region proposals module}, mô đun nhận đầu vào là ảnh ban đầu và trả đầu ra giúp đề xuất ra các khu vực trên ảnh mà có khả năng chứa đối tượng. \\
-    - Phần thứ hai được gọi là \textit{Feature extraction module}, mô đun nhận đầu vào là kết quả của Region proposals module giúp xác định chính xác đối tượng trong khu vực đó là đối tượng nào và tinh chỉnh toạ độ của khu vực chính xác hơn. \\
+    - Phần thứ hai được gọi là \textit{Feature extraction module}, mô đun nhận đầu vào là kết quả của Region proposals module giúp xác định chính xác đối tượng trong khu vực đó là đối tượng nào và tinh chỉnh toạ độ của khu vực chính xác hơn.
 
-    Nổi bật trong nhóm các mô hình two-stage là nhóm các mô hình R-CNN, Fast R-CNN và Faster R-CNN.
+    \noindent
+    Các mô hình thuộc nhóm single-stage ra đời muộn hơn từ năm 2016 đến nay, tuy nhiên lại đang nhận được sự quan tâm rất lớn của giới nghiên cứu trong thời gian trở lại đây vì tính ứng dụng trong thực tiễn cao của chúng.
+    Các mô hình single-stage đều dựa vào động lực trong việc loại bỏ Region proposals module nhằm giảm khối lượng tính toán của các mô hình object detection, qua đó tăng tốc độ của mô hình và đưa mô hình đến gần hơn với khả năng chạy trong thời gian thực.
+    
+    \noindent
+    Trong khuôn khổ của luận văn, đối với các mô hình two-stage, ta sẽ cùng bàn luận về một số mô hình tiêu biểu trong \textbf{\textit{phần 2.1. Nhóm các mô hình R-CNN, Fast R-CNN và Faster R-CNN}} và \textbf{\textit{phần 2.2. Kiến trúc Feature Pyramid Networks}}, còn đối với các mô hình single-stage, ta sẽ bàn luận trong \textbf{\textit{phần 2.3. Mô hình RetinaNet}}.
 
     \subsection{Nhóm các mô hình R-CNN, Fast R-CNN và Faster R-CNN}
-
     \input{content/chapter_2/2_1_rcnn}
     \rcnn
 
@@ -20,15 +25,11 @@
     \input{content/chapter_2/2_1_faster_rcnn}
     \fasterrcnn
 
-    \subsection{Kiến trúc Feature Pyramid Network}
-
-    \subsection{Các mô hình single-stage giải quyết bài toán object detection}
-    \subsection{Mô hình SSD}
-
-    \subsection{Nhóm các mô hình YOLO}
+    \subsection{Kiến trúc Feature Pyramid Networks}
+    \input{content/chapter_2/2_2_fpn}
+    \fpn
 
     \subsection{Mô hình RetinaNet}
-    \subsubsection{Kiến trúc Feature Pyramid Network}
-    - Nhắc thêm đến backbone ResNet
-    \subsubsection{Hàm Focal loss}
+    \input{content/chapter_2/2_3_retinanet}
+    \retinanet
 }
