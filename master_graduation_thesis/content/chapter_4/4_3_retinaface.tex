@@ -12,43 +12,7 @@
 
     Nhóm tác giả của RetinaFace đã mang đến bộ dữ liệu và một số kỹ thuật mới giúp cải thiện hiệu năng giải quyết bài toán Face Detection như bộ dữ liệu WIDER FACE với landmarks, 
     TODO: Bổ sung tên các techniques của RetinaFace
-    \subsubsection{Bộ dữ liệu WIDER FACE với landmarks}
-    \textbf{\textit{Bộ dữ liệu WIDER FACE nguyên bản}} \\
-    Bộ dữ liệu WIDER FACE \cite{yang2016wider} là một bộ dữ liệu nổi tiếng dành cho bài toán Face Detection.
-    Bộ dữ liệu này bao gồm 32,203 ảnh được chụp từ 61 khung cảnh khác nhau với 393,703 bbox của khuôn mặt với sự đa dạng trong tỷ lệ kích thước, kiểu dáng, biểu cảm, che chắn và ánh sáng.
-    WIDER FACE được chia ngẫu nhiêu thành 3 phần, trong đó: phần dữ liệu train chiếm 40\%, phần dữ liệu val chiếm 10\% và phần dữ liệu test chiếm 50\%. \\
-    Nhóm tác giả của bộ dữ liệu WIDER FACE sử dụng mô hình EdgeBox \cite{zitnick2014edge} để chia bộ dữ liệu thành ba mức độ khó (bộ Dễ, bộ Trung bình và bộ Khó). \\
-    TODO: Nói thêm về cách chia thành 3 mức khó, Nói thêm về mô hình EdgeBox \\
-    \textbf{\textit{Bộ dữ liệu WIDER FACE với landmarks}} \\
-    Nhóm tác giả của RetinaFace đã bổ sung thêm vào bộ dữ liệu WIDER FACE thông tin về landmarks của các khuôn mặt bao gồm 5 điểm: tâm của mắt trái, tâm của mắt phải, đỉnh của mũi, điểm mép miệng trái và điểm mép miệng phải.
-    Dựa vào chất lượng của ảnh (cụ thể là mức độ khó để có thể nhận ra được 5 điểm landmarks nói trên), nhóm tác giả đã chia bộ dữ liệu thành 5 mức độ khó, chi tiết được biểu diễn thông qua Hình \ref{fig:retinaface_widerface} và Bảng.
-    Nhóm tác giả của RetinaFace đã gán landmarks cho các khuôn mặt trong hai tập dữ liệu train và val (tương ứng 84.6k mặt cho tập train và 18.5k mặt cho bộ val).
     
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=10cm] {images/retinaface_widerface.png}
-        \caption{Ví dụ về năm mức độ khó của khuôn mặt trong việc gán landmarks theo RetinaFace}
-        \label{fig:retinaface_widerface}
-    \end{figure}
-
-    \begin{table}[ht!]
-        \centering
-        \begin{tabular}{l|c|c}
-            \hline
-            Level            & Face Number &  Criterion\\
-            \hline
-            1 & 4,127  & indisputable 68 landmarks~\cite{sagonas2013300} \\
-            2 & 12,636 & annotatable 68 landmarks~\cite{sagonas2013300} \\
-            3 & 38,140 & indisputable 5 landmarks\\
-            4 & 50,024 & annotatable 5 landmarks\\
-            5 & 94,095 & distinguish by context  \\
-            \hline
-        \end{tabular}
-        \hspace{1in}
-        \caption{Five levels of face image quality. In the indisputable category a human can, without a lot of effort, locale the landmarks. In the annotatable category  finding an approximate location requires some effort.}
-        \label{tab:fivelevel}
-        \vspace{-4mm}
-    \end{table}
 
 
     \subsubsection{Hàm loss multi-task}
