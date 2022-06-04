@@ -74,13 +74,13 @@
     \textit{Bước 4}: Danh sách các negative Chips được kết hợp cùng với danh sách các positive Chips để tiếp tục train mô hình Faster R-CNN.
 
     \noindent
-    \textbf{\textit{Kết quả của mô hình SNIPER}} \\
+    \textbf{\textit{Kết quả của phương pháp chuẩn bị dữ liệu SNIPER}} \\
     Theo thống kê của nhóm tác giả trên bộ dữ liệu COCO, bằng các phương pháp sinh và lựa chọn Chips, số lượng pixel mà SNIPER xử lý trong quá trình train chỉ hơn khoảng 30\% so với số lượng pixel cần xử lý khi train với chỉ duy nhất một kích thước của ảnh.
     So sánh với việc train với dữ liệu ảnh với 3 kích thước khác nhau cho mỗi ảnh, việc sử dụng các Chips có kích thước giống nhau giúp SNIPER tối ưu về batch size hơn khi train mô hình.
     So sánh với chiến lược của SNIP, SNIPER đạt được độ chính xác tương đương trong khi giảm được 3 lần số pixel cần phải train trên bộ dữ liệu COCO.
 
     \noindent
-    \textbf{\textit{Vấn đề tồn đọng của mô hình SNIPER}} \\
+    \textbf{\textit{Vấn đề tồn đọng của phương pháp chuẩn bị dữ liệu SNIPER}} \\
     SNIPER đã phần nào đó cải thiện một cách đáng kể vấn đề về thời gian train của SNIP.
     Tuy nhiên, trong quá trình dự đoán, SNIPER vẫn cần phải sử dụng phương pháp Image Pyramids để đạt được độ chính xác cao.
     Đối với những bộ dữ liệu ảnh có kích thước lớn thì tốc độ dự đoán của SNIPER vẫn rất chậm và đây là vấn đề tồn đọng thúc đẩy các nghiên cứu giải quyết triệt để.
