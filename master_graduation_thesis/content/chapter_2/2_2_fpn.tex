@@ -100,6 +100,7 @@
         k = \lfloor k_0 + \log_2(\sqrt{wh} / 224) \rfloor.
     \end{equation}
 
+    \noindent
     trong đó: \\
     \textit{k} là index của feature maps sử dụng làm đầu vào cho lớp RoI pooling tương ứng với khu vực đề xuất có kích thước chiều rộng là \textit{w} và chiều cao là \textit{h} \\
     $k_0$ là index của feature maps sử dụng làm đầu vào cho lớp RoI pooling tương ứng với khu vực đề xuất có kích thước chiều rộng và chiều cao lần lượt là 224 và 224 \\
@@ -113,6 +114,7 @@
         \label{fig:fpn_results}
     \end{figure}
     
+    \noindent
     Kết quả của thí nghiệm sử dụng kiến trúc FPN cho mô hình Fast R-CNN được nhóm tác giả chia sẻ khá ấn tượng.
     Ngoài việc so sánh việc sử dụng kiến trúc FPN với các kiến trúc trước đây của mô hình Fast R-CNN, nhóm tác giả còn so sánh thêm một số cấu hình khác của kiến trúc FPN.
     Cụ thể các cấu hình như sau: \\
@@ -138,6 +140,7 @@
         \label{fig:fpn_results_3}
     \end{figure}
 
+    \noindent
     Cụ thể các cấu hình như sau: \\
     - \textit{baseline from He et al.} là mô hình ResNet được sử dụng cho bài toán object detection. \\
     - \textit{baseline on conv4} là cấu hình sử dụng feature map từ lớp Conv thứ 4 của Feature extraction module cho cả hai nhánh của mô hình Faster R-CNN. \\

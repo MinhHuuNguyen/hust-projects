@@ -98,7 +98,7 @@
     - Cách 2: \textit{Approximate joint training}: Phương pháp này kết hợp RPN và Fast R-CNN thành một mô hình duy nhất trong quá trình train.
     Các khu vực được đề xuất bởi RPN được coi như là tất định đối với nhánh Fast R-CNN và khiến cho phương pháp train này được gọi là \textit{approximate} bởi vì những thông tin từ nhánh Fast R-CNN sẽ không được cập nhật cho nhánh RPN.
     Quá trình backprop được thực hiện độc lập giữa RPN và Fast R-CNN, riêng phần backbone chung của RPN và Fast R-CNN được cập nhật theo giá trị hàm loss của cả RPN và Fast R-CNN.
-    Phương pháp này đạt hiệu quả thấp hơn chút so với \textit{Alternating training} tuy nhiên thời gian train được giảm 25 - 50\%.
+    Phương pháp này đạt hiệu quả thấp hơn chút so với \textit{Alternating training} tuy nhiên thời gian train được giảm 25 - 50\%. \\
     - Cách 3: \textit{Non-approximate joint training}: Phương pháp này cải thiện được vấn đề \textit{approximate} tồn đọng của \textit{Approximate joint training}.
     Tuy nhiên, để làm được điều này, nhóm tác giả cần tinh chỉnh lại lớp RoI pooling trong Fast R-CNN để có thể update cho cả các thành phần của mô hình Fast R-CNN và RPN.
     Điều này nằm ngoài nội dung của nghiên cứu này nên nhóm tác giả không đề cập kỹ hơn.
@@ -160,6 +160,7 @@
         \label{fig:faster_rcnn_results_3}
     \end{figure}
 
+    \noindent
     Cuối cùng, so sánh về mặt tốc độ, nhóm tác giả so sánh kết quả của các mô hình Faster R-CNN (dùng backbone là VGG-16, ký hiệu là \textbf{VGG, RPN + Fast R-CNN}), mô hình Faster R-CNN (dùng backbone là ZF-Net, ký hiệu là \textbf{ZF, RPN + Fast R-CNN}) với mô hình Fast R-CNN sử dụng thuật toán Selective Search (dùng backbone là VGG-16, ký hiệu là \textbf{VGG, SS + Fast R-CNN}).
     Trong đó, thời gian (tính theo đơn vị ms) xử lý lớp conv được thống kê tại cột \textbf{conv}, thời gian đề xuất các khu vực được thống kê tại cột \textbf{proposals}, thời gian xử lý các bước như NMS, lớp pooling, lớp fully connected và lớp softmax được thống kê tại cột \textbf{region-wise}, tổng thời gian xử lý toàn bộ được thống kê tại cột \textbf{total}, số lượng ảnh xử lý trong một giây được thống kê tại cột \textbf{rate}. \\
     Kết quả, mô hình \textbf{VGG, RPN + Fast R-CNN} nhanh hơn \textbf{VGG, SS + Fast R-CNN} gần 10 lần, trong đó, thời gian đề xuất khu vực được tiết kiệm tới 150 lần.
