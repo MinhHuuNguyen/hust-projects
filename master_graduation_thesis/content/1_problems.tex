@@ -42,21 +42,26 @@
     \noindent
     Chi tiết về một số nghiên cứu giải bài toán object detection trong ảnh chất lượng cao sẽ được thảo luận kỹ hơn trong \textbf{\textit{Chương 3. Các mô hình giải quyết bài toán object detection trong ảnh chất lượng cao}}.
 
-    \subsection{Bài toán Face Detection trong ảnh chất lượng cao}
+    \subsection{Bài toán face detection}
     Bài toán face detection là một bài toán nền tảng cực kỳ quan trọng cho rất nhiều các bài toán khác về khuôn mặt như face recognition - bài toán nhận diện mặt người, face tracking - bài toán theo dõi khuôn mặt, face synthesis - bài toán sinh ra ảnh khuôn mặt, face attributes classification - bài toán phân lớp các thuộc tính trên khuôn mặt ...
     Những ứng dụng của nhóm bài toán liên quan đến khuôn mặt có thể kể đến như nhận diện khách hàng, điểm danh chấm công, phân tích cảm xúc ...
     Với những tiềm năng trên, face detection trở thành một nhánh nghiên cứu thu hút rất nhiều sự quan tâm của giới nghiên cứu vì tính ứng dụng cao và động lực đẩy độ chính xác của mô hình giải bài toán này lên đến tuyệt đối.
     
     \noindent
     Nhiều nghiên cứu đã nhân mạnh vào những đặc thù riêng biệt của khuôn mặt con người so với đồ vật, cây cối hay con vật để đưa ra những giải pháp nhằm thúc đẩy độ chính xác của mô hình.
-    Tuy vậy, trong nghiên cứu \cite{zhu2020tinaface}, nhóm tác giả đã chỉ ra rằng face detection vẫn chỉ là một bài toán con của bài toán object detectionvà bài toán face detection vẫn có thể được giải một cách hiệu quả bằng các mô hình object detection.
+    Tuy vậy, trong nghiên cứu \cite{zhu2020tinaface}, nhóm tác giả đã chỉ ra rằng face detection vẫn chỉ là một bài toán con của bài toán object detection và bài toán face detection vẫn có thể được giải một cách hiệu quả bằng các mô hình object detection.
 
     \noindent
-    Với những điểm tương đồng giữa bài toán face detection và bài toán object detection, các mô hình giải bài toán face detection cũng gặp phải hai vấn đề lớn khi xử lý với ảnh chất lượng cao: sự xuất hiện của các khuôn mặt nhỏ trong ảnh và sự chênh lệch về kích thước giữa các khuôn mặt lớn và nhỏ trong ảnh.
+    Chi tiết về một số nghiên cứu được thiết kế đặc biệt giải bài toán face detection sẽ được thảo luận kỹ hơn trong \textbf{\textit{Chương 4. Các mô hình và bộ dữ liệu giải quyết bài toán face detection}}.
     
-    \noindent
-    Chi tiết về một số nghiên cứu giải bài toán object detection sẽ được thảo luận kỹ hơn trong \textbf{\textit{Chương 4. Các mô hình giải quyết bài toán face detection trong ảnh chất lượng cao}}.
+    \subsection{Bài toán face detection trong ảnh chất lượng cao}
+    Với những điểm tương đồng giữa bài toán face detection và bài toán object detection, các mô hình giải bài toán face detection cũng gặp phải hai vấn đề lớn khi xử lý với ảnh chất lượng cao: sự xuất hiện của các khuôn mặt nhỏ trong ảnh và sự chênh lệch về kích thước giữa các khuôn mặt lớn và nhỏ trong ảnh.
 
-    \subsection{Bài toán Face Recognition}
-    % \subsection{Phát biểu bài toán phân loại Face Attributes}
+    \noindent
+    Hơn nữa, cho đến nay, số lượng các bộ dữ liệu giúp giải quyết bài toán face detection trong ảnh chất lượng cao vẫn chưa được chia sẻ nhiều.
+    Bộ dữ liệu phổ biến nhất để giải quyết bài toán face detection là bộ dữ liệu WIDERFACE \cite{yang2016wider} mặc dù chứa những ảnh đa dạng về ánh sáng, màu sắc, góc quay, che khuất ... nhưng độ phân giải của ảnh trong bộ dữ liệu này là chưa thực sự cao, chỉ khoảng 1000 - 1500 pixel.
+    Trong khi đó, yêu cầu về ảnh chất lượng cao với camera hiện đại là khoảng 4000 - 6000 pixel, thậm chí lên đến hơn 10000 pixel.
+
+    \noindent
+    Chúng ta sẽ cùng nhau nghiên cứu về mô hình giải quyết những vấn đề trên trong \textbf{\textit{Chương 5. Mô hình RetinaFocus giải quyết bài toán face detection trong ảnh chất lượng cao}}.
 }
