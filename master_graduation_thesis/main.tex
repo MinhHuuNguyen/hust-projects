@@ -8,7 +8,7 @@
 \usepackage[utf8]{vietnam}
 
 % Package can le tren, duoi, trai, phai
-\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[left=3.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
 
 % Packages de viet cong thuc Toan hoc
 \usepackage{amsmath,amssymb, amsthm}
@@ -46,9 +46,9 @@
 % Package su dung de reference/citation co the click
 \usepackage{hyperref}
 
-% Package su dung cho viec danh `chi muc tu khoa`
-\usepackage{imakeidx}
-\makeindex[columns=2, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
+% % Package su dung cho viec danh `chi muc tu khoa`
+% \usepackage{imakeidx}
+% \makeindex[columns=2, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
 
 % Package su dung cho `khungtrangbia`
 \usepackage{tikz}
@@ -79,23 +79,25 @@
     % Xoa header - footer
     \pagestyle{plain}
 
-    \input{utils/trang_bia.tex}
+    \input{utils/trang_bia/trang_bia.tex}
     \trangbia
 
     \newpage
-    \input{utils/nhan_xet.tex}
+    \input{utils/cac_trang_chuc_nang/nhan_xet.tex}
     \nhanxet
 
     \newpage
-    \input{utils/loi_cam_on.tex}
+    \input{utils/cac_trang_chuc_nang/de_tai_luan_van.tex}
+    \detailuanvan
+
+    \newpage
+    \input{utils/cac_trang_chuc_nang/loi_cam_on.tex}
     \loicamon
+    \input{utils/cac_trang_chuc_nang/tom_tat_noi_dung.tex}
+    \tomtatnoidung
 
     % Bat dau danh so trang page number
     \pagenumbering{arabic}
-
-    \newpage
-    \input{utils/tom_tat_noi_dung.tex}
-    \tomtatnoidung
 
     \newpage
     \tableofcontents
@@ -104,9 +106,9 @@
     \listoffigures
     \addcontentsline{toc}{section}{Danh sách hình vẽ}
 
-    \newpage
-    \listoftables
-    \addcontentsline{toc}{section}{Danh sách bảng biểu}
+    % \newpage
+    % \listoftables
+    % \addcontentsline{toc}{section}{Danh sách bảng biểu}
     % KET THUC CAC TRANG CHUC NANG
 
     % BAT DAU PHAN NOI DUNG CHINH
@@ -115,7 +117,7 @@
 
     \newpage
     \input{content/1_problems.tex}
-    \cacbaitoan
+    \problems
 
     \newpage
     \input{content/2_object_detection.tex}
@@ -140,16 +142,20 @@
     \pagestyle{plain}
 
     \newpage
-    \input{utils/tong_ket.tex}
+    \input{utils/cac_trang_chuc_nang/tong_ket.tex}
     \tongket
 
-    \newpage
-    \printindex
-
+    % \newpage
+    % \printindex
 
     % \newpage
     % \input{utils/code.tex}
     % \code
+
+    % Phan nay in rieng, khong in chung trong quyen luan van
+    \newpage
+    \input{utils/tom_tat_luan_van_rieng.tex}
+    \tomtatluanvanrieng
 
     \newpage
     \addcontentsline{toc}{section}{Tài liệu tham khảo}
