@@ -28,15 +28,15 @@
     Các bộ dữ liệu thường được sử dụng trong quá trình nghiên cứu thường có kích thước khá nhỏ, thường là 112×112, 224×224 hay 512×512.
     Những bộ dữ liệu ảnh có kích thước khoảng từ 1000 đến 2000 đã là rất lớn trong quá trình nghiên cứu.
     Tuy nhiên, hiện nay, công nghệ ghi hình ngày càng phát triển kéo theo những chiếc camera hiện đại có thể lưu giữ lại được những hình ảnh có độ phân giải rất lớn như 8K (7680×4320) hay thậm chí là 16K (15360×8640).
-    Việc xử lý những hình ảnh lớn này với các mô hình deep learning thật sự gây ra nhiều vấn đề về chi phí tính toán và thời gian tính toán.
+    Việc xử lý những hình ảnh lớn này với các mô hình học sâu thật sự gây ra nhiều vấn đề về chi phí tính toán và thời gian tính toán.
     Do đó, việc sử dụng những hình ảnh chất lượng cao trong quá trình dự đoán đã khó, việc train mô hình với những hình ảnh này gần như bất khả thi.
 
     \noindent
-    Một cách đơn giản mà ai cũng có thể đề xuất đó là thu nhỏ kích thước ảnh trước khi đưa vào mô hình deep learning.
+    Một cách đơn giản mà ai cũng có thể đề xuất đó là thu nhỏ kích thước ảnh trước khi đưa vào mô hình học sâu.
     Tuy nhiên cách làm này gây ra việc mất mát rất nhiều thông tin của các đối tượng ở trên ảnh.
     Đối với những đối tượng có kích thước lớn trong ảnh, việc thu nhỏ ảnh ban đầu không ảnh hưởng quá nhiều đến những đối tượng này, vì sau khi thu nhỏ lại, kích thước của chúng vẫn đủ để mô hình thu thập được các đặc trưng cần thiết.
     Còn đối với các đối tượng có kích thước nhỏ, sau khi thu nhỏ ảnh ban đầu, những đối tượng này gần như biến mất khỏi ảnh và gây ra khó khăn cho mô hình để có thể thu thập được các đặc trưng của các đối tượng này.
-    Hơn nữa, trong nghiên cứu \cite{singh2018analysis}, nhóm tác giả đã chứng minh rằng mô hình deep learning với nền tảng là kiến trúc CNN không thể học một cách hiệu quả cả những object có kích thước lớn và cả những object có kích thước nhỏ trong ảnh (vấn đề large-scale variance).
+    Hơn nữa, trong nghiên cứu \cite{singh2018analysis}, nhóm tác giả đã chứng minh rằng mô hình học sâu với nền tảng là kiến trúc CNN không thể học một cách hiệu quả cả những object có kích thước lớn và cả những object có kích thước nhỏ trong ảnh (vấn đề large-scale variance).
     Từ hai vấn đề trên, ta cần giải pháp tốt hơn để giải quyết ảnh chất lượng cao sao cho vừa đảm bảo về độ chính xác vừa đảm bảo về chi phí và thời gian tính toán của mô hình.
 
     \noindent
