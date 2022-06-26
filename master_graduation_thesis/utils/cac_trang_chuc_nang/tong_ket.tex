@@ -1,7 +1,11 @@
 \def \tongket{
     \section*{Kết luận và phương hướng phát triển}
     \addcontentsline{toc}{section}{Kết luận và phương hướng phát triển}
-    % Các mô hình dựa trên ý tưởng về Generative Adversarial Networks đã tạo ra những kết quả vô cùng ấn tượng trong việc sinh ảnh hay cải thiện chất lượng ảnh. Những kết quả này mở ra một tương lai trong việc tạo ra thật nhiều dữ liệu nhằm phục vụ cho các mô hình Deep Learning khác. Hơn nữa, với những thành công trong việc sinh ảnh, các mô hình GANs hoàn toàn có tiềm năng trong việc sinh ra các loại dữ liệu khác như video, âm thanh ... trong tương lai.\\
-    % Mô hình Multimodal Unsupervised Image-to-Image Translation (MUNIT) đã để lại những kết quả rất ấn tượng trong việc giải quyết bài toán Image-to-Image Translation và cụ thể là Style Transfer. Kiến trúc quen thuộc theo dạng auto-encoder của MUNIT được điều chỉnh sao cho việc biến đổi các đặc trưng của ảnh hiệu quả nhất. Bên cạnh đó, hệ thống các hàm loss của MUNIT với các mục đích khác nhau đã định hướng cho mô hình, giúp giải quyết các vấn đề về unsupervised learning, multimodal. Những kết quả từ trong bài báo của tác giả đã minh chứng cho tính khả thi của MUNIT đối với nhiều bộ dữ liệu khác nhau. Ngoài ra, thử nghiệm với bộ dữ liệu ảnh chân dung như CelebA-HQ mang đến một kỳ vọng trong việc xử lý những bộ dữ liệu khó (liên quan đến con người), xử lý những style mang tính trừu tượng hơn.\\
-    % Bên cạnh những kết quả có lợi đó, MUNIT cũng còn một số điểm yếu cần phải khắc phục như xử lý với ảnh có kích thước lớn hơn, kích thước mô hình vẫn rất lớn đòi hỏi yêu cầu phần cứng cao, số lượng các phép tính toán nhiều khiến việc luyện mô hình mất khá nhiều thời gian.
+    Với sự phát triển của khoa học công nghệ, kích thước của ảnh trong thực tế cuộc sống ngày càng tăng và điều đó đòi hỏi các mô hình học sâu xử lý với độ chính xác cao và tốc độ nhanh.
+    Rào cản này đã phần nào đó được vượt qua thông qua các nghiên cứu trong những năm trở lại đây, giúp việc xử lý ảnh chất lượng cao trở nên dễ dàng và chính xác hơn. \\
+    Sự ra đời của mô hình RetinaFocus đã cải thiện độ chính xác và tốc độ của các mô hình học sâu giải quyết bài toán face detection với trong ảnh chất lượng cao thêm rất nhiều.
+    So sánh với mô hình nguyên bản, mô hình RetinaFocus đã tăng tốc lên tới -----\% trong khi duy trì được độ chính xác tương đương trên bộ dữ liệu WIDERFACE.
+    Ngoài ra, với sự ra đời của bộ dữ liệu WIDERFACE-4K, mô hình RetinaFocus tiếp tục thể hiện được sức mạnh trong việc xử lý ảnh chất lượng cao khi đạt -----------, so sánh với kết quả -------- của mô hình nguyên bản. 
+    Từ đó, mô hình RetinaFocus sẽ là nền tảng cho các nghiên cứu khác giải quyết bài toán face detection cũng như là object detection trong ảnh chất lượng cao trong tương lai. \\
+    Bên cạnh những kết quả có lợi đó, mô hình RetinaFocus cũng tồn tại một số điểm yếu cần phải khắc phục như: --------------
 }
