@@ -1,5 +1,5 @@
 \def\retinaface{
-    Mô hình RetinaFace \cite{deng2020retinaface} là một mô hình single-stage giải quyết bài toán face detection đạt kết quả tốt trên bộ dữ liệu WIDER FACE \cite{yang2016wider}.
+    Mô hình RetinaFace \cite{deng2020retinaface} là một mô hình một pha giải quyết bài toán nhận diện khuôn mặt đạt kết quả tốt trên bộ dữ liệu WIDER FACE \cite{yang2016wider}.
     Mô hình RetinaFace được nhóm tác giả tích hợp nhiều mô hình và kỹ thuật khác nhau giúp nâng cao độ chính xác của mô hình.
     Ngoài ra, với việc sử dụng một mô hình backbone nhỏ hơn là Mobile-Net, mô hình RetinaFace có thể đạt tốc độ chạy trong thời gian thực trên CPU.
 
@@ -17,7 +17,7 @@
     \end{figure}
     
     \noindent
-    Ý tưởng sử dụng các khối Context Module tỏ ra khá hiệu quả khi áp dụng với bài toán face detection.
+    Ý tưởng sử dụng các khối Context Module tỏ ra khá hiệu quả khi áp dụng với bài toán nhận diện khuôn mặt.
     Đặc biệt trong việc định vị các mặt nhỏ, vì khi những thông tin về background xung quanh như thân người sẽ có vai trò quan trọng giúp mô hình học tốt hơn.
     Trong kiến trúc mô hình RetinaFace, bốn feature maps \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}$}} của FPN và một feature maps \textit{{${C}_{6}$}} của backbone được đưa qua năm khối Context Module độc lập.
     Mỗi khối Context Module gồm ba khối Conv nối tiếp nhau, nhưng feature maps đầu ra của mỗi khối Conv đều được concat lại với nhau để tạo ra feature maps cuối cùng của cả khối Context Module.
@@ -90,14 +90,14 @@
     Cấu hình RetinaFace sử dụng tất cả các kỹ thuật trên cho kết quả tốt nhất trên cả ba bộ WIDER FACE val dễ, trung bình và khó.
 
     \noindent
-    Việc mô hình RetinaFace cho kết quả tốt trên bài toán face detection giúp cải thiện kết quả của mô hình ArcFace trên bài toán face recognition trên các bộ dữ liệu khác nhau. \\
-    - MTCNN+ArcFace: là cấu hình sử dụng mô hình MTCNN \cite{zhang2016joint} cho bài toán face detection và mô hình ArcFace \cite{deng2019arcface} cho bài toán face recognition. \\
-    - RetinaFace+ArcFace: là cấu hình sử dụng mô hình RetinaFace cho bài toán face detection và mô hình ArcFace \cite{deng2019arcface} cho bài toán face recognition.
+    Việc mô hình RetinaFace cho kết quả tốt trên bài toán nhận diện khuôn mặt giúp cải thiện kết quả của mô hình ArcFace trên bài toán face recognition trên các bộ dữ liệu khác nhau. \\
+    - MTCNN+ArcFace: là cấu hình sử dụng mô hình MTCNN \cite{zhang2016joint} cho bài toán nhận diện khuôn mặt và mô hình ArcFace \cite{deng2019arcface} cho bài toán face recognition. \\
+    - RetinaFace+ArcFace: là cấu hình sử dụng mô hình RetinaFace cho bài toán nhận diện khuôn mặt và mô hình ArcFace \cite{deng2019arcface} cho bài toán face recognition.
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=10cm] {images/retinaface_results_2}
-        \caption{Kết quả tốt của mô hình RetinaFace trên bài toán face detection giúp cải thiện kết quả trên cả bài toán face recognition. (Nguồn: \cite{deng2020retinaface})}
+        \caption{Kết quả tốt của mô hình RetinaFace trên bài toán nhận diện khuôn mặt giúp cải thiện kết quả trên cả bài toán face recognition. (Nguồn: \cite{deng2020retinaface})}
         \label{fig:retinaface_results_2}
     \end{figure}
 
@@ -119,7 +119,7 @@
 
     \noindent
     \textbf{\textit{Vấn đề tồn đọng của mô hình RetinaFace}} \\
-    Mô hình RetinaFace đã giải quyết bài toán face detection với bộ dữ liệu WIDER FACE rất tốt, đạt độ chính xác cao.
+    Mô hình RetinaFace đã giải quyết bài toán nhận diện khuôn mặt với bộ dữ liệu WIDER FACE rất tốt, đạt độ chính xác cao.
     Tuy nhiên, khi xử lý với ảnh có kích thước lớn, mô hình RetinaFace muốn giữ được kết quả tốt cần mất thời gian chạy khá lâu.
     Điều này khiến cho mô hình RetinaFace thường chỉ nằm ở mức độ nghiên cứu và khó có thể được sử dụng trong các ứng dụng thực tế.
 }

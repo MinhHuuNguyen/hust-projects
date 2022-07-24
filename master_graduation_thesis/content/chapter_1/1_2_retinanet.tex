@@ -1,21 +1,21 @@
 \def\retinanet{
-    RetinaNet \cite{lin2017focal} là một mô hình single-stage object detection cân bằng giữa độ chính xác của các mô hình two-stage và tốc độ của các mô hình single-stage ở thời điểm đó.
-    Nhóm tác giả của RetinaNet đưa ra vấn đề về các mô hình single-stage như YOLO \cite{redmon2016look} hay SSD \cite{liu2016ssd} dù đạt tốc độ rất nhanh nhưng lại kém các mô hình two-stage một khoảng rất xa về độ chính xác và đề xuất giải pháp khắc phục vấn đề này.
+    RetinaNet \cite{lin2017focal} là một mô hình nhận diện đối tượng một pha cân bằng giữa độ chính xác của các mô hình hai pha và tốc độ của các mô hình một pha ở thời điểm đó.
+    Nhóm tác giả của RetinaNet đưa ra vấn đề về các mô hình một pha như YOLO \cite{redmon2016look} hay SSD \cite{liu2016ssd} dù đạt tốc độ rất nhanh nhưng lại kém các mô hình hai pha một khoảng rất xa về độ chính xác và đề xuất giải pháp khắc phục vấn đề này.
 
     \noindent
-    \textbf{\textit{Tổng quan về các mô hình single-stage object detection}} \\
-    Các mô hình single-stage object detection ở thời điểm đó đa phần đều chỉ sử dụng một backbone CNN kết hợp thêm với các lớp Conv và lớp fully connected để đưa ra dự đoán về lớp của đối tượng trong ảnh và độ lệch của bounding box so với groundtruth.
+    \textbf{\textit{Tổng quan về các mô hình nhận diện đối tượng một pha}} \\
+    Các mô hình nhận diện đối tượng một pha ở thời điểm đó đa phần đều chỉ sử dụng một backbone CNN kết hợp thêm với các lớp Conv và lớp fully connected để đưa ra dự đoán về lớp của đối tượng trong ảnh và độ lệch của bounding box so với groundtruth.
     
     \begin{figure}[H]
         \centering
         \includegraphics[width=10cm] {images/yolo_ssd_model}
-        \caption{Chi tiết hai kiến trúc mô hình single-stage nổi tiếng là SSD và YOLO. (Nguồn: \cite{liu2016ssd})}
+        \caption{Chi tiết hai kiến trúc mô hình một pha nổi tiếng là SSD và YOLO. (Nguồn: \cite{liu2016ssd})}
         \label{fig:yolo_ssd_model}
     \end{figure}
 
     \noindent
-    Việc loại bỏ Region proposals module khiến các mô hình single-stage object detection cần phải xây dựng một phương pháp riêng nhằm đề xuất ra các anchor chứa đối tượng.
-    Hai mô hình single-stage object detection nổi tiếng vào thời điểm đó là YOLO \cite{redmon2016look} và SSD \cite{liu2016ssd} có các cách đề xuất ra anchor tương tự với nhau.
+    Việc loại bỏ Region proposals module khiến các mô hình nhận diện đối tượng một pha cần phải xây dựng một phương pháp riêng nhằm đề xuất ra các anchor chứa đối tượng.
+    Hai mô hình nhận diện đối tượng một pha nổi tiếng vào thời điểm đó là YOLO \cite{redmon2016look} và SSD \cite{liu2016ssd} có các cách đề xuất ra anchor tương tự với nhau.
     
     \begin{figure}[H]
         \centering
@@ -31,7 +31,7 @@
     - B là số lượng bounding box dự đoán. \\
     - 5 là các giá trị trong đó có 4 giá trị x, y, w, h đại diện cho bounding box được dự đoán và 1 giá trị confidence.
     Thay vì được học là 1 nếu anchor có IoU cao với groundtruth bounding box và ngược lại là 0 nếu anchor có IoU thấp với groundtruth bounding box, điểm đặc biệt về giá trị confidence mà nhóm tác giả thiết kế trong mô hình YOLO là nó bằng chính giá trị IoU so với groundtruth. \\
-    - C là số lượng lớp đối tượng trong bài toán object detection.
+    - C là số lượng lớp đối tượng trong bài toán nhận diện đối tượng.
     Mỗi giá trị dự đoán trong C là giá trị xác suất điều kiện nếu ô trên grid chứa đối tượng thì đó là đối tượng nào. \\
     Trong nghiên cứu, nhóm tác giả của YOLO sử dụng $S = 7, B = 2, C = 20$.
 
@@ -49,14 +49,14 @@
     Mỗi ô trên grid sẽ được mô hình dự đoán $(k × (c + 4))$ giá trị, trong đó: \\
     - k là số lượng bounding box dự đoán. \\
     - 4 là 4 giá trị x, y, w, h đại diện cho bounding box được dự đoán. \\
-    - c là số lượng lớp đối tượng trong bài toán object detection.
+    - c là số lượng lớp đối tượng trong bài toán nhận diện đối tượng.
     Mỗi giá trị dự đoán trong c là giá trị xác suất anchor đó là đối tượng nào.
 
     \noindent
-    Với ý tưởng khởi tạo anchor như trên, nhóm tác giả của RetinaNet đã chỉ ra một vấn đề nghiêm trọng mà các mô hình single stage object detection nói chung gặp phải đó là vấn đề mất cân bằng dữ liệu trong quá trình train mô hình.
+    Với ý tưởng khởi tạo anchor như trên, nhóm tác giả của RetinaNet đã chỉ ra một vấn đề nghiêm trọng mà các mô hình nhận diện đối tượng một pha nói chung gặp phải đó là vấn đề mất cân bằng dữ liệu trong quá trình train mô hình.
     Cụ thể, vấn đề mất cân bằng ở đây xảy ra chủ yếu do sự chênh lệch giữa phần ảnh là foreground và phần ảnh là background, hay nói cách khác là phần ảnh chứa đối tượng và phần ảnh không chứa đối tượng. \\
-    Các mô hình two-stage object detection không thật sự gặp phải vấn đề mất cân bằng dữ liệu này bởi vì trong quá trình đưa các khu vực đề xuất từ Region proposals module sang Feature extraction module thường đã có một bước lọc và lựa chọn.
-    Cụ thể hơn, với số lượng lớn các khu vực không chứa đối tượng được đề xuất bởi Region proposals module, chỉ có một số ít trong đó được lựa chọn để làm đầu vào cho Feature extraction module và lúc này, tỷ lệ giữa các khu vực chứa và không chứa đối tượng thường là 1:3 - một tỷ lệ mất cân bằng không quá nghiêm trọng và không ảnh hưởng tới việc train mô hình object detection.
+    Các mô hình nhận diện đối tượng hai pha không thật sự gặp phải vấn đề mất cân bằng dữ liệu này bởi vì trong quá trình đưa các khu vực đề xuất từ Region proposals module sang Feature extraction module thường đã có một bước lọc và lựa chọn.
+    Cụ thể hơn, với số lượng lớn các khu vực không chứa đối tượng được đề xuất bởi Region proposals module, chỉ có một số ít trong đó được lựa chọn để làm đầu vào cho Feature extraction module và lúc này, tỷ lệ giữa các khu vực chứa và không chứa đối tượng thường là 1:3 - một tỷ lệ mất cân bằng không quá nghiêm trọng và không ảnh hưởng tới việc train mô hình nhận diện đối tượng.
 
     \noindent
     \textbf{\textit{Hàm Focal loss}} \\
@@ -139,7 +139,7 @@
     
     \noindent
     \textbf{\textit{Kiến trúc mô hình RetinaNet}} \\
-    RetinaNet là mô hình single-stage object detection gồm có các thành phần:
+    RetinaNet gồm có các thành phần:
     - Phần \textit{backbone Feature Pyramid Networks} được sử dụng nhằm trích xuất đặc trưng của ảnh đầu vào với nhiều kích thước đặc trưng khác nhau.
     Chi tiết về sức mạnh của FPN đã được thảo luận ở \textit{phần 2.2. Kiến trúc Feature Pyramid Networks}.
     - Phần trích xuất anchor được thực hiện tương tự với cách trích xuất của mô hình RPN biến thể đã phân tích ở \textit{phần 2.2}.
@@ -155,7 +155,7 @@
 
     \noindent
     - Phần \textit{Classification Subnet} được chia sẻ giữa tất cả các feature maps của backbone FPN, gồm các lớp Conv 3x3xC và lớp Conv cuối cùng 3x3xKA.
-    Trong đó, K là số lượng lớp đối tượng trong bài toán object detection, A là số lượng anchor tại vị trí trên mỗi feature maps của backbone FPN (tác giả chọn $A = 9$), C là số lượng channel của lớp Conv (tác giả chọn $C = 256$). \\
+    Trong đó, K là số lượng lớp đối tượng trong bài toán nhận diện đối tượng, A là số lượng anchor tại vị trí trên mỗi feature maps của backbone FPN (tác giả chọn $A = 9$), C là số lượng channel của lớp Conv (tác giả chọn $C = 256$). \\
     - Phần \textit{Box Regression Subnet} được thiết kế khác với cách thiết kế trong mô hình Faster R-CNN khi không dùng chung các lớp Conv với \textit{Classification Subnet}.
     \textit{Box Regression Subnet} cũng gồm các lớp Conv 3x3xC và lớp Conv cuối cùng 3x3x4A.
     Trong đó, A là số lượng anchor tại vị trí trên mỗi feature maps của backbone FPN (tác giả chọn $A = 9$), 4 là 4 độ lệch trong toạ độ của bounding box dự đoán so với groundtruth, C là số lượng channel của lớp Conv (tác giả chọn $C = 256$).
@@ -172,7 +172,7 @@
         \label{fig:retinanet_results_2}
     \end{figure}
 
-    Khi so sánh kết quả của mô hình RetinaNet với các mô hình object detection khác vào thời điểm đó, kết quả của các cấu hình khác nhau của mô hình RetinaNet cũng đạt kết quả rất tốt về cả tốc độ lẫn độ chính xác của mô hình.
+    Khi so sánh kết quả của mô hình RetinaNet với các mô hình nhận diện đối tượng khác vào thời điểm đó, kết quả của các cấu hình khác nhau của mô hình RetinaNet cũng đạt kết quả rất tốt về cả tốc độ lẫn độ chính xác của mô hình.
     Cụ thể các mô hình được so sánh gồm: \\
     - Kết quả của mô hình YOLOv2 ký hiệu là [A] \cite{redmon2016yolo9000} (Kết quả không được biểu diễn trên hình) \\
     - Kết quả của mô hình SSD321, ký hiệu là [B] \cite{liu2016ssd} \\
@@ -189,17 +189,16 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=6cm] {images/retinanet_results_1}
-        \caption{So sánh kết quả mô hình RetinaNet với một số mô hình object detection khác. (Nguồn: \cite{lin2017focal})}
+        \caption{So sánh kết quả mô hình RetinaNet với một số mô hình nhận diện đối tượng khác. (Nguồn: \cite{lin2017focal})}
         \label{fig:retinanet_results_1}
     \end{figure}
 
-    Kết quả, các cấu hình khác nhau của RetinaNet đều cho kết quả tốt hơn so với các mô hình object detection khác (cả single-stage và two-stage).
+    Kết quả, các cấu hình khác nhau của RetinaNet đều cho kết quả tốt hơn so với các mô hình nhận diện đối tượng khác (cả một pha và hai pha).
     So với mô hình đạt độ chính xác tốt nhất ở thời điểm đó là [G], cấu hình RetinaNet-101-700 cho kết quả chính xác hơn với thời gian nhanh hơn.
     So với các mô hình đạt tốc độ tốt nhất ở thời điểm đó là [A] và [B], cấu hình RetinaNet-50-400 cho kết quả chậm hơn nhưng với độ chính xác cao hơn vượt trội.
 
     \noindent
     \textbf{\textit{Kết luận về mô hình RetinaNet}} \\
-    Mô hình RetinaNet ra đời là một bước tiến lớn đối với việc giải quyết bài toán object detection khi nó giải quyết vấn đề mất cân bằng dữ liệu của các mô hình single-stage giúp tăng độ chính xác của mô hình ngang bằng với các mô hình two-stage nhưng vẫn duy trì được một tốc độ nhanh và có thể sử dụng trong thời gian thực. \\
-    Mô hình RetinaNet cho đến nay vẫn là một mô hình tốt để giải quyết các bài toán con của object detection, cụ thể là face detection.
-    Trong các phần tiếp theo của luận văn, ta sẽ bàn luận về các mô hình kế thừa RetinaNet giải quyết rất tốt bài toán face detection.
+    Mô hình RetinaNet ra đời là một bước tiến lớn đối với việc giải quyết bài toán nhận diện đối tượng khi nó giải quyết vấn đề mất cân bằng dữ liệu của các mô hình một pha giúp tăng độ chính xác của mô hình ngang bằng với các mô hình hai pha nhưng vẫn duy trì được một tốc độ nhanh và có thể sử dụng trong thời gian thực. \\
+    Mô hình RetinaNet cho đến nay vẫn là một mô hình tốt để giải quyết bài toán nhận diện đối tượng.
 }

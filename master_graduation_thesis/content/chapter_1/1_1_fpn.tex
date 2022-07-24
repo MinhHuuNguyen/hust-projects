@@ -2,7 +2,7 @@
     Các kiến trúc backbone như AlexNet \cite{krizhevsky2012imagenet}, VGG \cite{simonyan2014very}, InceptionNet \cite{szegedy2015going}, SqueezeNet \cite{iandola2016squeezenet} và đặc biệt là ResNet \cite{he2016deep} đã đạt những thành công nhất định.
     Tuy nhiên, các kiến trúc backbone trên vẫn gặp phải một vấn đề về chênh lệch kích thước giữa các đối tượng trong ảnh.
     Feature Pyramid Networks \cite{lin2017feature} (gọi tắt là FPN) được giới thiệu như một kiến trúc backbone nhằm giải quyết vấn đề trên.
-    Việc sử dụng FPN như là kiến trúc backbone kết hợp cùng mô hình Faster R-CNN đã vượt qua rất nhiều các mô hình object detection khác để trở thành mô hình SOTA ở thời điểm đó.
+    Việc sử dụng FPN như là kiến trúc backbone kết hợp cùng mô hình Faster R-CNN đã vượt qua rất nhiều các mô hình nhận diện đối tượng khác để trở thành mô hình SOTA ở thời điểm đó.
 
     \noindent
     \textbf{\textit{So sánh các kiến trúc pyramid khác nhau}}
@@ -16,9 +16,9 @@
 
     \noindent
     Ý tưởng về việc xây dựng và sử dụng các đặc trưng của ảnh với nhiều kích thước khác nhau không mới, tuy nhiên, các giải pháp đã có vào thời điểm đó đều vướng phải một số vấn đề: \\
-    - \textit{Featurized image pyramid}: Việc sử dụng nhiều kích thước ảnh khác nhau để tạo ra nhiều đặc trưng có kích thước khác nhau một cách độc lập là ý tưởng cơ bản nhất. Mặc dù đạt được hiệu quả cao về độ chính xác khi khai thác ảnh đầu vào với nhiều kích thước khác nhau, nhưng phương pháp này khiến cho mô hình giải bài toán object detection trở nên cồng kềnh và tốn rất nhiều thời gian để xử lý và gần như bất khả thi để có thể train được mô hình. \\
+    - \textit{Featurized image pyramid}: Việc sử dụng nhiều kích thước ảnh khác nhau để tạo ra nhiều đặc trưng có kích thước khác nhau một cách độc lập là ý tưởng cơ bản nhất. Mặc dù đạt được hiệu quả cao về độ chính xác khi khai thác ảnh đầu vào với nhiều kích thước khác nhau, nhưng phương pháp này khiến cho mô hình giải bài toán nhận diện đối tượng trở nên cồng kềnh và tốn rất nhiều thời gian để xử lý và gần như bất khả thi để có thể train được mô hình. \\
     - \textit{Single feature map}: Việc sử dụng chỉ một kích thước đặc trưng duy nhất giúp cho mô hình xử lý nhanh hơn nhưng lại khiến cho mô hình khó có thể học được những đặc trưng giữa các đối tượng có kích thước chênh lệch trong ảnh. Đặc biệt, việc đưa ảnh đầu vào qua nhiều khối Conv đã loại bỏ rất nhiều thông tin và gần như không còn thông tin để mô hình có thể nhận biết được các đối tượng có kích thước nhỏ. \\
-    - \textit{Pyramidal feature hierarchy}: Việc sử dụng nhiều feature maps có kích thước khác nhau cùng đưa ra kết quả được sử dụng trong mô hình object detection khá nổi tiếng là SSD \cite{liu2016ssd}. Tuy nhiên, thay vì tận dụng toàn bộ các feature maps sinh ra từ các khối Conv của backbone VGG-16, SSD chỉ sử dụng feature map từ khối Conv thứ 5 và bổ sung thêm các lớp Conv. Điều này khiến cho SSD bỏ qua những feature map có kích thước lớn, có ý nghĩa quan trọng trong việc detect các đối tượng có kích thước nhỏ. \\
+    - \textit{Pyramidal feature hierarchy}: Việc sử dụng nhiều feature maps có kích thước khác nhau cùng đưa ra kết quả được sử dụng trong mô hình nhận diện đối tượng khá nổi tiếng là SSD \cite{liu2016ssd}. Tuy nhiên, thay vì tận dụng toàn bộ các feature maps sinh ra từ các khối Conv của backbone VGG-16, SSD chỉ sử dụng feature map từ khối Conv thứ 5 và bổ sung thêm các lớp Conv. Điều này khiến cho SSD bỏ qua những feature map có kích thước lớn, có ý nghĩa quan trọng trong việc detect các đối tượng có kích thước nhỏ. \\
     - \textit{Feature Pyramid Network}: Dựa trên vấn đề trên từ SSD, nhóm tác giả đề xuất FPN tận dụng tối đa các feature maps trích xuất được từ backbone nhằm tạo ra bộ feature map mới gồm nhiều kích thước khác nhau và chứa rất nhiều thông tin về nội dung của ảnh đầu vào. Để đạt được điều này, nhóm tác giả thiết kế kiến trúc kết hợp những feature maps có kích thước lớn và những feature maps có kích thước nhỏ bằng top-down pathway và lateral connections.
 
     \noindent
@@ -26,7 +26,7 @@
     Ý tưởng về việc sử dụng kiến trúc mô hình theo dạng top-down không phải là mới và đã được nhắc đến trong một số nghiên cứu. Tuy nhiên, điểm giống nhau của các nghiên cứu có thiết kế mô hình theo kiểu top-down đó là mô hình chỉ sử dụng một feature map cuối cùng, sau khi đã tổng hợp các thông tin trong suốt quá trình top-down, để đưa ra quyết định dự đoán cuối cùng.
 
     \noindent
-    Trong khi đó, đối với FPN, nhóm tác giả đưa ra quyết định dự đoán trên từng feature maps trong suốt quá trình top-down. Từ đó, đặc biệt nâng cao chất lượng của mô hình object detection khi có thể vừa trích xuất được thông tin của các đối tượng có kích thước lớn từ các feature map có kích thước nhỏ vừa trích xuất được thông tin của các đối tượng có kích thước nhỏ từ các feature map có kích thước lớn.
+    Trong khi đó, đối với FPN, nhóm tác giả đưa ra quyết định dự đoán trên từng feature maps trong suốt quá trình top-down. Từ đó, đặc biệt nâng cao chất lượng của mô hình nhận diện đối tượng khi có thể vừa trích xuất được thông tin của các đối tượng có kích thước lớn từ các feature map có kích thước nhỏ vừa trích xuất được thông tin của các đối tượng có kích thước nhỏ từ các feature map có kích thước lớn.
 
     \begin{figure}[H]
         \centering
@@ -144,7 +144,7 @@
 
     \noindent
     Cụ thể các cấu hình như sau: \\
-    - \textit{baseline from He et al.} là mô hình ResNet được sử dụng cho bài toán object detection. \\
+    - \textit{baseline from He et al.} là mô hình ResNet được sử dụng cho bài toán nhận diện đối tượng. \\
     - \textit{baseline on conv4} là cấu hình sử dụng feature map từ lớp Conv thứ 4 của Feature extraction module cho cả hai nhánh của mô hình Faster R-CNN. \\
     - \textit{baseline on conv5} là cấu hình sử dụng feature map từ lớp Conv thứ 5 của Feature extraction module cho cả hai nhánh của mô hình Faster R-CNN. \\
     - \textit{FPN} là cấu hình sử dụng kiến trúc FPN trích xuất feature maps cho cả hai nhánh của mô hình Faster R-CNN. \\
@@ -155,8 +155,8 @@
 
     \noindent
     \textbf{\textit{Vấn đề tồn đọng của kiến trúc mô hình FPN}} \\
-    Kiến trúc FPN ra đời đã tạo ra một trong số những kiến trúc backbone kinh điển trong các bài toán computer vision nói chung và bài toán object detection nói riêng.
+    Kiến trúc FPN ra đời đã tạo ra một trong số những kiến trúc backbone kinh điển trong các bài toán computer vision nói chung và bài toán nhận diện đối tượng nói riêng.
     Kiến trúc FPN đã giúp cho nhiều mô hình đạt độ chính xác cao hơn và trong khi tốc độ của mô hình không bị tăng một cách đáng kể.
-    Tuy nhiên, đối với cụ thể bài toán object detection, việc kết hợp kiến trúc FPN vào mô hình Faster R-CNN mới chỉ cải thiện về mặt độ chính xác cho mô hình Faster R-CNN mà chưa giúp tăng tốc mô hình Faster R-CNN.
-    Vẫn còn một câu hỏi cần phải được giải quyết đó là làm sao để duy trì được độ chính xác mà FPN mang lại những mô hình object detection vẫn có để đạt tốc độ nhanh hơn nữa.
+    Tuy nhiên, đối với cụ thể bài toán nhận diện đối tượng, việc kết hợp kiến trúc FPN vào mô hình Faster R-CNN mới chỉ cải thiện về mặt độ chính xác cho mô hình Faster R-CNN mà chưa giúp tăng tốc mô hình Faster R-CNN.
+    Vẫn còn một câu hỏi cần phải được giải quyết đó là làm sao để duy trì được độ chính xác mà FPN mang lại những mô hình nhận diện đối tượng vẫn có để đạt tốc độ nhanh hơn nữa.
 }

@@ -1,5 +1,5 @@
 \def\retinafocusidea{
-    Lấy cảm hứng từ hai mô hình RetinaFace \cite{deng2020retinaface} và AutoFocus \cite{najibi2019autofocus}, mô hình RetinaFocus được xây dựng nhằm tận dụng điểm mạnh và khắc phục điểm yếu của cả hai mô hình trên trong một mô hình duy nhất, từ đó, giải quyết tốt bài toán face detection trong ảnh chất lượng cao.
+    Lấy cảm hứng từ hai mô hình RetinaFace \cite{deng2020retinaface} và AutoFocus \cite{najibi2019autofocus}, mô hình RetinaFocus được xây dựng nhằm tận dụng điểm mạnh và khắc phục điểm yếu của cả hai mô hình trên trong một mô hình duy nhất, từ đó, giải quyết tốt bài toán nhận diện khuôn mặt trong ảnh chất lượng cao.
 
     \noindent
     \textbf{\textit{Ý tưởng chính của mô hình RetinaFocus}} \\
@@ -7,7 +7,7 @@
     Mặc dù sử dụng FPN trong kiến trúc backbone của mình, mô hình RetinaFace vẫn chưa thể dự đoán với vị trí bbox chính xác và với độ tự tin cao hết những mặt có kích thước nhỏ.
     Do đó, khi xử lý ảnh có kích thước lớn, để duy trì được độ chính xác cao, nhóm tác giả vẫn sử dụng chiến lược Image Pyramids và điều đó khiến cho tốc độ xử lý của RetinaFace tăng lên nhiều lần. \\
     Bên cạnh đó, mô hình AutoFocus, như đã thảo luận ở \textbf{\textit{phần 3.4. Mô hình AutoFocus}}, lại là một giải pháp rất thông minh để xử lý ảnh với chiến lược Image Pyramids nhưng với tốc độ cao và chi phí tính toán thấp. \\
-    Từ những điểm yếu của mô hình RetinaFace khi xử lý ảnh chất lượng cao và những điểm mạnh của mô hình AutoFocus, chúng tôi đề xuất mô hình RetinaFocus giải bài toán face detection trong ảnh chất lượng cao với độ chính xác tương đương và cải thiện đáng kể tốc độ tính toán.
+    Từ những điểm yếu của mô hình RetinaFace khi xử lý ảnh chất lượng cao và những điểm mạnh của mô hình AutoFocus, chúng tôi đề xuất mô hình RetinaFocus giải bài toán nhận diện khuôn mặt trong ảnh chất lượng cao với độ chính xác tương đương và cải thiện đáng kể tốc độ tính toán.
 
     \noindent
     \textbf{\textit{Kiến trúc mô hình RetinaFocus}} \\
