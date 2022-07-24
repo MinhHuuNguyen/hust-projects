@@ -73,11 +73,11 @@
     \noindent
     \textbf{\textit{Kết quả của mô hình RetinaFace}} \\
     Nhóm tác giả thực hiện thí nghiệm đánh giá mức độ đóng góp của các kỹ thuật trong mô hình RetinaFace. \\
-    - FPN+Context: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module với lớp Conv truyền thống. \\
-    - +DCN: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module với deformable convolution network. \\
-    - +$L_{pts}$: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module với deformable convolution network bổ sung thêm hàm loss về năm điểm landmarks. \\
-    - +$L_{pixel}$: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module với deformable convolution network bổ sung thêm hàm loss về self-supervised learning. \\
-    - +$L_{pts}$+$L_{pixel}$: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module với deformable convolution network bổ sung thêm hàm loss về năm điểm landmarks và hàm loss về self-supervised learning. \\
+    - FPN+Context: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module \cite{najibi2017ssh} với lớp Conv truyền thống. \\
+    - +DCN: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module \cite{najibi2017ssh} với deformable convolution network \cite{dai2017deformable}. \\
+    - +$L_{pts}$: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module \cite{najibi2017ssh} với deformable convolution network \cite{dai2017deformable} bổ sung thêm hàm loss về năm điểm landmarks. \\
+    - +$L_{pixel}$: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module \cite{najibi2017ssh} với deformable convolution network \cite{dai2017deformable} bổ sung thêm hàm loss về self-supervised learning. \\
+    - +$L_{pts}$+$L_{pixel}$: mô hình RetinaFace chỉ sử dụng kiến trúc FPN kết hợp các khối Context Module \cite{najibi2017ssh} với deformable convolution network \cite{dai2017deformable} bổ sung thêm hàm loss về năm điểm landmarks và hàm loss về self-supervised learning. \\
 
     \begin{figure}[H]
         \centering
@@ -91,8 +91,8 @@
 
     \noindent
     Việc mô hình RetinaFace cho kết quả tốt trên bài toán face detection giúp cải thiện kết quả của mô hình ArcFace trên bài toán face recognition trên các bộ dữ liệu khác nhau. \\
-    - MTCNN+ArcFace: là cấu hình sử dụng mô hình MTCNN cho bài toán face detection và mô hình ArcFace cho bài toán face recognition. \\
-    - RetinaFace+ArcFace: là cấu hình sử dụng mô hình RetinaFace cho bài toán face detection và mô hình ArcFace cho bài toán face recognition.
+    - MTCNN+ArcFace: là cấu hình sử dụng mô hình MTCNN \cite{zhang2016joint} cho bài toán face detection và mô hình ArcFace \cite{deng2019arcface} cho bài toán face recognition. \\
+    - RetinaFace+ArcFace: là cấu hình sử dụng mô hình RetinaFace cho bài toán face detection và mô hình ArcFace \cite{deng2019arcface} cho bài toán face recognition.
 
     \begin{figure}[H]
         \centering

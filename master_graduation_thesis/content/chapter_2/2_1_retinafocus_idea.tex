@@ -60,9 +60,9 @@
     Cụ thể hơn, trong hình \ref{fig:retinafocus_iou_lower}, dù xét ở mức IoU nào, thì các bounding box có kích thước nhỏ từ 0 đến 60 đều chiếm tổng tỷ lệ lớn, cụ thể ... đối với IoU 0.5, ... đối với IoU 0.75 và ... đối với IoU 0.9.
 
     \noindent
-    Hơn nữa, với kiến trúc của FPN như hình \ref{fig:retinafocus_architecture}, một bounding box có kích thước 4x4 ở ảnh đầu vào sẽ có tương ứng một khu vực có kích thước 2x2 ở feature maps ${C}_{2}$ và ${P}_{2}$, 1x1 ở feature maps ${C}_{3}$ và ${P}_{3}$ và gần như không còn thông tin ở các feature maps từ ${C}_{4}$ và ${P}_{4}$ trở đi.
+    Hơn nữa, với kiến trúc của FPN như hình \ref{fig:retinafocus_architecture}, một bounding box có kích thước $4 \times 4$ ở ảnh đầu vào sẽ có tương ứng một khu vực có kích thước $2 \times 2$ ở feature maps ${C}_{2}$ và ${P}_{2}$, $1 \times 1$ ở feature maps ${C}_{3}$ và ${P}_{3}$ và gần như không còn thông tin ở các feature maps từ ${C}_{4}$ và ${P}_{4}$ trở đi.
     Điều này khiến cho các bounding box này trở thành các điểm dữ liệu nhiễu của nhánh Focus, khiến cho việc học của nhánh Focus bị giảm hiệu quả.
 
     \noindent
-    Từ những phân tích trên, chúng tôi lựa chọn lần lượt các tham số $a = 5, b = 60, c = 150$ tương ứng với groundtruth bounding box có kích thước từ $5 \times 5$ đến $60 \times 60$ là các bounding box cần được focus, các groundtruth bounding box có kích thước dưới $5 \times 5$ hoặc từ $60 \times 60$ đến $150 \times 150$ là các bounding box không cần quan tâm và các groundtruth bounding box có kích thước trên $150 \times 150$ là các bounding box không cần được focus.
+    Từ những phân tích trên, chúng tôi lựa chọn lần lượt các tham số $a = 5, b = 60, c = 150$ tương ứng với groundtruth bounding box có kích thước từ $5 \times 5$ đến $60 \times 60$ là các bounding box cần được focus, các groundtruth bounding box có kích thước dưới $5 \times 5$ hoặc từ $60 \times 60$ đến $150 \times 150$ là các bounding box không cần quan tâm và các groundtruth bounding box có kích thước trên $150 \times 150$ là các bounding box được coi như là background.
 }

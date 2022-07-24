@@ -1,13 +1,11 @@
 \def\datasetsandexperiments{
-    \section{Các bộ dữ liệu và mô hình giải quyết bài toán face detection}
-    Bài toán face detection đã thu hút được rất nhiều sự quan tâm của giới nghiên cứu trong những năm trở lại đây vì các ứng dụng thực tiễn.
-    Tuy nhiên, vì tính ứng dụng của bài toán face detection, nên các kết quả của các mô hình giải bài toán này thường được yêu cầu vượt xa so với mức độ của các mô hình mang tính chất nghiên cứu.
-    Cụ thể hơn, các mô hình giải quyết bài toán face detection phải đạt độ chính xác gần như tuyệt đối cùng với tốc độ chạy nhanh trong thời gian thực.
-    Những yêu cầu này khiến cho bài toán face detection vẫn chưa bao giờ hết hot đối với giới nghiên cứu.
+    \section{Dữ liệu và thực nghiệm}
+    Các bộ dữ liệu nổi tiếng được sử dụng nhiều trong các bài toán học sâu như ImageNet \cite{russakovsky2015imagenet}, MS-COCO \cite{lin2014microsoft} hay PASCAL-VOC \cite{everingham2010pascal} đều có đặc điểm chung là kích thước ảnh nhỏ, khoảng dưới 1500 pixels.
+    % Những bộ dữ liệu mới gần đây như PANDA \cite{},  đã chứa nhiều ảnh có kích thước lớn, tuy nhiên, ....
 
     \noindent
-    Trong khuôn khổ nghiên cứu của luận văn, ta sẽ cùng tìm hiểu kỹ hơn về bộ dữ liệu được sử dụng phổ biến nhất giúp giải bài toán face detection trong \textbf{\textit{phần 4.1. Bộ dữ liệu WIDER FACE}}.
-    Sau đó, ta bàn luận về một mô hình giải quyết bài toán face detection hiệu quả trong \textbf{\textit{phần 4.2. Mô hình RetinaFace}}.
+    Đối với bài toán nhận diện khuôn mặt, một số bộ dữ liệu như FDDB \cite{jain2010fddb}, ALW \cite{zhu2012face}, AFLW \cite{koestinger2011annotated}, 300 Faces in-the-Wild Challenge \cite{sagonas2013300}, PASCAL Face \cite{yan2014face} và WIDER FACE \cite{yang2016wider} thường được sử dụng để đánh giá chất lượng của mô hình.
+    Tuy nhiên, các bộ dữ liệu này vẫn gồm các ảnh có kích thước nhỏ, khoảng dưới 1500 pixels, nên việc đánh giá đúng về độ chính xác và tốc độ của mô hình giải quyết bài toán nhận diện khuôn mặt trên ảnh chất lượng cao gặp nhiều khó khăn.
 
     \subsection{Bộ dữ liệu WIDER FACE}
     \input{content/chapter_3/3_1_widerface}
