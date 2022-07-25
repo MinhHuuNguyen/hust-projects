@@ -1,10 +1,9 @@
 \def\retinafocusresults{
     Một đặc điểm của mô hình RetinaFocus là có nhiều cấu hình có thể cài đặt để triển khai mô hình như cấu hình lựa chọn feature maps \index{feature maps} của FPN cho Nhánh Focus \index{nhánh Focus}, cấu hình scale ảnh trong quá trình dự đoán \dots
     Vì vậy, ta cần so sánh và lựa chọn cấu hình tối ưu nhất, cân đối giữa thời gian thực hiện quá trình dự đoán và độ chính xác của mô hình.
-    Để so sánh một cách toàn diện nhất, ta sẽ sử dụng cả hai bộ dữ liệu WIDER FACE thông thường và bộ dữ liệu WIDER FACE 4K đã được giới thiệu ở \textbf{\textit{phần 5.2}}.
+    Để so sánh một cách toàn diện nhất, ta sẽ sử dụng cả hai bộ dữ liệu WIDER FACE thông thường và bộ dữ liệu WIDER FACE 4K.
 
-    \noindent
-    \textbf{\textit{Thí nghiệm so sánh cấu hình sử dụng feature maps \index{feature maps} khác nhau của FPN làm đầu vào cho Nhánh Focus}} \index{nhánh Focus} \\
+    \subsubsection{Thí nghiệm so sánh cấu hình sử dụng feature maps khác nhau của FPN làm đầu vào cho Nhánh Focus}
     Trong thí nghiệm này, với mỗi cấu hình, chúng tôi sử dụng các feature maps \index{feature maps} khác nhau của FPN làm đầu vào cho Nhánh Focus \index{nhánh Focus}.
     Trong đó, lần lượt các cấu hình sử dụng feature maps \index{feature maps} ${C}_{3}, {C}_{4}, {C}_{5}, {P}_{3}, {P}_{4}, {P}_{5}$ được ký hiệu là \textit{C3}, \textit{C4}, \textit{C5}, \textit{P3}, \textit{P4}, \textit{P5} trong các biểu đồ.
     Trong các cấu hình trên, các cặp feature maps \index{feature maps} ${C}_{3}$ và ${P}_{3}$, ${C}_{4}$ và ${P}_{4}$, ${C}_{5}$ và ${P}_{5}$ là các cặp feature maps \index{feature maps} có cùng kích thước.
@@ -43,11 +42,9 @@
     \noindent
     Kết luận đối với thí nghiệm này là cấu hình sử dụng feature maps \index{feature maps} ${P}_{5}$ đạt kết quả tốt nhất về độ chính xác trong khi vẫn duy trì được thời gian thực hiện toàn bộ quá trình dự đoán tương đối nhanh.
 
-    \noindent
-    \textbf{\textit{Thí nghiệm so sánh cấu hình scale ảnh tốt nhất trong quá trình dự đoán}} \\
+    \subsubsection{Thí nghiệm so sánh cấu hình scale ảnh tốt nhất trong quá trình dự đoán}
 
-    \noindent
-    \textbf{\textit{Thí nghiệm so sánh cấu hình tốt nhất của RetinaFocus với các cấu hình của RetinaFace}} \\
+    \subsubsection{Thí nghiệm so sánh cấu hình tốt nhất của RetinaFocus với các cấu hình của RetinaFace}
     Các cấu hình của mô hình RetinaFace sử dụng trong thí nghiệm này bao gồm: \\
     - Cấu hình sử dụng chiến lược Image Pyramids kết hợp với việc lật ảnh đầu vào trong quá trình dự đoán, ký hiệu là \dots \\
     - Cấu hình chỉ sử dụng chiến lược Image Pyramids, ký hiệu là \dots \\

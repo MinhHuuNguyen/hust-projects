@@ -1,16 +1,9 @@
 \def\rcnn{
     \subsubsection{Mô hình R-CNN}
     Một trong các mô hình đầu tiên ứng dụng học sâu giải quyết bài toán object detection là Regions with CNN features \cite{girshick2014rich} (gọi tắt là R-CNN).
-    Tuy nhiên, ở thời điểm mà mô hình R-CNN ra đời, do các mô hình học sâu chưa thật sự phát triển nên mô hình R-CNN không hoàn toàn sử dụng học sâu mà vẫn dựa trên kết quả của thuật toán xử lý ảnh như Graph-Based Image Segmentation \cite{felzenszwalb2004efficient} và Selective Search \cite{uijlings2013selective}.
-
-    \noindent
-    \textbf{\textit{Thuật toán Graph-Based Image Segmentation}} \\
-
-    \noindent
-    \textbf{\textit{Thuật toán Selective Search}} \\
+    Tuy nhiên, ở thời điểm mà mô hình R-CNN ra đời, do các mô hình học sâu chưa thật sự phát triển nên mô hình R-CNN không hoàn toàn sử dụng học sâu mà vẫn dựa trên kết quả của thuật toán xử lý ảnh như Selective Search \cite{uijlings2013selective}.
     
-    \noindent
-    \textbf{\textit{Kiến trúc mô hình R-CNN}} \\
+    \subsubsection{Kiến trúc mô hình R-CNN}
     Là một trong số các mô hình two-stage, mô hình R-CNN bao gồm hai thành phần: \\
     - Phần region proposals module \index{region proposals module} mà mô hình R-CNN sử dụng là thuật toán Selective Search ở trên.
     Nhận đầu vào là ảnh, thuật toán Selective Search trả đầu ra là khoảng 2000 khu vực có khả năng có chứa đối tượng và mô hình R-CNN sử dụng các khu vực này làm đầu vào cho thành phần thứ hai. \\
@@ -46,8 +39,7 @@
     \textit{Bước 3 (Tuỳ chọn)}: Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực \\
     TODO Appendix C \\
 
-    \noindent
-    \textbf{\textit{Kết quả của mô hình R-CNN}} \\
+    \subsubsection{Kết quả của mô hình R-CNN}
     Kết quả của mô hình R-CNN trên bộ dữ liệu VOC 2010 test rất đáng chú ý.
     Trong hình \ref{fig:rcnn_results_3}, ta xét đến hai cấu hình của mô hình R-CNN: \\
     - Cấu hình cơ bản không bao gồm bước Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực được gọi là R-CNN. \\
@@ -95,8 +87,7 @@
         \label{fig:rcnn_results_2}
     \end{figure}
 
-    \noindent
-    \textbf{\textit{Vấn đề tồn đọng của mô hình R-CNN}} \\
+    \subsubsection{Vấn đề tồn đọng của mô hình R-CNN}
     Vấn đề lớn nhất của mô hình R-CNN là thời gian mà mô hình cần cho quá trình huấn luyện và quá trình test là rất lớn.
     Trong quá trình test, mô hình R-CNN sử dụng tới 47 giây để hoàn thành việc xử lý một ảnh.
     Kết quả này khiến cho mô hình R-CNN gần như không có giá trị thực tiễn.

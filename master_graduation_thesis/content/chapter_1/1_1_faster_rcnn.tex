@@ -1,15 +1,15 @@
 \def\fasterrcnn{
     Được lấy động lực từ những điểm yếu của mô hình Fast R-CNN \cite{girshick2015fast}, nhóm tác giả đã nghiên cứu và phát triển mô hình Faster R-CNN \cite{ren2015faster} với trung tâm là kiến trúc mô hình Region Proposal Network (gọi tắt là RPN).
-    Mô hình Region Proposal Network được kỳ vọng sẽ thay thế hoàn toàn các thuật toán như Selective Search \cite{uijlings2013selective} trong thành phần region proposals module \index{region proposals module} của các mô hình two-stage giải quyết bài toán object detection, hướng đến việc cải thiện không chỉ tốc độ của mô hình mà còn cải thiện về độ chính xác.
+    Mô hình RPN được kỳ vọng sẽ thay thế hoàn toàn các thuật toán như Selective Search \cite{uijlings2013selective} trong thành phần region proposals module \index{region proposals module} của các mô hình two-stage giải quyết bài toán object detection, hướng đến việc cải thiện không chỉ tốc độ của mô hình mà còn cải thiện về độ chính xác.
 
-    \subsubsection{Kiến trúc mô hình Region Proposal Network}
+    \subsubsection{Kiến trúc mô hình RPN}
     Mô hình RPN nhận đầu vào là ảnh với kích thước bất kỳ và trả đầu ra là toạ độ của các khu vực và xác suất khu vực đó là đối tượng nào trong các lớp đối tượng \index{lớp đối tượng}.
     Nhằm tiết kiệm chi phí tính toán, mô hình RPN dùng chung phần feature extraction module \index{feature extraction module} với Fast R-CNN.
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=9cm] {images/faster_rcnn_rpn}
-        \caption{Kiến trúc mô hình Region Proposal Network (Nguồn: \cite{ren2015faster})}
+        \caption{Kiến trúc mô hình RPN (Nguồn: \cite{ren2015faster})}
         \label{fig:faster_rcnn_rpn}
     \end{figure}
     
@@ -74,14 +74,13 @@
     Ngoài ra, việc huấn luyện mô hình với toàn bộ số anchor \index{anchor} được đề xuất ra cũng sẽ khiến cho khối lượng tính toán lớn và thời gian kéo dài quá trình huấn luyện mô hình.
     Từ đó, nhóm tác giả đề xuất việc lựa chọn ngẫu nhiên 256 anchor \index{anchor} trên mỗi ảnh để thực hiện việc tính loss. Việc lựa chọn này giúp tỷ lệ anchor \index{anchor} positive và negative trở nên cân bằng hơn và giảm thiểu bởi những phần khối lượng tính toán dư thừa.
 
-    \noindent
-    \textbf{\textit{Sự kết hợp giữa mô hình Region Proposal Network và Fast R-CNN}} \\
+    \subsubsection{Sự kết hợp giữa mô hình RPN và Fast R-CNN}
     Nhóm tác giả cho rằng, việc huấn luyện mô hình RPN và Fast R-CNN cần phải diễn ra đồng thời, vì từ đó, việc chia sẻ chung thành phần backbone Conv mới trở nên hiệu quả.
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=10cm] {images/faster_rcnn_model}
-        \caption{Toàn cảnh sự kết hợp của mô hình Region Proposal Network và Fast R-CNN tạo ra mô hình Faster R-CNN (Nguồn: \cite{ren2015faster})}
+        \caption{Toàn cảnh sự kết hợp của mô hình RPN và Fast R-CNN tạo ra mô hình Faster R-CNN (Nguồn: \cite{ren2015faster})}
         \label{fig:faster_model}
     \end{figure}
 
@@ -107,8 +106,7 @@
     - Bước 4: Nhóm tác giả finetune lại những lớp riêng của mô hình Fast R-CNN với các khu vực được đề xuất bởi RPN và thu được mô hình Faster R-CNN cuối cùng. \\
     Nhóm tác giả cũng đã lặp lại 4 bước trên vài lần nhưng kết quả không thay đổi quá nhiều.
 
-    % \noindent
-    % \textbf{\textit{Kết quả của mô hình Faster R-CNN}} \\
+    % \subsubsection{Kết quả của mô hình Faster R-CNN}
     % Đầu tiên, trong hình \ref{fig:faster_rcnn_results_1}, kết quả của mô hình Fast R-CNN sử dụng RPN, backbone ZF-Net và dùng chung backbone giữa nhánh RPN và nhánh Fast R-CNN (\textbf{RPN+ZF, shared}) tốt hơn trên chỉ số mAP so sánh với việc sử dụng thuật toán Selective Search \textbf{SS} và EdgeBoxes \textbf{EB} trên bộ dữ liệu VOC 2007 test. Trong đó, số lượng khu vực được đề xuất trong quá trình huấn luyện được thống kê tại cột \textbf{\# boxes}, trong quá trình test được thống kê tại cột \textbf{\# proposals}.
 
     % \begin{figure}[H]
@@ -164,12 +162,11 @@
     % \begin{figure}[H]
     %     \centering
     %     \includegraphics[width=10cm] {images/faster_rcnn_results_4}
-    %     \caption{Toàn cảnh sự kết hợp của mô hình Region Proposal Network và Fast R-CNN tạo ra mô hình Faster R-CNN (Nguồn: \cite{ren2015faster})}
+    %     \caption{Toàn cảnh sự kết hợp của mô hình RPN và Fast R-CNN tạo ra mô hình Faster R-CNN (Nguồn: \cite{ren2015faster})}
     %     \label{fig:faster_rcnn_results_4}
     % \end{figure}
 
-    \noindent
-    \textbf{\textit{Vấn đề tồn đọng của mô hình Faster R-CNN}} \\
+    \subsubsection{Vấn đề tồn đọng của mô hình Faster R-CNN}
     Kết quả của mô hình Faster R-CNN và tâm điểm là kiến trúc RPN giúp thay thế thuật toán Selective Search đã giúp cho Faster R-CNN đạt độ chính xác cao hơn so với mô hình Fast R-CNN sử dụng Selective Search.
     Hơn nữa, RPN giúp cho Faster R-CNN nhanh hơn tới 10 lần so với cấu hình tương tự Fast R-CNN sử dụng Selective Search.
     Điều này giúp cho Faster R-CNN cho đến nay vẫn là một mô hình tốt để giải quyết bài toán object detection, vừa đạt độ chính xác cao, vừa có tốc độ tương đối tốt.

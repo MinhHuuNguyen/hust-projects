@@ -5,13 +5,11 @@
     Điều này giúp việc huấn luyện bằng phương pháp SNIPER \index{SNIPER} tiết kiệm bộ nhớ hơn và có thể sử dụng được batch size lớn hơn trong quá trình huấn luyện.
     Mô hình object detection mà nhóm tác giả sử dụng để làm các thí nghiệm với SNIPER \index{SNIPER} là mô hình Faster R-CNN \cite{ren2015faster}.
 
-    \noindent
-    \textbf{\textit{Ý tưởng của phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}} \\
+    \subsubsection{Ý tưởng của phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}
     Nhằm tối ưu hoá khối lượng tính toán trong quá trình huấn luyện, thay vì việc thay đổi kích thước của ảnh và chọn ra những object có kích thước phù hợp trong quá trình huấn luyện, phương pháp SNIPER \index{SNIPER} cung cấp một cơ chế tiền xử lý dữ liệu.
     Từ bộ dữ liệu gốc ban đầu, các thuật toán của SNIPER \index{SNIPER} xử lý và tạo ra bộ dữ liệu mới với các ảnh trong bộ dữ liệu được gọi là các Chip.
 
-    \noindent
-    \textbf{\textit{Định nghĩa Chip và phương pháp sinh ra Chip bằng phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}} \\
+    \subsubsection{Định nghĩa Chip và phương pháp sinh ra Chip bằng phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}
     Chip trong SNIPER \index{SNIPER} có thể được hiểu là một phần của bức ảnh và đây cũng là đơn vị dữ liệu sử dụng trong quá trình huấn luyện mô hình.
     Các bước sinh ra bộ Chip trong thuật toán SNIPER \index{SNIPER} như sau: \\
     - \textit{Bước 1}: Nhóm tác giả định nghĩa một danh sách các kích thước ảnh {${s}_{1}$, ${s}_{2}$, ..., ${s}_{i}$, ..., ${s}_{n}$}. \\
@@ -20,8 +18,7 @@
     - \textit{Bước 3}: Trên mỗi ảnh trong bộ dữ liệu ảnh mới, SNIPER \index{SNIPER} đặt các ô vuông có kích thước \textit{KxK} sao cho tâm của các ô vuông này cách đều nhau một khoảng \textit{d} pixels \index{pixels}. \\
     - \textit{Bước 4}: SNIPER \index{SNIPER} cắt ảnh theo các ô vuông đã đặt từ bước 3 để tạo thành các Chip. Danh sách các Chip này sẽ được lựa chọn và xử lý ở các thuật toán tiếp theo.
 
-    \noindent
-    \textbf{\textit{Phương pháp lựa chọn các positive Chips}} \\
+    \subsubsection{Phương pháp lựa chọn các positive Chips}
     Từ danh sách các Chip đã được tạo ra bởi thuật toán trên, nhóm tác giả thực hiện thuật toán lựa chọn các positive Chips.
     positive Chip ở đây được hiểu là các Chip chứa các groundtruth \index{groundtruth} bounding box \index{bounding box} của object mà mô hình cần học.
     Các bước lựa chọn ra positive Chip trong phương pháp SNIPER \index{SNIPER} như sau: \\
@@ -48,14 +45,13 @@
     Trong hình \ref{fig:sniper_pos_chip}, từ ảnh và các groundtruth \index{groundtruth} bounding box \index{bounding box} ban đầu (ảnh bên phải), thuật toán của SNIPER \index{SNIPER} đã cắt ra được các Chip (ảnh bên trái), mỗi Chip sẽ tương ứng chứa các groundtruth \index{groundtruth} bounding box \index{bounding box} hợp lệ (các bounding box \index{bounding box} màu xanh) và các groundtruth \index{groundtruth} bounding box \index{bounding box} không hợp lệ (các bounding box \index{bounding box} màu đỏ).
     Kết quả trên của SNIPER \index{SNIPER} đảm bảo tất cả các groundtruth \index{groundtruth} bounding box \index{bounding box} đều được huấn luyện ở một Chip nào đó phù hợp, trong khi kích thước của Chip chỉ bằng 1/10 kích thước của ảnh phù hợp cho groundtruth \index{groundtruth} bounding box \index{bounding box}.
 
-    \noindent
-    \textbf{\textit{Phương pháp lựa chọn các negative Chips}} \\
+    \subsubsection{Phương pháp lựa chọn các negative Chips}
     Việc xây dựng thuật toán lựa chọn các positive Chips chứa tất cả các groundtruth \index{groundtruth} bounding box \index{bounding box} đã giúp cải thiện rất nhiều tốc độ huấn luyện mô hình.
     Nhưng vẫn còn một vấn đề tồn đọng, đó chính là việc thiếu hụt một lượng lớn background \index{background} (do phần lớn background \index{background} đã bị loại bỏ trong thuật toán sinh ra các positive Chips).
     Điều này dẫn đến việc mô hình thường xuyên dự đoán background \index{background} thành các vùng chứa các đối tượng.
     Do đó, nhóm tác giả đề xuất bổ sung thêm các Chip là background \index{background} không chứa đối tượng, gọi là các negative Chips. \\
     Nhóm tác giả nhận xét rằng có một số phần background \index{background} trong ảnh rất dễ để phân biệt và sẽ tốn kém chi phí tính toán để xử lý những phần background \index{background} dễ này.
-    Từ nhận xét trên, nhóm tác giả đề xuất việc sử dụng các khu vực được đề xuất từ mô hình Region Proposal Network của Faster R-CNN bởi vì các khu vực này có khả năng khiến cho mô hình nhầm lẫn giữa đối tượng cụ thể nào đó và background \index{background}.
+    Từ nhận xét trên, nhóm tác giả đề xuất việc sử dụng các khu vực được đề xuất từ mô hình RPN của Faster R-CNN bởi vì các khu vực này có khả năng khiến cho mô hình nhầm lẫn giữa đối tượng cụ thể nào đó và background \index{background}.
 
     \begin{figure}[H]
         \centering
@@ -73,14 +69,12 @@
     Các Chips sẽ được lựa chọn nếu chứa nhiều hơn M khu vực được đề xuất tạo thành danh sách các negative Chips ${C}_{neg}^{i}$. \\
     \textit{Bước 4}: Danh sách các negative Chips được kết hợp cùng với danh sách các positive Chips để tiếp tục huấn luyện mô hình Faster R-CNN.
 
-    \noindent
-    \textbf{\textit{Kết quả của phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}} \\
+    \subsubsection{Kết quả của phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}
     Theo thống kê của nhóm tác giả trên bộ dữ liệu COCO, bằng các phương pháp sinh và lựa chọn Chips, số lượng pixels \index{pixels} mà SNIPER \index{SNIPER} xử lý trong quá trình huấn luyện chỉ hơn khoảng 30\% so với số lượng pixels \index{pixels} cần xử lý khi huấn luyện với chỉ duy nhất một kích thước của ảnh.
     So sánh với việc huấn luyện với dữ liệu ảnh với 3 kích thước khác nhau cho mỗi ảnh, việc sử dụng các Chips có kích thước giống nhau giúp SNIPER \index{SNIPER} tối ưu về batch size hơn khi huấn luyện mô hình.
     So sánh với chiến lược của SNIP, SNIPER \index{SNIPER} đạt được độ chính xác tương đương trong khi giảm được 3 lần số pixels \index{pixels} cần phải huấn luyện trên bộ dữ liệu COCO.
 
-    \noindent
-    \textbf{\textit{Vấn đề tồn đọng của phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}} \\
+    \subsubsection{Vấn đề tồn đọng của phương pháp chuẩn bị dữ liệu SNIPER \index{SNIPER}}
     SNIPER \index{SNIPER} đã phần nào đó cải thiện một cách đáng kể vấn đề về thời gian huấn luyện của SNIP.
     Tuy nhiên, trong quá trình dự đoán, SNIPER \index{SNIPER} vẫn cần phải sử dụng phương pháp Image Pyramids để đạt được độ chính xác cao.
     Đối với những bộ dữ liệu ảnh có kích thước lớn thì tốc độ dự đoán của SNIPER \index{SNIPER} vẫn rất chậm và đây là vấn đề tồn đọng thúc đẩy các nghiên cứu giải quyết triệt để.

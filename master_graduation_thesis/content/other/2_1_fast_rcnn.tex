@@ -1,9 +1,7 @@
 \def\fastrcnn{
-    \subsubsection{Mô hình Fast R-CNN}
     Fast R-CNN \cite{girshick2015fast}, được phát triển bởi một trong nhóm tác giả của mô hình R-CNN, và là một phiên bản nâng cấp hơn so với R-CNN giúp phần nào giải quyết được một phần điểm yếu về tốc độ của mô hình R-CNN.
 
-    \noindent
-    \textbf{\textit{Kiến trúc mô hình Fast R-CNN}} \\
+    \subsubsection{Kiến trúc mô hình Fast R-CNN}
     Là một phiên bản nâng cấp của mô hình R-CNN, nên Fast R-CNN cũng bao gồm hai thành phần: \\
     - Phần region proposals module \index{region proposals module} mà mô hình Fast R-CNN sử dụng vẫn là thuật toán Selective Search tương tự như R-CNN. \\
     - Phần feature extraction module \index{feature extraction module} của mô hình R-CNN là một mô hình phân lớp ảnh, cụ thể theo \cite{girshick2015fast} là VGG16. \\
@@ -23,8 +21,7 @@
     Tuy nhiên, có một vấn xảy ra với cách thiết kế mô hình trên, đó là mỗi khu vực đề xuất từ thuật toán Selective Search có kích thước khác nhau, do đó, kích thước của đặc trưng đại diện cho mỗi khu vực đề xuất cũng khác nhau và ta cần các đặc trưng này có cùng kích thước để có thể đưa vào cùng chung các lớp fully-connected.
     Tác giả giải quyết vấn đề này bằng cách xây dựng một lớp mới trong kiến trúc mô hình Fast R-CNN, tên là \textit{RoI pooling}.
 
-    \noindent
-    \textbf{\textit{Lớp RoI pooling}} \\
+    \subsubsection{Lớp RoI pooling}
     Trước khi đi sâu vào chi tiết của lớp RoI pooling, ta sẽ cùng bàn luận về lớp pooling thông thường.
     Có hai phương pháp pooling phổ biến là max pooling và average pooling.
 
@@ -53,8 +50,7 @@
     - Theo chiều W, ta có ${W}_{2}$ phần pooling và mỗi phần có kích thước là ${K}_{w} = \lfloor\frac{{W}_{1}}{{W}_{2}}\rfloor$, ngoại trừ phần cuối có kích thước ${K}_{w} + ({W}_{1} - {W}_{2} * {K}_{w})$. \\
     - Theo chiều H, ta có ${H}_{2}$ phần pooling và mỗi phần có kích thước là ${K}_{h} = \lfloor\frac{{H}_{1}}{{H}_{2}}\rfloor$, ngoại trừ phần cuối có kích thước ${K}_{h} + ({H}_{1} - {H}_{2} * {K}_{h})$. \\
 
-    \noindent
-    \textbf{\textit{Hàm loss multi-task và cách finetune mô hình Fast R-CNN}} \\
+    \subsubsection{Hàm loss multi-task và cách finetune mô hình Fast R-CNN}
     Một điểm cải tiến khác của mô hình Fast R-CNN so với mô hình R-CNN đó là việc sử dụng hàm loss multi-task và finetune toàn bộ mô hình. \\
     Trong quá trình huấn luyện mô hình, tác giả lấy ngẫu nhiên N ảnh và lấy ngẫu nhiên $\frac{R}{N}$ RoIs trên mỗi ảnh.
     Nhằm đảm bảo vấn đề về bộ nhớ không xảy ra trong suốt quá trình huấn luyện, tác giả lựa chọn N = 2 và R = 128.
@@ -101,8 +97,7 @@
     TODO: bổ sung backprop cho pooling \\
     TODO: tăng tốc độ tính toán bằng SVD
 
-    \noindent
-    \textbf{\textit{Kết quả của mô hình Fast R-CNN}} \\
+    \subsubsection{Kết quả của mô hình Fast R-CNN}
     Đầu tiên, kết quả của mô hình Fast R-CNN trên bộ dữ liệu VOC 2007 test đáng chú ý.
     Trong hình \ref{fig:fast_rcnn_results_1}, tác giả xét đến ba cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần feature extraction module \index{feature extraction module}) nhưng khác nhau về bộ dữ liệu huấn luyện mà mỗi cấu hình sử dụng: \\
     - Cấu hình sử dụng bộ dữ liệu huấn luyện là VOC07 trainval: ký hiệu là \textbf{07} \\
@@ -164,8 +159,7 @@
         \label{fig:fast_rcnn_results_4}
     \end{figure}
 
-    \noindent
-    \textbf{\textit{Vấn đề tồn đọng của mô hình Fast R-CNN}} \\
+    \subsubsection{Vấn đề tồn đọng của mô hình Fast R-CNN}
     Những kết quả vượt bậc về mặt tốc độ của mô hình Fast R-CNN đã giải quyết được vấn đề tồn đọng của R-CNN trong khi vẫn duy trì được độ chính xác cao.
     Tuy nhiên, kiến trúc của mô hình Fast R-CNN vẫn phụ thuộc vào một thuật toán đề xuất khu vực như Selective Search và điều này tạo động lực để các nhà nghiên cứu xây dựng mô hình học sâu thay thế cho các thuật toán này.
 }

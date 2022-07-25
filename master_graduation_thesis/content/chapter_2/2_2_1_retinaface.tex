@@ -6,7 +6,7 @@
     \noindent
     \textbf{\textit{Kiến trúc mô hình RetinaFace}} \\
     Mô hình RetinaFace có kiến trúc dựa trên ý tưởng của RetinaNet \cite{lin2017focal} đã được thảo luận ở \textit{phần 2.3} của luận văn.
-    RetinaFace cũng sử dụng kiến trúc backbone Feature Pyramids Network nhằm trích xuất đặc trưng của ảnh đầu vào với nhiều kích thước feature maps \index{feature maps} khác nhau.
+    RetinaFace cũng sử dụng kiến trúc backbone Feature Pyramid Network nhằm trích xuất đặc trưng của ảnh đầu vào với nhiều kích thước feature maps \index{feature maps} khác nhau.
     Tuy nhiên, thay vì sử dụng trực tiếp các feature maps \index{feature maps} này nhằm trả đầu ra là các bounding box \index{bounding box} chứa khuôn mặt, RetinaFace đưa các feature maps \index{feature maps} này qua các khối Context Module nhằm thu thập thêm các thông tin về background \index{background} xung quanh trước khi đưa ra dự đoán về bounding box \index{bounding box}.
     
     \begin{figure}[H]
