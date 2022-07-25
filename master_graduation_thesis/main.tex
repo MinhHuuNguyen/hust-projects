@@ -46,9 +46,9 @@
 % Package su dung de reference/citation co the click
 \usepackage{hyperref}
 
-% % Package su dung cho viec danh `chi muc tu khoa`
-% \usepackage{imakeidx}
-% \makeindex[columns=2, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
+% Package su dung cho viec danh `chi muc tu khoa`
+\usepackage{imakeidx}
+\makeindex[columns=3, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
 
 % Package su dung cho `khungtrangbia`
 \usepackage{tikz}
@@ -81,10 +81,6 @@
 
     \input{utils/trang_bia/trang_bia.tex}
     \trangbia
-
-    \newpage
-    \input{utils/cac_trang_chuc_nang/de_tai_luan_van.tex}
-    \detailuanvan
 
     \newpage
     \input{utils/cac_trang_chuc_nang/loi_cam_on.tex}
@@ -124,10 +120,6 @@
     \input{content/3_datasets_and_experiments.tex}
     \datasetsandexperiments
 
-    % \newpage
-    % \input{content/3_object_detection_high_res.tex}
-    % \objectdetectionhighres
-
     % % KET THUC PHAN NOI DUNG CHINH
 
     % BAT DAU CAC TRANG CHUC NANG KHAC
@@ -137,6 +129,9 @@
     \newpage
     \input{utils/cac_trang_chuc_nang/tong_ket.tex}
     \tongket
+
+    \newpage
+    \printindex
 
     \newpage
     \addcontentsline{toc}{section}{Tài liệu tham khảo}

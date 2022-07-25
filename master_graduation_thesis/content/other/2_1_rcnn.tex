@@ -12,9 +12,9 @@
     \noindent
     \textbf{\textit{Kiến trúc mô hình R-CNN}} \\
     Là một trong số các mô hình two-stage, mô hình R-CNN bao gồm hai thành phần: \\
-    - Phần Region proposals module mà mô hình R-CNN sử dụng là thuật toán Selective Search ở trên.
+    - Phần region proposals module \index{region proposals module} mà mô hình R-CNN sử dụng là thuật toán Selective Search ở trên.
     Nhận đầu vào là ảnh, thuật toán Selective Search trả đầu ra là khoảng 2000 khu vực có khả năng có chứa đối tượng và mô hình R-CNN sử dụng các khu vực này làm đầu vào cho thành phần thứ hai. \\
-    - Phần Feature extraction module của mô hình R-CNN là một mô hình phân lớp ảnh, cụ thể theo \cite{girshick2014rich} là AlexNet.
+    - Phần feature extraction module \index{feature extraction module} của mô hình R-CNN là một mô hình phân lớp ảnh, cụ thể theo \cite{girshick2014rich} là AlexNet.
     Mô hình R-CNN sử dụng AlexNet nhằm đánh giá xem khu vực đã được đề xuất bởi Selective Search có chứa đối tượng hay không và nếu có thì khu vực đó chứa đối tượng nào. \\
 
     \begin{figure}[H]
@@ -25,22 +25,22 @@
     \end{figure}
 
     \noindent
-    Đối với thành phần Feature extraction module, nhóm tác giả thực hiện hai thí nghiệm: \\
+    Đối với thành phần feature extraction module \index{feature extraction module}, nhóm tác giả thực hiện hai thí nghiệm: \\
     \textit{Thí nghiệm 1: Finetune mô hình phân lớp CNN} \\
-    Nhóm tác giả thay thế lớp fully-connected cuối cùng của mô hình AlexNet (gồm 1000 lớp theo bộ dữ liệu ImageNet) bằng một lớp fully-connected mới (gồm 21 lớp: 20 lớp của bộ dữ liệu VOC và 1 lớp ứng với background).
+    Nhóm tác giả thay thế lớp fully-connected cuối cùng của mô hình AlexNet (gồm 1000 lớp theo bộ dữ liệu ImageNet) bằng một lớp fully-connected mới (gồm 21 lớp: 20 lớp của bộ dữ liệu VOC và 1 lớp ứng với background \index{background}).
     Và họ finetune lại mô hình này với thuật toán tối ưu là SGC và learning rate rất nhỏ.
     Các khu vực đã được đề xuất bởi thuật toán Selective Search được sử dụng làm dữ liệu cho bước này, trong đó:
-    Những khu vực có chỉ số IoU với groundtruth bounding box >= 0.5 được gán nhãn là lớp của bounding box đó.
-    Và ngược lại, sẽ được gán nhãn là lớp background. \\
+    Những khu vực có chỉ số IoU \index{IoU} với groundtruth \index{groundtruth} bounding box \index{bounding box} >= 0.5 được gán nhãn là lớp của bounding box \index{bounding box} đó.
+    Và ngược lại, sẽ được gán nhãn là lớp background \index{background}. \\
     TODO Appendix B \\
     Lý do ta cần finetune lại mô hình AlexNet được nhóm tác giả giải thích rằng có những điểm khác nhau giữa bộ dữ liệu pretrained ImageNet và bộ dữ liệu gồm các khu vực được đề xuất bởi Selective Search.
 
     \noindent
-    \textit{Thí nghiệm 2: Xây dựng bộ phân lớp đối tượng bằng SVM} \\
+    \textit{Thí nghiệm 2: Xây dựng bộ phân lớp đối tượng \index{lớp đối tượng} bằng SVM} \\
     Với mô hình AlexNet đã được finetune lại như trên, nhóm tác giả sử dụng nó để lấy ra các đặc trưng của ảnh đầu vào và từ đó train các mô hình SVM.
-    Mỗi mô hình SVM tương ứng với một lớp đối tượng và mỗi mô hình SVM trả lời cho câu hỏi, đặc trưng của khu vực đó có phải là đối tượng đó hay không.
-    Những đặc trưng của khu vực có chỉ số IoU với groundtruth bounding box >= 0.3 sẽ được gán nhãn là lớp của bounding box đó.
-    Và ngược lại, những đặc trưng của khu vực có chỉ số IoU với groundtruth bounding box < 0.3 sẽ được gán nhãn không phải là lớp của bounding box đó. \\
+    Mỗi mô hình SVM tương ứng với một lớp đối tượng \index{lớp đối tượng} và mỗi mô hình SVM trả lời cho câu hỏi, đặc trưng của khu vực đó có phải là đối tượng đó hay không.
+    Những đặc trưng của khu vực có chỉ số IoU \index{IoU} với groundtruth \index{groundtruth} bounding box \index{bounding box} >= 0.3 sẽ được gán nhãn là lớp của bounding box \index{bounding box} đó.
+    Và ngược lại, những đặc trưng của khu vực có chỉ số IoU \index{IoU} với groundtruth \index{groundtruth} bounding box \index{bounding box} < 0.3 sẽ được gán nhãn không phải là lớp của bounding box \index{bounding box} đó. \\
     TODO Appendix B \\
 
     \textit{Bước 3 (Tuỳ chọn)}: Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực \\
@@ -52,8 +52,8 @@
     Trong hình \ref{fig:rcnn_results_3}, ta xét đến hai cấu hình của mô hình R-CNN: \\
     - Cấu hình cơ bản không bao gồm bước Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực được gọi là R-CNN. \\
     - Cấu hình nâng cao Bổ sung thêm hàm loss cải thiện khả năng định vị khu vực được gọi là R-CNN BB. \\
-    Với cấu hình cơ bản, R-CNN đạt được chỉ số average precision cao hơn trên tất cả các lớp đối tượng và chỉ số mAP cao hơn 10\% so với các mô hình hiện đại nhất tại thời điểm đó.
-    Hơn nữa, với cấu hình R-CNN BB, mô hình còn đạt được chỉ số AP trên tất cả các lớp đối tượng và chỉ số mAP cao hơn 3\% so với cấu hình cơ bản R-CNN.
+    Với cấu hình cơ bản, R-CNN đạt được chỉ số average precision cao hơn trên tất cả các lớp đối tượng \index{lớp đối tượng} và chỉ số mAP cao hơn 10\% so với các mô hình hiện đại nhất tại thời điểm đó.
+    Hơn nữa, với cấu hình R-CNN BB, mô hình còn đạt được chỉ số AP trên tất cả các lớp đối tượng \index{lớp đối tượng} và chỉ số mAP cao hơn 3\% so với cấu hình cơ bản R-CNN.
     \begin{figure}[H]
         \centering
         \includegraphics[width=15cm] {images/rcnn_results_3}
@@ -83,8 +83,8 @@
         \label{fig:rcnn_results_1}
     \end{figure}
     \noindent
-    Cuối cùng, nhóm tác giả so sánh vai trò của Feature extraction module đối với kết quả chung của mô hình R-CNN.
-    Trong hình \ref{fig:rcnn_results_2}, nhóm tác giả xét đến hai mô hình có thể sử dụng trong Feature extraction module: \\
+    Cuối cùng, nhóm tác giả so sánh vai trò của feature extraction module \index{feature extraction module} đối với kết quả chung của mô hình R-CNN.
+    Trong hình \ref{fig:rcnn_results_2}, nhóm tác giả xét đến hai mô hình có thể sử dụng trong feature extraction module \index{feature extraction module}: \\
     - Cấu hình sử dụng mô hình AlexNet: R-CNN T-Net và R-CNN T-Net BB. \\
     - Cấu hình sử dụng mô hình VGG16: R-CNN O-Net và R-CNN O-Net BB. \\
     Trong thí nghiệm này, mô hình VGG16 cho kết quả tốt hơn khá nhiều so với mô hình AlexNet.
