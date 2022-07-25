@@ -4,7 +4,7 @@
     Feature Pyramid Networks \index{Feature Pyramid Networks} \cite{lin2017feature} (gọi tắt là FPN \index{FPN}) được giới thiệu như một kiến trúc backbone \index{backbone} nhằm giải quyết vấn đề trên.
     Việc sử dụng FPN \index{FPN} như là kiến trúc backbone \index{backbone} kết hợp cùng mô hình Faster R-CNN \index{Faster R-CNN} \index{Faster R-CNN} \cite{ren2015faster} đã vượt qua rất nhiều các mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác để trở thành mô hình tốt nhất ở thời điểm đó.
 
-    \subsubsection{So sánh các kiến trúc pyramid \index{kiến trúc pyramid} khác nhau}
+    \subsubsection*{So sánh các kiến trúc pyramid \index{kiến trúc pyramid} khác nhau}
 
     \begin{figure}[H]
         \centering
@@ -20,7 +20,7 @@
     - \textit{Pyramidal feature hierarchy} \index{Pyramidal feature hierarchy}: Việc sử dụng nhiều feature maps \index{feature maps} có kích thước khác nhau cùng đưa ra kết quả được sử dụng trong mô hình nhận diện đối tượng \index{nhận diện đối tượng} khá nổi tiếng là SSD \index{SSD} \cite{liu2016ssd}. Tuy nhiên, thay vì tận dụng toàn bộ các feature maps \index{feature maps} sinh ra từ các khối Conv của backbone \index{backbone} VGG-16 \index{VGG-16}, SSD \index{SSD} chỉ sử dụng feature maps \index{feature maps} từ khối Conv thứ 5 và bổ sung thêm các lớp Conv \index{lớp Conv}. Điều này khiến cho SSD \index{SSD} bỏ qua những feature maps \index{feature maps} có kích thước lớn, có ý nghĩa quan trọng trong việc detect các đối tượng có kích thước nhỏ. \\
     - \textit{Feature Pyramid Network} \index{Feature Pyramid Network}: Dựa trên vấn đề trên từ SSD \index{SSD}, nhóm tác giả đề xuất FPN \index{FPN} tận dụng tối đa các feature maps \index{feature maps} trích xuất được từ backbone \index{backbone} nhằm tạo ra bộ feature maps \index{feature maps} mới gồm nhiều kích thước khác nhau và chứa rất nhiều thông tin về nội dung của ảnh đầu vào. Để đạt được điều này, nhóm tác giả thiết kế kiến trúc kết hợp những feature maps \index{feature maps} có kích thước lớn và những feature maps \index{feature maps} có kích thước nhỏ bằng top-down pathway \index{top-down pathway} và lateral connections \index{lateral connections}.
 
-    \subsubsection{Chi tiết kiến trúc FPN}
+    \subsubsection*{Chi tiết kiến trúc FPN}
     Ý tưởng về việc sử dụng kiến trúc mô hình theo dạng top-down không phải là mới và đã được nhắc đến trong một số nghiên cứu. Tuy nhiên, điểm giống nhau của các nghiên cứu có thiết kế mô hình theo kiểu top-down đó là mô hình chỉ sử dụng một feature maps \index{feature maps} cuối cùng, sau khi đã tổng hợp các thông tin trong suốt quá trình top-down, để đưa ra quyết định dự đoán cuối cùng.
 
     \noindent
@@ -54,7 +54,7 @@
         \label{fig:fpn_detail}
     \end{figure}
 
-    % \subsubsection{Sử dụng kiến trúc FPN cho mô hình RPN}
+    % \subsubsection*{Sử dụng kiến trúc FPN cho mô hình RPN}
     % Ý tưởng về việc sử dụng kiến trúc FPN \index{FPN} cho mô hình RPN \index{RPN} \cite{ren2015faster} được nhóm tác giả đề xuất nhằm cải thiện khả năng đề xuất ra các khu vực có kích thước chênh lệch nhau.
     % Cụ thể, thay vì việc sử dụng một feature maps \index{feature maps} thu được từ feature extraction module \index{feature extraction module}, nhóm tác giả sử dụng các feature maps \index{feature maps} \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}, {P}_{6}$}} (nhóm tác giả sử dụng thêm feature maps \index{feature maps} ${P}_{6}$ nhằm đề xuất ra những khu vực có kích thước lớn hơn).
     % Các feature maps \index{feature maps} này cùng được đưa qua một bộ các lớp Conv \index{lớp Conv} 3x3 và 1x1 chung để trả đầu ra kết quả anchor \index{anchor} có chứa đối tượng hay không và toạ độ của khu vực mà mô hình đề xuất.
@@ -85,7 +85,7 @@
     % Cấu hình \textit{FPN} đạt kết quả cao hơn vượt trội so với các cấu hình \textit{baseline on conv4} và \textit{baseline on conv5} nguyên bản.
     % Cấu hình \textit{FPN} chỉ đạt kết quả kém hơn so với cấu hình \textit{bottom-up pyramid} khi so sánh trên chỉ số đánh giá với những bounding box \index{bounding box} có kích thước lớn, tuy nhiên, sự chênh lệch giữa hai cấu hình là không quá khác biệt.
 
-    % \subsubsection{Sử dụng kiến trúc FPN cho mô hình Fast R-CNN \index{Fast R-CNN}}
+    % \subsubsection*{Sử dụng kiến trúc FPN cho mô hình Fast R-CNN \index{Fast R-CNN}}
     % Ý tưởng về việc sử dụng kiến trúc FPN cho mô hình Fast R-CNN \index{Fast R-CNN} được nhóm tác giả đề xuất nhằm cải thiện khả năng định vị ra bounding box \index{bounding box} từ các khu vực đã được đề xuất từ mô hình RPN.
     % Cụ thể, sau khi đưa ảnh qua region proposals module \index{region proposals module} của mô hình Fast R-CNN \index{Fast R-CNN} là Selective Search, ta thu được toạ độ của khu vực được đề xuất trên ảnh đầu vào.
     % Đối với mô hình Fast R-CNN \index{Fast R-CNN} nguyên bản, ta dễ dàng lấy được khu vực đề xuất trên feature maps \index{feature maps} của ảnh đầu vào, tuy nhiên, với việc sử dụng kiến trúc FPN cho feature extraction module \index{feature extraction module}, câu hỏi đặt ra là đối với từng khu vực đề xuất ta xác định feature maps \index{feature maps} nào trong số \textit{{${P}_{2}, {P}_{3}, {P}_{4}, {P}_{5}$}} để lấy làm đầu vào cho lớp RoI pooling?
@@ -125,7 +125,7 @@
     % feature maps \index{feature maps} sử dụng trong cấu hình được ghi chú tại cột \textbf{feature}, kiến trúc mô hình RPN \index{RPN} \cite{ren2015faster} sử dụng trong từng cấu hình được chú thích tại cột \textbf{proposals}, cấu hình của phần head của mô hình Fast R-CNN \index{Fast R-CNN} được chú thích tại cột \textbf{head}, cấu hình có sử dụng lateral connections \index{lateral connections} và top-down pathway hay không được chú thích tại cột \textbf{lateral} và \textbf{top-down}. \\
     % Cấu hình \textit{FPN} đạt kết quả cao hơn vượt trội so với các cấu hình \textit{baseline on conv4}, \textit{baseline on conv5} nguyên bản và cả các cấu hình tuỳ chọn như \textit{bottom-up pyramid}, \textit{top-down pyramid, w/o lateral}, \textit{only finest level}.
 
-    % \subsubsection{Sử dụng kiến trúc FPN cho toàn bộ các thành phần của mô hình Faster R-CNN}
+    % \subsubsection*{Sử dụng kiến trúc FPN cho toàn bộ các thành phần của mô hình Faster R-CNN}
     % Nhóm tác giả còn thực hiện một thí nghiệm nữa với kiến trúc FPN khi sử dụng FPN chung cho toàn bộ cả mô hình RPN \index{RPN} \cite{ren2015faster} và mô hình Fast R-CNN \index{Fast R-CNN} (mô hình RPN \index{RPN} \cite{ren2015faster} và mô hình Fast R-CNN \index{Fast R-CNN} sử dụng chung một kiến trúc backbone \index{backbone} FPN) và cũng đạt kết quả tương đối tốt.
 
     % \begin{figure}[H]
@@ -146,7 +146,7 @@
     % Cấu hình \textit{FPN} đạt kết quả cao hơn vượt trội so với các cấu hình còn lại trên hầu hết các chỉ số đánh giá.
     % Chỉ có duy nhất chỉ số trên đối với các bounding box \index{bounding box} có kích thước lớn thì kết quả của cấu hình \textit{FPN} kém hơn một chút so với cấu hình \textit{baseline on conv4}.
 
-    \subsubsection{Vấn đề tồn đọng của kiến trúc FPN}
+    \subsubsection*{Vấn đề tồn đọng của kiến trúc FPN}
     Kiến trúc FPN ra đời đã tạo ra một trong số những kiến trúc backbone \index{backbone} kinh điển trong bài toán nhận diện đối tượng \index{nhận diện đối tượng} nói riêng.
     Kiến trúc FPN đã giúp cho nhiều mô hình đạt độ chính xác cao hơn và trong khi tốc độ của mô hình không bị tăng một cách đáng kể.
     Tuy nhiên, đối với cụ thể bài toán nhận diện đối tượng \index{nhận diện đối tượng}, việc kết hợp kiến trúc FPN vào mô hình Faster R-CNN \index{Faster R-CNN} mới chỉ cải thiện về mặt độ chính xác cho mô hình Faster R-CNN \index{Faster R-CNN} mà chưa giúp tăng tốc mô hình Faster R-CNN \index{Faster R-CNN}.

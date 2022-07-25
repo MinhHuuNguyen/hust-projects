@@ -3,7 +3,7 @@
     Phương pháp SNIP hướng đến việc sử dụng tối đa sự đa dạng trong biến thể của đối tượng trong bộ dữ liệu trong khi có thể thu hẹp được sự biến động trong kích thước của các đối tượng.
     Từ đó, mô hình sẽ có nhiều dữ liệu nhất có thể và cũng sẽ có kích thước đối tượng phù hợp nhất để học.
 
-    \subsubsection{Ý tưởng của phương pháp chuẩn bị dữ liệu SNIP}
+    \subsubsection*{Ý tưởng của phương pháp chuẩn bị dữ liệu SNIP}
     Một điểm yếu của việc chuẩn bị dữ liệu MST ở thí nghiệm \textit{phần 3.1} là việc một ảnh bất kỳ được huấn luyện với nhiều kích thước khác nhau khiến cho khi ảnh đó ở kích thước lớn (1400x2000) thì các đối tượng lớn sẽ trở nên khó khăn cho mô hình.
     Điều này diễn ra tương tự đối với các đối tượng nhỏ khi ảnh đó ở kích thước nhỏ (480x800).
 
@@ -18,7 +18,7 @@
     phương pháp chuẩn bị dữ liệu SNIP được coi là một phiên bản nâng cấp hơn của MST.
     Ý tưởng chính của SNIP là trong quá trình huấn luyện, các đối tượng có kích thước tương đồng với bộ dữ liệu pretrained của mô hình (thông thường là 224x224) sẽ được sử dụng để huấn luyện và loại bỏ các đối tượng, mà sau khi thay đổi kích thước ảnh, trở nên quá lớn hoặc quá nhỏ.
 
-    \subsubsection{Kết quả của mô hình khi sử dụng phương pháp chuẩn bị dữ liệu SNIP}
+    \subsubsection*{Kết quả của mô hình khi sử dụng phương pháp chuẩn bị dữ liệu SNIP}
     Kết quả của mô hình khi sử dụng phương pháp chuẩn bị dữ liệu SNIP so sánh với các thí nghiệm khác trong \textit{phần 3.1} được thể hiện ở hình \ref{fig:snip_results_1}.
     Việc sử dụng SNIP giúp mô hình đạt độ chính xác cao hơn so với các mô hình sử dụng các phương pháp chuẩn bị dữ liệu khác.
 
@@ -41,7 +41,7 @@
     Ngoài ra, các cấu hình sử dụng SNIP cũng đạt chỉ số cao hơn các cấu hình không sử dụng SNIP.
     Điều này chứng minh được vai trò của phương pháp chuẩn bị dữ liệu SNIP đối với các mô hình object detection.
 
-    \subsubsection{Vấn đề tồn đọng của phương pháp chuẩn bị dữ liệu SNIP}
+    \subsubsection*{Vấn đề tồn đọng của phương pháp chuẩn bị dữ liệu SNIP}
     Tuy rằng đã có những cải thiện trong kết quả của các mô hình sử dụng phương pháp chuẩn bị dữ liệu SNIP, nhưng nhóm tác giả vẫn nêu ra những vấn đề tồn đọng là lãng phí chi phí tính toán trong quá trình huấn luyện.
     Cụ thể, những đối tượng có kích thước lớn và bị loại bỏ trong quá trình huấn luyện, nhưng các lớp Conv \index{lớp Conv} vẫn phải tính toán trên các phần này dẫn đến sự lãng phí tài nguyên tính toán.
 }

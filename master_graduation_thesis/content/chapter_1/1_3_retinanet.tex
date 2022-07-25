@@ -2,7 +2,7 @@
     RetinaNet \index{RetinaNet} \cite{lin2017focal} là một mô hình nhận diện đối tượng \index{nhận diện đối tượng} một pha \index{một pha} cân bằng giữa độ chính xác của các mô hình hai pha \index{hai pha} và tốc độ của các mô hình một pha \index{một pha} ở thời điểm đó.
     Nhóm tác giả của RetinaNet \index{RetinaNet} đưa ra vấn đề về các mô hình một pha \index{một pha} như YOLO \index{YOLO} \cite{redmon2016look} hay SSD \index{SSD} \cite{liu2016ssd} dù đạt tốc độ rất nhanh nhưng lại kém các mô hình hai pha \index{hai pha} một khoảng rất xa về độ chính xác và đề xuất giải pháp khắc phục vấn đề này.
 
-    \subsubsection{Tổng quan các mô hình nhận diện đối tượng một pha}
+    \subsubsection*{Tổng quan các mô hình nhận diện đối tượng một pha}
     Các mô hình nhận diện đối tượng \index{nhận diện đối tượng} một pha \index{một pha} ở thời điểm đó đa phần đều chỉ sử dụng một backbone CNN kết hợp thêm với các lớp Conv \index{lớp Conv} và lớp fully connected \index{lớp fully connected} để đưa ra dự đoán về lớp của đối tượng trong ảnh và độ lệch của bounding box \index{bounding box} so với groundtruth \index{groundtruth}.
     
     \begin{figure}[H]
@@ -57,7 +57,7 @@
     Các mô hình nhận diện đối tượng \index{nhận diện đối tượng} hai pha \index{hai pha} không thật sự gặp phải vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} này bởi vì trong quá trình đưa các khu vực đề xuất từ region proposals module \index{region proposals module} sang feature extraction module \index{feature extraction module} thường đã có một bước lọc và lựa chọn.
     Cụ thể hơn, với số lượng lớn các khu vực không chứa đối tượng được đề xuất bởi region proposals module \index{region proposals module}, chỉ có một số ít trong đó được lựa chọn để làm đầu vào cho feature extraction module \index{feature extraction module} và lúc này, tỷ lệ giữa các khu vực chứa và không chứa đối tượng thường là 1:3 - một tỷ lệ mất cân bằng không quá nghiêm trọng và không ảnh hưởng tới việc huấn luyện mô hình nhận diện đối tượng \index{nhận diện đối tượng}.
 
-    \subsubsection{Hàm Focal loss}
+    \subsubsection*{Hàm Focal loss}
     Để giải quyết vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} nói trên, nhóm tác giả của RetinaNet \index{RetinaNet} đã đề xuất hàm Focal loss \index{Focal loss} dựa trên nền tảng của hàm binary cross entropy loss \index{binary cross entropy loss} giải quyết vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} nghiêm trọng.
     Nhóm tác giả chú thích rằng hàm Focal loss \index{Focal loss} hiệu quả đối với cả bài toán phân lớp với nhiều hơn hai lớp nhưng để đơn giản hoá, nhóm tác giả sử dụng hàm binary cross entropy loss \index{binary cross entropy loss}.
 
@@ -135,7 +135,7 @@
         FL(p_\textrm{t}) = - \alpha_\textrm{t} (1 - p_\textrm{t})^\gamma \log (p_\textrm{t})
     \end{equation}
     
-    \subsubsection{Kiến trúc mô hình RetinaNet}
+    \subsubsection*{Kiến trúc mô hình RetinaNet}
     RetinaNet \index{RetinaNet} gồm có các thành phần:
     - Phần \textit{backbone FPN} được sử dụng nhằm trích xuất đặc trưng của ảnh đầu vào với nhiều kích thước đặc trưng khác nhau.
     - Phần trích xuất anchor \index{anchor} được thực hiện tương tự với cách trích xuất của mô hình RPN.
@@ -156,7 +156,7 @@
     \textit{Box Regression Subnet} cũng gồm các lớp Conv \index{lớp Conv} 3x3xC và lớp Conv \index{lớp Conv} cuối cùng 3x3x4A.
     Trong đó, A là số lượng anchor \index{anchor} tại vị trí trên mỗi feature maps \index{feature maps}của backbone FPN \index{FPN} (tác giả chọn $A = 9$), 4 là 4 độ lệch trong toạ độ của bounding box \index{bounding box} dự đoán so với groundtruth \index{groundtruth}, C là số lượng channel \index{channel} của lớp Conv \index{lớp Conv} (tác giả chọn $C = 256$).
 
-    % \subsubsection{Kết quả của mô hình RetinaNet}
+    % \subsubsection*{Kết quả của mô hình RetinaNet}
     % Trong thử nghiệm của RetinaNet \index{RetinaNet} với các tham số khác nhau của hàm Focal loss \index{Focal loss}, tất cả các cấu hình được huấn luyện với bộ dữ liệu \textit{COCO trainval135k} và kết quả thu được đánh giá trên bộ dữ liệu \textit{COCO minival}.
     % Kết quả của cấu hình $\gamma = 2.0$ và $\alpha = 0.25$ đạt kết quả tốt nhất so với các cấu hình khác của hàm Focal loss \index{Focal loss}.
 
@@ -192,7 +192,7 @@
     % So với mô hình đạt độ chính xác tốt nhất ở thời điểm đó là [G], cấu hình RetinaNet-101-700 cho kết quả chính xác hơn với thời gian nhanh hơn.
     % So với các mô hình đạt tốc độ tốt nhất ở thời điểm đó là [A] và [B], cấu hình RetinaNet-50-400 cho kết quả chậm hơn nhưng với độ chính xác cao hơn vượt trội.
 
-    \subsubsection{Kết luận về mô hình RetinaNet}
+    \subsubsection*{Kết luận về mô hình RetinaNet}
     Mô hình RetinaNet \index{RetinaNet} ra đời là một bước tiến lớn đối với việc giải quyết bài toán nhận diện đối tượng \index{nhận diện đối tượng} khi nó giải quyết vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} của các mô hình một pha \index{một pha} giúp tăng độ chính xác của mô hình ngang bằng với các mô hình hai pha \index{hai pha} nhưng vẫn duy trì được một tốc độ nhanh và có thể sử dụng trong thời gian thực. \\
     Mô hình RetinaNet \index{RetinaNet} cho đến nay vẫn là một mô hình tốt để giải quyết bài toán nhận diện đối tượng \index{nhận diện đối tượng}.
 }

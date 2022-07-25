@@ -5,7 +5,7 @@
     \textit{Domain shift} rất phổ biến trong bài toán object detection, khi kích thước ảnh sử dụng trong quá trình huấn luyện thường nhỏ (nhằm cải thiện tốc độ huấn luyện mô hình) và kích thước ảnh sử dụng trong quá trình test thường lớn hơn (nhằm cải thiện độ chính xác của mô hình).
     Các thí nghiệm này được xây dựng và công bố kết quả bởi nhóm tác giả của mô hình SNIP \cite{singh2018analysis}.
 
-    \subsubsection{Các thí nghiệm trong bài toán image classification}
+    \subsubsection*{Các thí nghiệm trong bài toán image classification}
     Ba mô hình được sử dụng trong các thí nghiệm được thiết kế như sau: \\
     - Mô hình CNN-B: Đây là mô hình CNN sử dụng backbone ResNet-101 và đã được huấn luyện với bộ dữ liệu ảnh có kích thước 224x224. \\
     - Mô hình CNN-S: Đây là mô hình CNN sử dụng backbone ResNet-101 và đã đã được thay đổi các tham số stride và kích thước của conv trong lớp đầu tiên đối với từng bộ dữ liệu ảnh có kích thước khác nhau khi huấn luyện mô hình.
@@ -85,7 +85,7 @@
     Từ đó, thay vì giảm kích thước stride của lớp conv đi 2 lần (như trong kiến trúc của mô hình CNN-S), ta nên tăng kích thước của ảnh chất lượng thấp lên lần và fine-tune lại với mô hình đã được huấn luyện với bộ dữ liệu ảnh có kích thước lớn.
     Hay nói cách khác, thay vì thay đổi kiến trúc của mô hình để xử lý riêng với bộ dữ liệu ảnh có kích thước nhỏ, ta nên tận dụng mô hình pretrained và fine-tune lại mô hình đó với bộ dữ liệu ảnh có kích thước mong muốn.
 
-    \subsubsection{Các thí nghiệm trong bài toán object detection}
+    \subsubsection*{Các thí nghiệm trong bài toán object detection}
     Hiệu năng giữa các mô hình bị ảnh hưởng bởi sự khác nhau về kích thước của ảnh trong bộ dữ liệu huấn luyện và bộ dữ liệu test đã được nhóm tác giả chứng minh ở các thí nghiệm trên.
     Tuy nhiên, trong thực tế, không phải lúc nào ta cũng có thể huấn luyện và test mô hình với bộ dữ liệu ảnh có cùng kích thước, đặc biệt đối với bài toán object detection.
     Lý do vì những vấn đề liên quan đến bộ nhớ của GPU cũng như là tốc độ huấn luyện, do đó, thông thường kích thước ảnh trong bộ dữ liệu sử dụng trong quá trình huấn luyện thường nhỏ hơn so với kích thước ảnh trong quá trình test.
