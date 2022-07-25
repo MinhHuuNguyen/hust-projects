@@ -56,8 +56,8 @@
     \noindent
     \textbf{\textit{Hàm loss multi-task và cách finetune mô hình Fast R-CNN}} \\
     Một điểm cải tiến khác của mô hình Fast R-CNN so với mô hình R-CNN đó là việc sử dụng hàm loss multi-task và finetune toàn bộ mô hình. \\
-    Trong quá trình train mô hình, tác giả lấy ngẫu nhiên N ảnh và lấy ngẫu nhiên $\frac{R}{N}$ RoIs trên mỗi ảnh.
-    Nhằm đảm bảo vấn đề về bộ nhớ không xảy ra trong suốt quá trình train, tác giả lựa chọn N = 2 và R = 128.
+    Trong quá trình huấn luyện mô hình, tác giả lấy ngẫu nhiên N ảnh và lấy ngẫu nhiên $\frac{R}{N}$ RoIs trên mỗi ảnh.
+    Nhằm đảm bảo vấn đề về bộ nhớ không xảy ra trong suốt quá trình huấn luyện, tác giả lựa chọn N = 2 và R = 128.
     Ngoài ra, tác giả cũng đề cập đến một lo ngại khác, đó là việc sử dụng nhiều RoIs trên một số ít ảnh có thể dẫn đến quá trình tối ưu chậm và mất nhiều thời gian để mô hình đạt được điểm hội tụ.
     Tuy nhiên, trong thực tế, điều này đã không xảy ra. \\
     Mô hình Fast R-CNN có hai lớp đầu ra: \\
@@ -104,10 +104,10 @@
     \noindent
     \textbf{\textit{Kết quả của mô hình Fast R-CNN}} \\
     Đầu tiên, kết quả của mô hình Fast R-CNN trên bộ dữ liệu VOC 2007 test đáng chú ý.
-    Trong hình \ref{fig:fast_rcnn_results_1}, tác giả xét đến ba cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần feature extraction module \index{feature extraction module}) nhưng khác nhau về bộ dữ liệu train mà mỗi cấu hình sử dụng: \\
-    - Cấu hình sử dụng bộ dữ liệu train là VOC07 trainval: ký hiệu là \textbf{07} \\
-    - Cấu hình sử dụng bộ dữ liệu train là VOC07 trainval nhưng loại đi các dữ liệu khó: ký hiệu là \textbf{07 $\setminus$ diff} \\
-    - Cấu hình sử dụng bộ dữ liệu train là sự kết hợp giữa VOC07 trainval và VOC12 trainval: ký hiệu là \textbf{07+12} \\
+    Trong hình \ref{fig:fast_rcnn_results_1}, tác giả xét đến ba cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần feature extraction module \index{feature extraction module}) nhưng khác nhau về bộ dữ liệu huấn luyện mà mỗi cấu hình sử dụng: \\
+    - Cấu hình sử dụng bộ dữ liệu huấn luyện là VOC07 trainval: ký hiệu là \textbf{07} \\
+    - Cấu hình sử dụng bộ dữ liệu huấn luyện là VOC07 trainval nhưng loại đi các dữ liệu khó: ký hiệu là \textbf{07 $\setminus$ diff} \\
+    - Cấu hình sử dụng bộ dữ liệu huấn luyện là sự kết hợp giữa VOC07 trainval và VOC12 trainval: ký hiệu là \textbf{07+12} \\
     Trong nhóm các mô hình so sánh, có kết quả của cấu hình tốt nhất của mô hình R-CNN là R-CNN BB.
     Ngoài ra còn có mô hình SPPnet BB. \\
     Kết quả tất cả các cấu hình của Fast R-CNN đều cho kết quả trên mAP tốt hơn khoảng 4\% so với kết quả của R-CNN BB hay SPPnet BB.
@@ -123,11 +123,11 @@
 
     \noindent
     Tiếp theo, mô hình Fast R-CNN cũng có kết quả tốt trên bộ dữ liệu VOC 2010 test.
-    Trong hình \ref{fig:fast_rcnn_results_2}, tác giả xét đến hai cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần feature extraction module \index{feature extraction module}) nhưng khác nhau về bộ dữ liệu train mà mỗi cấu hình sử dụng: \\
-    - Cấu hình sử dụng bộ dữ liệu train là VOC12 trainval: ký hiệu là \textbf{12} \\
-    - Cấu hình sử dụng bộ dữ liệu train là sự kết hợp giữa VOC07 trainval, VOC07 test và VOC12 trainval: ký hiệu là \textbf{07 ++ 12} \\
+    Trong hình \ref{fig:fast_rcnn_results_2}, tác giả xét đến hai cấu hình của mô hình Fast R-CNN, các cấu hình này đều có kiến trúc như nhau (đều sử dụng mô hình VGG16 cho thành phần feature extraction module \index{feature extraction module}) nhưng khác nhau về bộ dữ liệu huấn luyện mà mỗi cấu hình sử dụng: \\
+    - Cấu hình sử dụng bộ dữ liệu huấn luyện là VOC12 trainval: ký hiệu là \textbf{12} \\
+    - Cấu hình sử dụng bộ dữ liệu huấn luyện là sự kết hợp giữa VOC07 trainval, VOC07 test và VOC12 trainval: ký hiệu là \textbf{07 ++ 12} \\
     Trong nhóm các mô hình so sánh, có kết quả của cấu hình tốt nhất của mô hình R-CNN là R-CNN BB.
-    Ngoài ra còn có các mô hình BabyLearning (được train với bộ dữ liệu độc quyền) và mô hình SegDeepM (được train với bộ dữ liệu VOC 12 trainval bổ sung thêm các groundtruth \index{groundtruth} segmentation). \\
+    Ngoài ra còn có các mô hình BabyLearning (được huấn luyện với bộ dữ liệu độc quyền) và mô hình SegDeepM (được huấn luyện với bộ dữ liệu VOC 12 trainval bổ sung thêm các groundtruth \index{groundtruth} segmentation). \\
     Kết quả của cấu hình \textbf{07 ++ 12} mô hình Fast R-CNN cho mAP cao hơn khoảng 2\% so với các cấu hình và mô hình khác.
     Tuy nhiên, vẫn tồn tại một số lớp đối tượng \index{lớp đối tượng} mà chỉ số AP của cấu hình này làm chưa tốt so với các cấu hình khác hay các mô hình khác như lớp \textit{bottle, plant, sheep, tv ...}.
 
@@ -139,7 +139,7 @@
     \end{figure}
 
     \noindent
-    Đối với bộ dữ liệu VOC 2012 test, tác giả vẫn sử dụng hai cấu hình \textbf{12} và \textbf{07 ++ 12} của mô hình Fast R-CNN từ kết quả trên. Nhóm các mô hình so sánh gồm cấu hình R-CNN BB của mô hình R-CNN, mô hình BabyLearning (được train với bộ dữ liệu độc quyền) và mô hình NUS\_NIN\_c2000. \\
+    Đối với bộ dữ liệu VOC 2012 test, tác giả vẫn sử dụng hai cấu hình \textbf{12} và \textbf{07 ++ 12} của mô hình Fast R-CNN từ kết quả trên. Nhóm các mô hình so sánh gồm cấu hình R-CNN BB của mô hình R-CNN, mô hình BabyLearning (được huấn luyện với bộ dữ liệu độc quyền) và mô hình NUS\_NIN\_c2000. \\
     Trong hình \ref{fig:fast_rcnn_results_3}, kết quả của cấu hình \textbf{07 ++ 12} mô hình Fast R-CNN cho mAP cao hơn khoảng 3-5\% so với các cấu hình và mô hình khác. \\
     Kết quả này vẫn tồn tại một số lớp đối tượng \index{lớp đối tượng} mà chỉ số AP của cấu hình này làm chưa tốt so với các cấu hình khác hay các mô hình khác như lớp \textit{bottle, plant}.
 
@@ -151,11 +151,11 @@
     \end{figure}
 
     \noindent
-    Cuối cùng, tác giả chia sẻ kết quả khi so sánh về mặt tốc độ trong quá trình train và quá trình test và đây là một trong số những thành quả chính. \\
-    Trong hình \ref{fig:fast_rcnn_results_4}, tác giả so sánh tốc độ xử lý mỗi ảnh trong quá trình train và test giữa mô hình Fast R-CNN, R-CNN và SPPnet.
-    Cụ thể hơn, trong quá trình train, thời gian train của mô hình Fast R-CNN giảm tới 8.8 lần so với mô hình R-CNN.
+    Cuối cùng, tác giả chia sẻ kết quả khi so sánh về mặt tốc độ trong quá trình huấn luyện và quá trình test và đây là một trong số những thành quả chính. \\
+    Trong hình \ref{fig:fast_rcnn_results_4}, tác giả so sánh tốc độ xử lý mỗi ảnh trong quá trình huấn luyện và test giữa mô hình Fast R-CNN, R-CNN và SPPnet.
+    Cụ thể hơn, trong quá trình huấn luyện, thời gian huấn luyện của mô hình Fast R-CNN giảm tới 8.8 lần so với mô hình R-CNN.
     Trong quá trình test, thời gian mà mô hình Fast R-CNN xử lý một ảnh nhanh hơn tới 146 (khi không sử dụng SVD) và tới 213 lần (khi sử dụng SVD) so với mô hình R-CNN.
-    Không những thế, với việc cải thiện đáng kể tốc độ train và test, kết quả về độ chính xác của Fast R-CNN vẫn tốt hơn so với R-CNN khi so sánh trên chỉ số mAP.
+    Không những thế, với việc cải thiện đáng kể tốc độ huấn luyện và test, kết quả về độ chính xác của Fast R-CNN vẫn tốt hơn so với R-CNN khi so sánh trên chỉ số mAP.
 
     \begin{figure}[H]
         \centering

@@ -37,7 +37,7 @@
 
     \noindent
     \textit{Thí nghiệm 2: Xây dựng bộ phân lớp đối tượng \index{lớp đối tượng} bằng SVM} \\
-    Với mô hình AlexNet đã được finetune lại như trên, nhóm tác giả sử dụng nó để lấy ra các đặc trưng của ảnh đầu vào và từ đó train các mô hình SVM.
+    Với mô hình AlexNet đã được finetune lại như trên, nhóm tác giả sử dụng nó để lấy ra các đặc trưng của ảnh đầu vào và từ đó huấn luyện các mô hình SVM.
     Mỗi mô hình SVM tương ứng với một lớp đối tượng \index{lớp đối tượng} và mỗi mô hình SVM trả lời cho câu hỏi, đặc trưng của khu vực đó có phải là đối tượng đó hay không.
     Những đặc trưng của khu vực có chỉ số IoU \index{IoU} với groundtruth \index{groundtruth} bounding box \index{bounding box} >= 0.3 sẽ được gán nhãn là lớp của bounding box \index{bounding box} đó.
     Và ngược lại, những đặc trưng của khu vực có chỉ số IoU \index{IoU} với groundtruth \index{groundtruth} bounding box \index{bounding box} < 0.3 sẽ được gán nhãn không phải là lớp của bounding box \index{bounding box} đó. \\
@@ -97,7 +97,7 @@
 
     \noindent
     \textbf{\textit{Vấn đề tồn đọng của mô hình R-CNN}} \\
-    Vấn đề lớn nhất của mô hình R-CNN là thời gian mà mô hình cần cho quá trình train và quá trình test là rất lớn.
+    Vấn đề lớn nhất của mô hình R-CNN là thời gian mà mô hình cần cho quá trình huấn luyện và quá trình test là rất lớn.
     Trong quá trình test, mô hình R-CNN sử dụng tới 47 giây để hoàn thành việc xử lý một ảnh.
     Kết quả này khiến cho mô hình R-CNN gần như không có giá trị thực tiễn.
 }

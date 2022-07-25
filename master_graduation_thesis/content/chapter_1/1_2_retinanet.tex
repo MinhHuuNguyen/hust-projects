@@ -53,10 +53,10 @@
     Mỗi giá trị dự đoán trong c là giá trị xác suất anchor \index{anchor} đó là đối tượng nào.
 
     \noindent
-    Với ý tưởng khởi tạo anchor \index{anchor} như trên, nhóm tác giả của RetinaNet \index{RetinaNet} đã chỉ ra một vấn đề nghiêm trọng mà các mô hình nhận diện đối tượng \index{nhận diện đối tượng} một pha \index{một pha} nói chung gặp phải đó là vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} trong quá trình train mô hình.
+    Với ý tưởng khởi tạo anchor \index{anchor} như trên, nhóm tác giả của RetinaNet \index{RetinaNet} đã chỉ ra một vấn đề nghiêm trọng mà các mô hình nhận diện đối tượng \index{nhận diện đối tượng} một pha \index{một pha} nói chung gặp phải đó là vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} trong quá trình huấn luyện mô hình.
     Cụ thể, vấn đề mất cân bằng ở đây xảy ra chủ yếu do sự chênh lệch giữa phần ảnh là foreground \index{foreground} và phần ảnh là background \index{background}, hay nói cách khác là phần ảnh chứa đối tượng và phần ảnh không chứa đối tượng. \\
     Các mô hình nhận diện đối tượng \index{nhận diện đối tượng} hai pha \index{hai pha} không thật sự gặp phải vấn đề mất cân bằng dữ liệu \index{mất cân bằng dữ liệu} này bởi vì trong quá trình đưa các khu vực đề xuất từ region proposals module \index{region proposals module} sang feature extraction module \index{feature extraction module} thường đã có một bước lọc và lựa chọn.
-    Cụ thể hơn, với số lượng lớn các khu vực không chứa đối tượng được đề xuất bởi region proposals module \index{region proposals module}, chỉ có một số ít trong đó được lựa chọn để làm đầu vào cho feature extraction module \index{feature extraction module} và lúc này, tỷ lệ giữa các khu vực chứa và không chứa đối tượng thường là 1:3 - một tỷ lệ mất cân bằng không quá nghiêm trọng và không ảnh hưởng tới việc train mô hình nhận diện đối tượng \index{nhận diện đối tượng}.
+    Cụ thể hơn, với số lượng lớn các khu vực không chứa đối tượng được đề xuất bởi region proposals module \index{region proposals module}, chỉ có một số ít trong đó được lựa chọn để làm đầu vào cho feature extraction module \index{feature extraction module} và lúc này, tỷ lệ giữa các khu vực chứa và không chứa đối tượng thường là 1:3 - một tỷ lệ mất cân bằng không quá nghiêm trọng và không ảnh hưởng tới việc huấn luyện mô hình nhận diện đối tượng \index{nhận diện đối tượng}.
 
     \noindent
     \textbf{\textit{Hàm Focal loss \index{Focal loss}}} \\
@@ -118,7 +118,7 @@
     \noindent
     trong đó: \\
     - $(1 - p_\textrm{t})$ là thành phần đánh giá độ dễ hay khó của mẫu dữ liệu.
-    Với những mẫu dễ và mô hình đã được train tốt, giá trị $(1 - p_\textrm{t})$ sẽ nhỏ và những mẫu này sẽ gây ít ảnh hưởng trong quá trình train mô hình. \\
+    Với những mẫu dễ và mô hình đã được huấn luyện tốt, giá trị $(1 - p_\textrm{t})$ sẽ nhỏ và những mẫu này sẽ gây ít ảnh hưởng trong quá trình huấn luyện mô hình. \\
     - $\gamma$ được nhóm tác giả gọi là \textit{focusing parameter}, dùng để xác định mức độ tập trung của mô hình lên các mẫu dữ liệu không chứa đối tượng.
     Với $\gamma = 0$, hàm FL lúc này tương tự với hàm CE.
     Trong các thí nghiệm của RetinaNet, giá trị $\gamma = 2$ là tốt nhất.
@@ -160,42 +160,42 @@
     \textit{Box Regression Subnet} cũng gồm các lớp Conv \index{lớp Conv} 3x3xC và lớp Conv \index{lớp Conv} cuối cùng 3x3x4A.
     Trong đó, A là số lượng anchor \index{anchor} tại vị trí trên mỗi feature maps \index{feature maps}của backbone FPN \index{FPN} (tác giả chọn $A = 9$), 4 là 4 độ lệch trong toạ độ của bounding box \index{bounding box} dự đoán so với groundtruth \index{groundtruth}, C là số lượng channel \index{channel} của lớp Conv \index{lớp Conv} (tác giả chọn $C = 256$).
 
-    \noindent
-    \textbf{\textit{Kết quả của mô hình RetinaNet}} \\
-    Trong thử nghiệm của RetinaNet \index{RetinaNet} với các tham số khác nhau của hàm Focal loss \index{Focal loss}, tất cả các cấu hình được train với bộ dữ liệu \textit{COCO trainval135k} và kết quả thu được đánh giá trên bộ dữ liệu \textit{COCO minival}.
-    Kết quả của cấu hình $\gamma = 2.0$ và $\alpha = 0.25$ đạt kết quả tốt nhất so với các cấu hình khác của hàm Focal loss \index{Focal loss}.
+    % \noindent
+    % \textbf{\textit{Kết quả của mô hình RetinaNet}} \\
+    % Trong thử nghiệm của RetinaNet \index{RetinaNet} với các tham số khác nhau của hàm Focal loss \index{Focal loss}, tất cả các cấu hình được huấn luyện với bộ dữ liệu \textit{COCO trainval135k} và kết quả thu được đánh giá trên bộ dữ liệu \textit{COCO minival}.
+    % Kết quả của cấu hình $\gamma = 2.0$ và $\alpha = 0.25$ đạt kết quả tốt nhất so với các cấu hình khác của hàm Focal loss \index{Focal loss}.
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=10cm] {images/retinanet_results_2}
-        \caption{Kết quả thử nghiệm hàm Focal loss \index{Focal loss} với các tham số khác nhau. (Nguồn: \cite{lin2017focal})}
-        \label{fig:retinanet_results_2}
-    \end{figure}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=10cm] {images/retinanet_results_2}
+    %     \caption{Kết quả thử nghiệm hàm Focal loss \index{Focal loss} với các tham số khác nhau. (Nguồn: \cite{lin2017focal})}
+    %     \label{fig:retinanet_results_2}
+    % \end{figure}
 
-    Khi so sánh kết quả của mô hình RetinaNet \index{RetinaNet} với các mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác vào thời điểm đó, kết quả của các cấu hình khác nhau của mô hình RetinaNet \index{RetinaNet} cũng đạt kết quả rất tốt về cả tốc độ lẫn độ chính xác của mô hình.
-    Cụ thể các mô hình được so sánh gồm: \\
-    - Kết quả của mô hình YOLOv2, \index{YOLOv2} ký hiệu là [A] \cite{redmon2016yolo9000} (Kết quả không được biểu diễn trên hình) \\
-    - Kết quả của mô hình SSD321, \index{SSD321} ký hiệu là [B] \cite{liu2016ssd} \\
-    - Kết quả của mô hình DSSD321, \index{DSSD321} ký hiệu là [C] \cite{fu2017dssd} \\
-    - Kết quả của mô hình R-FCN, \index{R-FCN} ký hiệu là [D] \cite{dai2016r} \\
-    - Kết quả của mô hình SSD513, \index{SSD513} ký hiệu là [E] \cite{liu2016ssd} \\
-    - Kết quả của mô hình DSSD513,  \index{DSSD513}ký hiệu là [F] \cite{fu2017dssd} \\
-    - Kết quả của mô hình FPN \index{FPN} FRCN, ký hiệu là [G] \cite{lin2017feature} \\
-    - Kết quả của mô hình RetinaNet \index{RetinaNet} sử dụng backbone là ResNet50 \index{ResNet50} và sử dụng ảnh đầu vào có kích thước 500 pixels \index{pixels}, ký hiệu là RetinaNet-50-500. \\
-    - Kết quả của mô hình RetinaNet \index{RetinaNet} sử dụng backbone là ResNet101 \index{ResNet101} và sử dụng ảnh đầu vào có kích thước 500 pixels \index{pixels}, ký hiệu là RetinaNet-101-500 \\
-    - Kết quả của mô hình RetinaNet \index{RetinaNet} sử dụng backbone là ResNet101 \index{ResNet101} và sử dụng ảnh đầu vào có kích thước 800 pixels \index{pixels}, ký hiệu là RetinaNet-101-800 \\
-    Đường màu xanh và màu cam trên hình lần lượt là các cấu hình RetinaNet \index{RetinaNet} sử dụng backbone ResNet50 \index{ResNet50} và ResNet101 \index{ResNet101} và với các cấu hình ảnh đầu vào từ 400 pixels \index{pixels} đến 800 pixels \index{pixels}.
+    % Khi so sánh kết quả của mô hình RetinaNet \index{RetinaNet} với các mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác vào thời điểm đó, kết quả của các cấu hình khác nhau của mô hình RetinaNet \index{RetinaNet} cũng đạt kết quả rất tốt về cả tốc độ lẫn độ chính xác của mô hình.
+    % Cụ thể các mô hình được so sánh gồm: \\
+    % - Kết quả của mô hình YOLOv2, \index{YOLOv2} ký hiệu là [A] \cite{redmon2016yolo9000} (Kết quả không được biểu diễn trên hình) \\
+    % - Kết quả của mô hình SSD321, \index{SSD321} ký hiệu là [B] \cite{liu2016ssd} \\
+    % - Kết quả của mô hình DSSD321, \index{DSSD321} ký hiệu là [C] \cite{fu2017dssd} \\
+    % - Kết quả của mô hình R-FCN, \index{R-FCN} ký hiệu là [D] \cite{dai2016r} \\
+    % - Kết quả của mô hình SSD513, \index{SSD513} ký hiệu là [E] \cite{liu2016ssd} \\
+    % - Kết quả của mô hình DSSD513,  \index{DSSD513}ký hiệu là [F] \cite{fu2017dssd} \\
+    % - Kết quả của mô hình FPN \index{FPN} FRCN, ký hiệu là [G] \cite{lin2017feature} \\
+    % - Kết quả của mô hình RetinaNet \index{RetinaNet} sử dụng backbone là ResNet50 \index{ResNet50} và sử dụng ảnh đầu vào có kích thước 500 pixels \index{pixels}, ký hiệu là RetinaNet-50-500. \\
+    % - Kết quả của mô hình RetinaNet \index{RetinaNet} sử dụng backbone là ResNet101 \index{ResNet101} và sử dụng ảnh đầu vào có kích thước 500 pixels \index{pixels}, ký hiệu là RetinaNet-101-500 \\
+    % - Kết quả của mô hình RetinaNet \index{RetinaNet} sử dụng backbone là ResNet101 \index{ResNet101} và sử dụng ảnh đầu vào có kích thước 800 pixels \index{pixels}, ký hiệu là RetinaNet-101-800 \\
+    % Đường màu xanh và màu cam trên hình lần lượt là các cấu hình RetinaNet \index{RetinaNet} sử dụng backbone ResNet50 \index{ResNet50} và ResNet101 \index{ResNet101} và với các cấu hình ảnh đầu vào từ 400 pixels \index{pixels} đến 800 pixels \index{pixels}.
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=6cm] {images/retinanet_results_1}
-        \caption{So sánh kết quả mô hình RetinaNet \index{RetinaNet} với một số mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác. (Nguồn: \cite{lin2017focal})}
-        \label{fig:retinanet_results_1}
-    \end{figure}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=6cm] {images/retinanet_results_1}
+    %     \caption{So sánh kết quả mô hình RetinaNet \index{RetinaNet} với một số mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác. (Nguồn: \cite{lin2017focal})}
+    %     \label{fig:retinanet_results_1}
+    % \end{figure}
 
-    Kết quả, các cấu hình khác nhau của RetinaNet \index{RetinaNet} đều cho kết quả tốt hơn so với các mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác (cả một pha \index{một pha} và hai pha \index{hai pha}).
-    So với mô hình đạt độ chính xác tốt nhất ở thời điểm đó là [G], cấu hình RetinaNet-101-700 cho kết quả chính xác hơn với thời gian nhanh hơn.
-    So với các mô hình đạt tốc độ tốt nhất ở thời điểm đó là [A] và [B], cấu hình RetinaNet-50-400 cho kết quả chậm hơn nhưng với độ chính xác cao hơn vượt trội.
+    % Kết quả, các cấu hình khác nhau của RetinaNet \index{RetinaNet} đều cho kết quả tốt hơn so với các mô hình nhận diện đối tượng \index{nhận diện đối tượng} khác (cả một pha \index{một pha} và hai pha \index{hai pha}).
+    % So với mô hình đạt độ chính xác tốt nhất ở thời điểm đó là [G], cấu hình RetinaNet-101-700 cho kết quả chính xác hơn với thời gian nhanh hơn.
+    % So với các mô hình đạt tốc độ tốt nhất ở thời điểm đó là [A] và [B], cấu hình RetinaNet-50-400 cho kết quả chậm hơn nhưng với độ chính xác cao hơn vượt trội.
 
     \noindent
     \textbf{\textit{Kết luận về mô hình RetinaNet}} \\
