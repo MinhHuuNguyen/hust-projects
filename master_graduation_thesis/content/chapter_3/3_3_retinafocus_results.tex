@@ -5,17 +5,17 @@
 
     \subsubsection*{Thí nghiệm so sánh các cấu hình sử dụng bản đồ đặc trưng\index{bản đồ đặc trưng} khác nhau của FPN làm đầu vào cho nhánh tập trung đối tượng}
     Trong thí nghiệm này, với mỗi cấu hình, chúng tôi sử dụng các bản đồ đặc trưng\index{bản đồ đặc trưng} khác nhau của FPN làm đầu vào cho nhánh tập trung đối tượng\index{nhánh tập trung đối tượng}.
-    Trong đó, lần lượt các cấu hình sử dụng bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{3}, {C}_{4}, {C}_{5}, {P}_{3}, {P}_{4}, {P}_{5}$ được ký hiệu là \textit{C3}, \textit{C4}, \textit{C5}, \textit{P3}, \textit{P4}, \textit{P5} trong các biểu đồ.
+    Trong đó, lần lượt các cấu hình sử dụng bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{3}, {C}_{4}, {C}_{5}, {P}_{3}, {P}_{4}, {P}_{5}$ được ký hiệu là \textit{using feature maps C3}, \textit{using feature maps C4}, \textit{using feature maps C5}, \textit{using feature maps P3}, \textit{using feature maps P4}, \textit{using feature maps P5} trong các biểu đồ.
     Trong các cấu hình trên, các cặp bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{3}$ và ${P}_{3}$, ${C}_{4}$ và ${P}_{4}$, ${C}_{5}$ và ${P}_{5}$ là các cặp bản đồ đặc trưng\index{bản đồ đặc trưng} có cùng kích thước.
     Tuy nhiên, mỗi bản đồ đặc trưng\index{bản đồ đặc trưng} khác nhau trong cặp chứa thông tin khác nhau về khuôn mặt dẫn đến số lượng và kích thước của các vùng mà nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} xác định cần phải zoom vào cũng khác nhau.
     Từ đó dẫn đến thời gian thực hiện toàn bộ quá trình dự đoán trên cả bộ dữ liệu là khác nhau.
-    Trong thí nghiệm này, các cấu hình sử dụng chung một cấu hình scale ảnh trong quá trình dự đoán là ....
+    % Trong thí nghiệm này, các cấu hình sử dụng chung một cấu hình scale ảnh trong quá trình dự đoán là ....
 
     \begin{figure}[H]
         \centering
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_val_easy_fpn}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_val_medium_fpn}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_val_hard_fpn}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_val_easy_fpn}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_val_medium_fpn}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_val_hard_fpn}} 
         \caption{Kết quả so sánh các cấu hình sử dụng các bản đồ đặc trưng\index{bản đồ đặc trưng} của FPN làm đầu vào cho nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} trên ba bộ dữ liệu WIDER FACE val easy (a), medium (b) và hard (c)}
         \label{fig:retinafocus_widerface_val_fpn}
     \end{figure}
@@ -28,9 +28,9 @@
 
     \begin{figure}[H]
         \centering
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_4k_val_easy_fpn}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_4k_val_medium_fpn}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_4k_val_hard_fpn}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_4k_val_easy_fpn}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_4k_val_medium_fpn}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_4k_val_hard_fpn}} 
         \caption{Kết quả so sánh các cấu hình sử dụng các bản đồ đặc trưng\index{bản đồ đặc trưng} của FPN làm đầu vào cho nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} trên ba bộ dữ liệu WIDER FACE 4K val easy (a), medium (b) và hard (c)}
         \label{fig:retinafocus_widerface_4k_val_fpn}
     \end{figure}
@@ -42,32 +42,36 @@
     \noindent
     Kết luận đối với thí nghiệm này là cấu hình sử dụng bản đồ đặc trưng\index{bản đồ đặc trưng} ${P}_{5}$ đạt kết quả tốt nhất về độ chính xác trong khi vẫn duy trì được thời gian thực hiện toàn bộ quá trình dự đoán tương đối nhanh.
 
-    \subsubsection*{Thí nghiệm so sánh cấu hình scale ảnh tốt nhất trong quá trình dự đoán}
+    % \subsubsection*{Thí nghiệm so sánh cấu hình scale ảnh tốt nhất trong quá trình dự đoán}
 
     \subsubsection*{Thí nghiệm so sánh cấu hình tốt nhất của RetinaFocus với các cấu hình của RetinaFace}
-    Các cấu hình của mô hình RetinaFace sử dụng trong thí nghiệm này bao gồm: \\
-    - Cấu hình sử dụng chiến lược Image Pyramids kết hợp với việc lật ảnh đầu vào trong quá trình dự đoán, ký hiệu là \dots \\
-    - Cấu hình chỉ sử dụng chiến lược Image Pyramids, ký hiệu là \dots \\
-    - Cấu hình không sử dụng chiến lược Image Pyramids mà chỉ sử dụng một scale ảnh duy nhất là [1200, 1600], ký hiệu là \dots \\
-    - Cấu hình không sử dụng chiến lược Image Pyramids mà chỉ sử dụng một scale ảnh duy nhất là [1504, 2000], ký hiệu là \dots \\
-    - Cấu hình không sử dụng chiến lược Image Pyramids mà chỉ sử dụng một scale ảnh duy nhất là [1600, 2150], ký hiệu là \dots \\
 
     \begin{figure}[H]
         \centering
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_val_easy_rtnf}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_val_medium_rtnf}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_val_hard_rtnf}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_val_easy_rtnf}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_val_medium_rtnf}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_val_hard_rtnf}} 
         \caption{Kết quả so sánh cấu hình tốt nhất của RetinaFocus với các cấu hình của RetinaFace trên ba bộ dữ liệu WIDER FACE val easy (a), medium (b) và hard (c)}
         \label{fig:retinafocus_widerface_val_rtnf}
     \end{figure}
 
+    Các cấu hình của mô hình RetinaFace sử dụng trong thí nghiệm này bao gồm: \\
+    - Cấu hình sử dụng chiến lược Image Pyramids kết hợp với việc lật ảnh đầu vào trong quá trình dự đoán, ký hiệu là \textit{RetinaFace with Image Pyramids and Flip}. \\
+    - Cấu hình chỉ sử dụng chiến lược Image Pyramids, ký hiệu là \textit{RetinaFace with Image Pyramids}. \\
+    - Cấu hình không sử dụng chiến lược Image Pyramids mà chỉ sử dụng một scale ảnh duy nhất là [1200, 1600], ký hiệu là \textit{RetinaFace with single scale [1200, 1600]}. \\
+    - Cấu hình không sử dụng chiến lược Image Pyramids mà chỉ sử dụng một scale ảnh duy nhất là [1504, 2000], ký hiệu là \textit{RetinaFace with single scale [1504, 2000]}. \\
+    - Cấu hình không sử dụng chiến lược Image Pyramids mà chỉ sử dụng một scale ảnh duy nhất là [1600, 2150], ký hiệu là \textit{RetinaFace with single scale [1600, 2150]}. \\
+    Cấu hình của mô hình RetinaFocus sử dụng trong thí nghiệm này là cấu hình sử dụng bản đồ đặc trưng\index{bản đồ đặc trưng} $P_5$ được ký hiệu là \textit{using feature maps P5}.
+
     \begin{figure}[H]
         \centering
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_4k_val_easy_rtnf}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_4k_val_medium_rtnf}} 
-        \subfigure[]{\includegraphics[width=0.32\textwidth, trim={2.3cm 2.3cm 2.3cm 2.3cm}, clip]{images/retinafocus_widerface_4k_val_hard_rtnf}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_4k_val_easy_rtnf}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_4k_val_medium_rtnf}} 
+        \subfigure[]{\includegraphics[width=6cm]{images/retinafocus_widerface_4k_val_hard_rtnf}} 
         \caption{Kết quả so sánh cấu hình tốt nhất của RetinaFocus với các cấu hình của RetinaFace trên ba bộ dữ liệu WIDER FACE 4K val easy (a), medium (b) và hard (c)}
         \label{fig:retinafocus_widerface_val_rtnf}
     \end{figure}
 
+    \noindent
+    Trên cả hai bộ dữ liệu WIDER FACE và WIDER FACE 4K của mô hình RetinaFocus đều đạt kết quả cạnh tranh với mô hình RetinaFace nguyên bản trong khi duy trì được tốc độ tốt hơn khá nhiều so với mô hình RetinaFace nguyên bản.
 }
