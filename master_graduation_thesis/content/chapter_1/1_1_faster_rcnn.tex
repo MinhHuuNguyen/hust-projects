@@ -43,11 +43,11 @@
 
     \subsubsection*{Hàm mất mát và cách huấn luyện mô hình RPN}
     Để huấn luyện được mô hình RPN, nhóm tác giả gán cho mỗi khu vực mỏ neo\index{khu vực mỏ neo} một lớp groundtruth\index{groundtruth} và thiết lập hàm mất mát\index{hàm mất mát} đối với từng khu vực mỏ neo\index{khu vực mỏ neo}.
-    Nhóm tác giả gán lớp groundtruth\index{groundtruth} positive cho khu vực mỏ neo\index{khu vực mỏ neo} dựa theo hai cách sau: \\
-    - Những khu vực mỏ neo\index{khu vực mỏ neo} có chỉ số IoU\index{IoU} lớn nhất đối với một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} được gán là khu vực mỏ neo\index{khu vực mỏ neo} positive. \\
-    - Những khu vực mỏ neo\index{khu vực mỏ neo} có chỉ số IoU\index{IoU} lớn hơn 0.7 đối với một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} được gán là khu vực mỏ neo\index{khu vực mỏ neo} positive. \\
+    Nhóm tác giả gán lớp groundtruth\index{groundtruth} dương cho khu vực mỏ neo\index{khu vực mỏ neo} dựa theo hai cách sau: \\
+    - Những khu vực mỏ neo\index{khu vực mỏ neo} có chỉ số IoU\index{IoU} lớn nhất đối với một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} được gán là khu vực mỏ neo\index{khu vực mỏ neo} dương. \\
+    - Những khu vực mỏ neo\index{khu vực mỏ neo} có chỉ số IoU\index{IoU} lớn hơn 0.7 đối với một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} được gán là khu vực mỏ neo\index{khu vực mỏ neo} dương. \\
     Với hai cách như trên, một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có thể gán được cho nhiều khu vực mỏ neo\index{khu vực mỏ neo} khác nhau.
-    Ngoài ra, nhóm tác giả cũng gán lớp groundtruth\index{groundtruth} negative cho các khu vực mỏ neo\index{khu vực mỏ neo} không phải là positive và có chỉ số IoU\index{IoU} nhỏ hơn 0.3 đối với một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn}. \\
+    Ngoài ra, nhóm tác giả cũng gán lớp groundtruth\index{groundtruth} âm cho các khu vực mỏ neo\index{khu vực mỏ neo} không phải là dương và có chỉ số IoU\index{IoU} nhỏ hơn 0.3 đối với một groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn}. \\
     Từ đó, mô hình Faster R-CNN tối ưu hàm mất mát\index{hàm mất mát} sau:
 
     \begin{equation}
@@ -64,15 +64,15 @@
     - \textit{$t^{*}_i$} là vector gồm 4 giá trị đại diện cho toạ độ của groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} tương ứng với khu vực mỏ neo\index{khu vực mỏ neo} đó. \\
     Hàm mất mát\index{hàm mất mát} trên gồm các thành phần: \\
     - \textit{$L_{cls}$}: là hàm mất mát\index{hàm mất mát} phân lớp thông thường giúp xác định khu vực mỏ neo\index{khu vực mỏ neo} có chứa đối tượng hay không. \\
-    - \textit{$L_{reg}$}: là hàm mất mát\index{hàm mất mát} hồi quy đối với các khu vực mỏ neo\index{khu vực mỏ neo} positive, giúp tinh chỉnh toạ độ của khu vực mà mô hình đề xuất.
+    - \textit{$L_{reg}$}: là hàm mất mát\index{hàm mất mát} hồi quy đối với các khu vực mỏ neo\index{khu vực mỏ neo} dương, giúp tinh chỉnh toạ độ của khu vực mà mô hình đề xuất.
     Cụ thể, nhóm tác giả sử dụng $L_{reg}(t_i, t^{*}_i)=L_1(t_i - t^{*}_i)$ giống với hàm mất mát\index{hàm mất mát} sử dụng trong mô hình Fast R-CNN \cite{girshick2015fast}.
 
     \noindent
     Mô hình RPN được thiết kế để có thể huấn luyện cùng với quá trình huấn luyện nhận diện đối tượng từ đó giúp kết quả đề xuất khu vực trở nên chính xác hơn.
-    Tuy nhiên, có một vấn đề nảy sinh khi sử dụng mô hình RPN cho việc đề xuất khu vực, đó là mô hình sẽ đề xuất ra nhiều các khu vực mỏ neo\index{khu vực mỏ neo} negative hơn rất nhiều so với số khu vực mỏ neo\index{khu vực mỏ neo} positive.
+    Tuy nhiên, có một vấn đề nảy sinh khi sử dụng mô hình RPN cho việc đề xuất khu vực, đó là mô hình sẽ đề xuất ra nhiều các khu vực mỏ neo\index{khu vực mỏ neo} âm hơn rất nhiều so với số khu vực mỏ neo\index{khu vực mỏ neo} dương.
     Việc huấn luyện mô hình trên từng khu vực mỏ neo\index{khu vực mỏ neo} kết hợp với hiện tượng trên sẽ khiến cho tổng quan mô hình nhận diện đối tượng bị mất cân bằng dữ liệu\index{mất cân bằng dữ liệu}.
     Ngoài ra, việc huấn luyện mô hình với toàn bộ số khu vực mỏ neo\index{khu vực mỏ neo} được đề xuất ra cũng sẽ khiến cho khối lượng tính toán lớn và thời gian kéo dài quá trình huấn luyện mô hình.
-    Từ đó, nhóm tác giả đề xuất việc lựa chọn ngẫu nhiên 256 khu vực mỏ neo\index{khu vực mỏ neo} trên mỗi ảnh để thực hiện việc tính giá trị hàm mất mát\index{hàm mất mát}. Việc lựa chọn này giúp tỷ lệ khu vực mỏ neo\index{khu vực mỏ neo} positive và negative trở nên cân bằng hơn và giảm thiểu bởi những phần khối lượng tính toán dư thừa.
+    Từ đó, nhóm tác giả đề xuất việc lựa chọn ngẫu nhiên 256 khu vực mỏ neo\index{khu vực mỏ neo} trên mỗi ảnh để thực hiện việc tính giá trị hàm mất mát\index{hàm mất mát}. Việc lựa chọn này giúp tỷ lệ khu vực mỏ neo\index{khu vực mỏ neo} dương và âm trở nên cân bằng hơn và giảm thiểu bởi những phần khối lượng tính toán dư thừa.
 
     \subsubsection*{Sự kết hợp giữa mô hình RPN và Fast R-CNN}
     Nhóm tác giả cho rằng, việc huấn luyện mô hình RPN và Fast R-CNN cần phải diễn ra đồng thời, vì từ đó, việc chia sẻ chung thành phần mô hình xương sống\index{mô hình xương sống} Conv mới trở nên hiệu quả.
