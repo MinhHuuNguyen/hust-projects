@@ -27,19 +27,12 @@
         \label{fig:widerface_compare_2}
     \end{figure}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=15cm] {images/widerface_examples}
-        \caption{Một số ví dụ trong bộ dữ liệu WIDER FACE (Nguồn: \cite{yang2016wider})}
-        \label{fig:widerface_examples}
-    \end{figure}
-
     \subsubsection*{Bộ dữ liệu WIDER FACE với landmarks}
     Nhóm tác giả của mô hình RetinaFace \cite{deng2020retinaface} đã bổ sung thêm vào bộ dữ liệu WIDER FACE thông tin về landmarks của các khuôn mặt bao gồm 5 điểm: tâm của mắt trái, tâm của mắt phải, đỉnh của mũi, điểm mép miệng trái và điểm mép miệng phải.
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=10cm] {images/widerface_five_levels_lm_1}
+        \includegraphics[width=9cm] {images/widerface_five_levels_lm_1}
         \caption{Ví dụ về mức độ khó của khuôn mặt trong việc gán landmarks (Nguồn: \cite{deng2020retinaface})}
         \label{fig:widerface_five_levels_lm_1}
     \end{figure}
@@ -50,14 +43,23 @@
     - Độ khó 2: Có thể gán nhãn được 68 điểm landmarks của mặt. \\
     - Độ khó 3: Dễ dàng gán nhãn được 5 điểm landmarks của mặt. \\
     - Độ khó 4: Có thể gán nhãn được 5 điểm landmarks của mặt. \\
-    - Độ khó 5 (khó nhất): Chỉ có thể phân biệt được với background\index{background} của ảnh. Với các hộp giới hạn\index{hộp giới hạn} ở mức độ khó này, nhóm tác giả không gán 5 điểm landmarks. \\
+    - Độ khó 5 (khó nhất): Chỉ có thể phân biệt được với background\index{background} của ảnh. Với các hộp giới hạn\index{hộp giới hạn} ở mức độ khó này, nhóm tác giả không gán 5 điểm landmarks.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=9cm] {images/widerface_five_levels_lm_2}
+        \caption{Các thông số của độ khó của khuôn mặt trong việc gán landmarks (Nguồn: \cite{deng2020retinaface})}
+        \label{fig:widerface_five_levels_lm_2}
+    \end{figure}
+
+    \noindent
     Dựa vào các mức độ khó nói trên, nhóm tác giả của RetinaFace đã gán landmarks cho các khuôn mặt trong hai tập dữ liệu huấn luyện và val, tương ứng 84.6k mặt cho tập huấn luyện và 18.5k mặt cho bộ val.
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=11cm] {images/widerface_five_levels_lm_2}
-        \caption{Các thông số của độ khó của khuôn mặt trong việc gán landmarks (Nguồn: \cite{deng2020retinaface})}
-        \label{fig:widerface_five_levels_lm_2}
+        \includegraphics[width=12cm] {images/widerface_examples}
+        \caption{Một số ví dụ trong bộ dữ liệu WIDER FACE (Nguồn: \cite{yang2016wider})}
+        \label{fig:widerface_examples}
     \end{figure}
 
     \subsubsection*{Vấn đề tồn đọng của bộ dữ liệu WIDER FACE}

@@ -6,7 +6,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=8cm] {images/autofocus_compare_fg_bg}
-        \caption{Thống kê về tỷ lệ diện tích của các vùng chứa đối tượng nhỏ (kích thước nhỏ hơn 32 pixels), vừa (kích thước từ 32 đến 96 pixels) và lớn (kích thước lớn hơn 96 pixels) so sánh với diện tích của background của ảnh trên bộ dữ liệu COCO \cite{lin2014microsoft} (Nguồn: \cite{najibi2019autofocus})}
+        \caption{Thống kê về tỷ lệ diện tích của các vùng chứa đối tượng nhỏ (kích thước nhỏ hơn 32 điểm ảnh\index{điểm ảnh}), vừa (kích thước từ 32 đến 96 điểm ảnh\index{điểm ảnh}) và lớn (kích thước lớn hơn 96 điểm ảnh\index{điểm ảnh}) so sánh với diện tích của background của ảnh trên bộ dữ liệu COCO \cite{lin2014microsoft} (Nguồn: \cite{najibi2019autofocus})}
         \label{fig:autofocus_compare_fg_bg}
     \end{figure}
 
@@ -52,7 +52,7 @@
 
     \noindent
     Trong các thí nghiệm mà nhóm tác giả của AutoFocus \cite{najibi2019autofocus} thực hiện, nhóm tác giả sử dụng các tham số $a = 5, b = 64, c = 90$.
-    Các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước từ $5 X 5$ đến $64 X 64$ pixels là các hộp giới hạn\index{hộp giới hạn} cần được tập trung (nhánh tập trung đối tượng sẽ được học và dự đoán các hộp giới hạn thuộc kích thước này), các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước dưới $5 X 5$ pixels hoặc từ $64 X 64$ đến $90 X 90$ pixels là các hộp giới hạn\index{hộp giới hạn} không cần quan tâm và các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước trên $90 X 90$ pixels là các hộp giới hạn\index{hộp giới hạn} không cần được tập trung (nhánh tập trung đối tượng sẽ được không được học các hộp giới hạn thuộc kích thước này).
+    Các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước từ $5 X 5$ đến $64 X 64$ điểm ảnh\index{điểm ảnh} là các hộp giới hạn\index{hộp giới hạn} cần được tập trung (nhánh tập trung đối tượng sẽ được học và dự đoán các hộp giới hạn thuộc kích thước này), các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước dưới $5 X 5$ điểm ảnh\index{điểm ảnh} hoặc từ $64 X 64$ đến $90 X 90$ điểm ảnh\index{điểm ảnh} là các hộp giới hạn\index{hộp giới hạn} không cần quan tâm và các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước trên $90 X 90$ điểm ảnh\index{điểm ảnh} là các hộp giới hạn\index{hộp giới hạn} không cần được tập trung (nhánh tập trung đối tượng sẽ được không được học các hộp giới hạn thuộc kích thước này).
     
     \noindent
     Tuy nhiên, để nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} hoạt động hiệu quả, ta cần xây dựng được bộ tham số phù hợp với bộ dữ liệu và nhánh xác định đối tượng\index{nhánh xác định đối tượng}.
