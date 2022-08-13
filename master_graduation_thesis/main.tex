@@ -56,6 +56,11 @@
 % Package su dung cho `pythoncodestyle`
 \usepackage{listings}
 
+\usepackage{tocbasic}
+\DeclareTOCStyleEntry[dynnumwidth=true, numsep=1em]{tocline}{section}
+\renewcommand*{\thesection}{Chương \arabic{section}}
+\renewcommand*{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
 % Package su dung cho `headerfooterstyle`
 \usepackage{fancyhdr}
 \input{utils/custom_header_footer.tex}
