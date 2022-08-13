@@ -20,8 +20,8 @@
     \noindent
     \textbf{\textit{Thuật toán Focus Pixel}} \\
     Tương tự như trong mô hình AutoFocus \cite{najibi2019autofocus}, thuật toán Focus Pixel là thuật toán giúp chúng ta có thể xác định được vị trí khu vực có khả năng chứa đối tượng và cần zoom trên ảnh.
-    Ý tưởng của thuật toán Focus Pixel  dựa trên việc khi ta đưa đầu vào một ảnh có kích thước $X \times Y$ qua một khối Conv, bản đồ đặc trưng\index{bản đồ đặc trưng} mà ta thu được có kích thước $X' \times Y'$, trong đó: $X' = \lceil \frac{X}{s} \rceil$, $Y' = \lceil \frac{Y}{s} \rceil$, và $s$ là stride của cả khối Conv.
-    Từ đó ta có thể ngầm hiểu rằng một điểm ảnh\index{điểm ảnh} trên bản đồ đặc trưng\index{bản đồ đặc trưng} có kích thước $X' \times Y'$ đại diện cho một khu vực có kích thước $s \times s$ trên ảnh đầu vào.
+    Ý tưởng của thuật toán Focus Pixel  dựa trên việc khi ta đưa đầu vào một ảnh có kích thước $X X Y$ qua một khối Conv, bản đồ đặc trưng\index{bản đồ đặc trưng} mà ta thu được có kích thước $X' X Y'$, trong đó: $X' = \lceil \frac{X}{s} \rceil$, $Y' = \lceil \frac{Y}{s} \rceil$, và $s$ là stride của cả khối Conv.
+    Từ đó ta có thể ngầm hiểu rằng một điểm ảnh\index{điểm ảnh} trên bản đồ đặc trưng\index{bản đồ đặc trưng} có kích thước $X' X Y'$ đại diện cho một khu vực có kích thước $s X s$ trên ảnh đầu vào.
 
     \begin{figure}[H]
         \centering
@@ -46,13 +46,13 @@
 
     \noindent
     trong đó: \\
-    - $IoU\index{IoU}(GT, l)$ là chỉ số IoU\index{IoU} giữa khu vực $s \times s$ và groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} của đối tượng trên ảnh đầu vào. \\
+    - $IoU\index{IoU}(GT, l)$ là chỉ số IoU\index{IoU} giữa khu vực $s X s$ và groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} của đối tượng trên ảnh đầu vào. \\
     - $GTArea$ là diện tích của groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} của đối tượng trên ảnh đầu vào. \\
-    Nếu một khu vực $s \times s$ overlap với nhiều groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} của đối tượng, thì điểm ảnh\index{điểm ảnh} đó được ưu tiên là một Focus Pixel .
+    Nếu một khu vực $s X s$ overlap với nhiều groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} của đối tượng, thì điểm ảnh\index{điểm ảnh} đó được ưu tiên là một Focus Pixel .
 
     \noindent
     Trong các thí nghiệm mà nhóm tác giả của AutoFocus \cite{najibi2019autofocus} thực hiện, nhóm tác giả sử dụng các tham số $a = 5, b = 64, c = 90$.
-    Các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước từ $5 \times 5$ đến $64 \times 64$ pixels là các hộp giới hạn\index{hộp giới hạn} cần được tập trung (nhánh tập trung đối tượng sẽ được học và dự đoán các hộp giới hạn thuộc kích thước này), các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước dưới $5 \times 5$ pixels hoặc từ $64 \times 64$ đến $90 \times 90$ pixels là các hộp giới hạn\index{hộp giới hạn} không cần quan tâm và các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước trên $90 \times 90$ pixels là các hộp giới hạn\index{hộp giới hạn} không cần được tập trung (nhánh tập trung đối tượng sẽ được không được học các hộp giới hạn thuộc kích thước này).
+    Các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước từ $5 X 5$ đến $64 X 64$ pixels là các hộp giới hạn\index{hộp giới hạn} cần được tập trung (nhánh tập trung đối tượng sẽ được học và dự đoán các hộp giới hạn thuộc kích thước này), các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước dưới $5 X 5$ pixels hoặc từ $64 X 64$ đến $90 X 90$ pixels là các hộp giới hạn\index{hộp giới hạn} không cần quan tâm và các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước trên $90 X 90$ pixels là các hộp giới hạn\index{hộp giới hạn} không cần được tập trung (nhánh tập trung đối tượng sẽ được không được học các hộp giới hạn thuộc kích thước này).
     
     \noindent
     Tuy nhiên, để nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} hoạt động hiệu quả, ta cần xây dựng được bộ tham số phù hợp với bộ dữ liệu và nhánh xác định đối tượng\index{nhánh xác định đối tượng}.
@@ -86,7 +86,7 @@
     Cụ thể hơn, trong hình \ref{fig:retinafocus_iou_lower}, dù xét ở mức IoU\index{IoU} nào, thì các hộp giới hạn\index{hộp giới hạn} có kích thước nhỏ từ 0 đến 60 đều chiếm tổng tỷ lệ rất lớn, cụ thể, đối với IoU\index{IoU} 0.5 là 98.7\%, đối với IoU\index{IoU} 0.75 là 96\% và đối với IoU\index{IoU} 0.9 là 90.1\%.
 
     \noindent
-    Hơn nữa, với kiến trúc của FPN như hình \ref{fig:retinafocus_architecture}, một hộp giới hạn\index{hộp giới hạn} có kích thước $4 \times 4$ ở ảnh đầu vào sẽ có tương ứng một khu vực có kích thước $2 \times 2$ ở bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{2}$ và ${P}_{2}$, $1 \times 1$ ở bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{3}$ và ${P}_{3}$ và gần như không còn thông tin ở các bản đồ đặc trưng\index{bản đồ đặc trưng} từ ${C}_{4}$ và ${P}_{4}$ trở đi.
+    Hơn nữa, với kiến trúc của FPN như hình \ref{fig:retinafocus_architecture}, một hộp giới hạn\index{hộp giới hạn} có kích thước $4 X 4$ ở ảnh đầu vào sẽ có tương ứng một khu vực có kích thước $2 X 2$ ở bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{2}$ và ${P}_{2}$, $1 x 1$ ở bản đồ đặc trưng\index{bản đồ đặc trưng} ${C}_{3}$ và ${P}_{3}$ và gần như không còn thông tin ở các bản đồ đặc trưng\index{bản đồ đặc trưng} từ ${C}_{4}$ và ${P}_{4}$ trở đi.
     Điều này khiến cho các hộp giới hạn\index{hộp giới hạn} này trở thành các điểm dữ liệu nhiễu của nhánh tập trung đối tượng\index{nhánh tập trung đối tượng}, khiến cho việc học của nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} bị giảm hiệu quả.
 
     \begin{figure}[H]
@@ -99,7 +99,7 @@
     \end{figure}
 
     \noindent
-    Từ những phân tích trên, chúng tôi lựa chọn lần lượt các tham số $a = 5, b = 60, c = 150$ tương ứng với groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước từ $5 \times 5$ đến $60 \times 60$ là các hộp giới hạn\index{hộp giới hạn} cần được focus, các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước dưới $5 \times 5$ hoặc từ $60 \times 60$ đến $150 \times 150$ là các hộp giới hạn\index{hộp giới hạn} không cần quan tâm và các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước trên $150 \times 150$ là các hộp giới hạn\index{hộp giới hạn} được coi như là background\index{background}. \\
+    Từ những phân tích trên, chúng tôi lựa chọn lần lượt các tham số $a = 5, b = 60, c = 150$ tương ứng với groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước từ $5 X 5$ đến $60 X 60$ là các hộp giới hạn\index{hộp giới hạn} cần được focus, các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước dưới $5 X 5$ hoặc từ $60 X 60$ đến $150 X 150$ là các hộp giới hạn\index{hộp giới hạn} không cần quan tâm và các groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} có kích thước trên $150 X 150$ là các hộp giới hạn\index{hộp giới hạn} được coi như là background\index{background}. \\
 
     \noindent
     \textbf{\textit{Thuật toán sinh Focus Chips}} \\
@@ -116,8 +116,8 @@
     \noindent
     Trong quá trình dự đoán, sau khi mô hình đã dự đoán được các điểm ảnh\index{điểm ảnh} cần được focus (ký hiệu là $\mathcal{P}$) trên Focus Pixel  mask, ta biến đổi mask này trở về dạng binary mask bằng threshold $t$.
     Tham số $t$ được sử dụng để cân đối giữa tốc độ và độ chính xác của mô hình (cụ thể với tham số $t$ lớn, số lượng các điểm ảnh\index{điểm ảnh} cần được focus sẽ giảm đi và tốc độ của mô hình AutoFocus sẽ tăng và ngược lại). \\
-    Từ binary mask đã được sinh ra ở trên, thuật toán sinh Focus Chips sẽ đưa qua một filter có kích thước $d \times d$ nhằm giãn nở các điểm ảnh\index{điểm ảnh} thêm một chút để thu được các thành phần liên thông $\mathcal{S}$, từ đó có nhiều thông tin hơn khi crop ảnh đầu vào với các focus điểm ảnh\index{điểm ảnh} này. \\
-    Cuối cùng, ta crop ra các chip $\mathcal{C}$ với kích thước tối thiểu là $k \times k$ và bao trọn các thành phần liên thông $\mathcal{S}$ trên.
+    Từ binary mask đã được sinh ra ở trên, thuật toán sinh Focus Chips sẽ đưa qua một filter có kích thước $d X d$ nhằm giãn nở các điểm ảnh\index{điểm ảnh} thêm một chút để thu được các thành phần liên thông $\mathcal{S}$, từ đó có nhiều thông tin hơn khi crop ảnh đầu vào với các focus điểm ảnh\index{điểm ảnh} này. \\
+    Cuối cùng, ta crop ra các chip $\mathcal{C}$ với kích thước tối thiểu là $k X k$ và bao trọn các thành phần liên thông $\mathcal{S}$ trên.
     Các chip trong $\mathcal{C}$ nếu có overlap với nhau sẽ được gộp lại chung thành một chip. \\
     Việc sinh ra các chip $\mathcal{C}$ giúp mô hình AutoFocus có thể sử dụng ý tưởng Image Pyramids nhưng tiết kiệm chi phí tính toán nhờ loại bỏ các khu vực khả năng cao không chứa đối tượng. \\
 
@@ -134,7 +134,7 @@
 
     \noindent
     Với ý tưởng từ AutoFocus \cite{najibi2019autofocus}, vấn đề này còn phức tạp hơn với trường hợp một đối tượng có kích thước lớn được dự đoán ở kích thước này, nhưng đến kích thước tiếp theo, đối tượng đó bị crop trong quá trình crop chip và trở thành một đối tượng có kích thước nhỏ hơn.
-    Nhằm hạn chế bớt vấn đề này, nhóm tác giả chỉ ra rằng \textit{bước 2} trong thuật toán sinh Focus Chips \ref{fig:autofocus_focus_chip_gen} là cực kỳ quan trọng.
+    Nhằm hạn chế bớt vấn đề này, nhóm tác giả chỉ ra rằng Bước 2 trong thuật toán sinh Focus Chips \ref{fig:autofocus_focus_chip_gen} là cực kỳ quan trọng.
 
     \noindent
     Tuy nhiên, nhóm tác giả cũng đề ra một số luật nhằm loại bỏ các dự đoán lỗi của các đối tượng được định vị trên một focus chip: \\

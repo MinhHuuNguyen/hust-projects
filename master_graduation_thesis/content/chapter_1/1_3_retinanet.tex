@@ -27,10 +27,10 @@
     YOLO đề xuất ra các khu vực mỏ neo\index{khu vực mỏ neo} thông qua việc chia ảnh đầu vào thành dạng grid\index{grid} có kích thước S x S và với mỗi grid\index{grid} sẽ trả đầu ra dự đoán có kích thước S x S x (B x 5 + C).
     Nếu tâm của một hộp giới hạn\index{hộp giới hạn} nằm trong ô nào trên grid\index{grid}, ô đó sẽ cần phải được dự đoán là chứa đối tượng.
     Mỗi ô trên grid\index{grid} sẽ được mô hình dự đoán (B x 5 + C) giá trị, trong đó: \\
-    - B là số lượng hộp giới hạn\index{hộp giới hạn} dự đoán. \\
-    - 5 là các giá trị trong đó có 4 giá trị x, y, w, h đại diện cho hộp giới hạn\index{hộp giới hạn} được dự đoán và 1 giá trị độ tự tin\index{độ tự tin}.
+    - Giá trị B là số lượng hộp giới hạn\index{hộp giới hạn} dự đoán. \\
+    - Giá trị 5 là các giá trị trong đó có 4 giá trị x, y, w, h đại diện cho hộp giới hạn\index{hộp giới hạn} được dự đoán và 1 giá trị độ tự tin\index{độ tự tin}.
     Thay vì được học là 1 nếu khu vực mỏ neo\index{khu vực mỏ neo} có IoU\index{IoU} cao với groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn} và ngược lại là 0 nếu khu vực mỏ neo\index{khu vực mỏ neo} có IoU\index{IoU} thấp với groundtruth\index{groundtruth} hộp giới hạn\index{hộp giới hạn}, điểm đặc biệt về giá trị độ tự tin\index{độ tự tin} mà nhóm tác giả thiết kế trong mô hình YOLO là nó bằng chính giá trị IoU\index{IoU} so với groundtruth\index{groundtruth}. \\
-    - C là số lượng lớp đối tượng\index{lớp đối tượng} trong bài toán nhận diện đối tượng\index{nhận diện đối tượng}.
+    - Giá trị C là số lượng lớp đối tượng\index{lớp đối tượng} trong bài toán nhận diện đối tượng\index{nhận diện đối tượng}.
     Mỗi giá trị dự đoán trong C là giá trị xác suất điều kiện nếu ô trên grid\index{grid} chứa đối tượng thì đó là đối tượng nào. \\
     Trong nghiên cứu, nhóm tác giả của YOLO sử dụng $S = 7, B = 2, C = 20$.
 
@@ -46,9 +46,9 @@
     Với mỗi grid\index{grid} tạo bởi một bản đồ đặc trưng\index{bản đồ đặc trưng} có kích thước $m × n$, SSD trả đầu ra dự đoán có kích thước $m × n × (k × (c + 4))$.
     Nếu tâm của một hộp giới hạn\index{hộp giới hạn} nằm trong ô nào trên grid\index{grid}, ô đó sẽ cần phải được dự đoán là chứa đối tượng.
     Mỗi ô trên grid\index{grid} sẽ được mô hình dự đoán $(k × (c + 4))$ giá trị, trong đó: \\
-    - k là số lượng hộp giới hạn\index{hộp giới hạn} dự đoán. \\
-    - 4 là 4 giá trị x, y, w, h đại diện cho hộp giới hạn\index{hộp giới hạn} được dự đoán. \\
-    - c là số lượng lớp đối tượng\index{lớp đối tượng} trong bài toán nhận diện đối tượng\index{nhận diện đối tượng}.
+    - Giá trị k là số lượng hộp giới hạn\index{hộp giới hạn} dự đoán. \\
+    - Giá trị 4 là 4 giá trị x, y, w, h đại diện cho hộp giới hạn\index{hộp giới hạn} được dự đoán. \\
+    - Giá trị c là số lượng lớp đối tượng\index{lớp đối tượng} trong bài toán nhận diện đối tượng\index{nhận diện đối tượng}.
     Mỗi giá trị dự đoán trong c là giá trị xác suất khu vực mỏ neo\index{khu vực mỏ neo} đó là đối tượng nào.
 
     \noindent

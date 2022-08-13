@@ -98,13 +98,13 @@
     Điều này nằm ngoài nội dung của nghiên cứu này nên nhóm tác giả không đề cập kỹ hơn.
 
     \noindent
-    Tóm lại, nhóm tác giả dựa vào phương pháp \textit{Alternating training} và thực hiện quá trình huấn luyện gồm 4 bước như sau: \\
+    Tóm lại, nhóm tác giả dựa vào phương pháp \textit{Alternating training} và thực hiện quá trình huấn luyện gồm bốn bước như sau: \\
     - Bước 1: Nhóm tác giả khởi tạo mô hình RPN với pretrained ImageNet và huấn luyện mô hình RPN. \\
     - Bước 2: Nhóm tác giả khởi tạo mô hình Fast R-CNN với pretrained ImageNet và huấn luyện mô hình Fast R-CNN với các khu vực được đề xuất bởi RPN. \\
-    - Bước 3: Nhóm tác giả khởi tạo lại mô hình RPN nhưng sử dụng phần mô hình xương sống\index{mô hình xương sống} đã được huấn luyện từ bước 2.
+    - Bước 3: Nhóm tác giả khởi tạo lại mô hình RPN nhưng sử dụng phần mô hình xương sống\index{mô hình xương sống} đã được huấn luyện từ Bước 2.
     Nhóm tác giả chỉ huấn luyện những lớp riêng của mô hình RPN và không cập nhật cho phần mô hình xương sống\index{mô hình xương sống}. \\
     - Bước 4: Nhóm tác giả finetune lại những lớp riêng của mô hình Fast R-CNN với các khu vực được đề xuất bởi RPN và thu được mô hình Faster R-CNN cuối cùng. \\
-    Nhóm tác giả cũng đã lặp lại 4 bước trên vài lần nhưng kết quả không thay đổi quá nhiều.
+    Nhóm tác giả cũng đã lặp lại bốn bước trên vài lần nhưng kết quả không thay đổi quá nhiều.
 
     \subsubsection*{Vấn đề tồn đọng của mô hình Faster R-CNN}
     Kết quả của mô hình Faster R-CNN và tâm điểm là kiến trúc RPN giúp thay thế thuật toán Selective Search đã giúp cho Faster R-CNN đạt độ chính xác cao hơn so với mô hình Fast R-CNN sử dụng Selective Search.
