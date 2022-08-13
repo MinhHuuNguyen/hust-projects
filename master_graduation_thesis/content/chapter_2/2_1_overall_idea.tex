@@ -10,14 +10,14 @@
 
     \noindent
     Mô hình RetinaFocus gồm hai nhánh: nhánh xác định đối tượng\index{nhánh xác định đối tượng} và nhánh tập trung đối tượng\index{nhánh tập trung đối tượng}. \\
-    - nhánh xác định đối tượng\index{nhánh xác định đối tượng} là một mô hình nhận diện khuôn mặt với nhiệm vụ đưa ra kết quả về vị trí của khuôn mặt trên ảnh.
+    - Nhánh xác định đối tượng\index{nhánh xác định đối tượng} là một mô hình nhận diện khuôn mặt với nhiệm vụ đưa ra kết quả về vị trí của khuôn mặt trên ảnh.
     Trong mô hình RetinaFocus, nhánh xác định đối tượng\index{nhánh xác định đối tượng} được xây dựng dựa trên mô hình RetinaFace \cite{deng2020retinaface}. \\
     - Nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} là một mô hình Conv với nhiệm vụ đưa ra dự đoán giúp xác định được các khu vực đáng chú ý trên ảnh và loại bỏ các khu vực khả năng cao không chứa khuôn mặt, các khu vực có khả năng chứa khuôn mặt sau đó sẽ được zoom in, crop và đưa vào cả nhánh xác định đối tượng\index{nhánh xác định đối tượng} và nhánh tập trung đối tượng\index{nhánh tập trung đối tượng}.
     Trong mô hình RetinaFocus, nhánh tập trung đối tượng\index{nhánh tập trung đối tượng} được xây dựng dựa trên mô hình AutoFocus \cite{najibi2019autofocus}.
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=13cm] {images/retinafocus_architecture}
+        \includegraphics[width=15cm] {images/retinafocus_architecture}
         \caption{Kiến trúc của mô hình RetinaFocus.}
         \label{fig:retinafocus_architecture}
     \end{figure}
