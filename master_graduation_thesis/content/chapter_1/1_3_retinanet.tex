@@ -15,13 +15,6 @@
     \noindent
     Các mô hình nhận diện đối tượng\index{nhận diện đối tượng} một pha\index{một pha} cần phải xây dựng một phương pháp riêng nhằm đề xuất ra các khu vực mỏ neo\index{khu vực mỏ neo} chứa đối tượng.
     Hai mô hình nhận diện đối tượng\index{nhận diện đối tượng} một pha\index{một pha} nổi tiếng vào thời điểm đó là YOLO \cite{redmon2016look} và SSD \cite{liu2016ssd} có các cách đề xuất ra khu vực mỏ neo\index{khu vực mỏ neo} tương tự với nhau.
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=11cm] {images/yolo_anchor}
-        \caption{Cách đề xuất khu vực mỏ neo\index{khu vực mỏ neo} của mô hình YOLO. (Nguồn: \cite{redmon2016look})}
-        \label{fig:yolo_anchor}
-    \end{figure}
 
     \noindent
     YOLO đề xuất ra các khu vực mỏ neo\index{khu vực mỏ neo} thông qua việc chia ảnh đầu vào thành dạng grid\index{grid} có kích thước S x S và với mỗi grid\index{grid} sẽ trả đầu ra dự đoán có kích thước S x S x (B x 5 + C).
@@ -36,11 +29,11 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=11cm] {images/ssd_anchor}
-        \caption{Cách đề xuất khu vực mỏ neo\index{khu vực mỏ neo} của mô hình SSD. (Nguồn: \cite{liu2016ssd})}
-        \label{fig:ssd_anchor}
+        \includegraphics[width=11cm] {images/yolo_anchor}
+        \caption{Cách đề xuất khu vực mỏ neo\index{khu vực mỏ neo} của mô hình YOLO. (Nguồn: \cite{redmon2016look})}
+        \label{fig:yolo_anchor}
     \end{figure}
-    
+
     \noindent
     SSD cũng sử dụng bản đồ đặc trưng\index{bản đồ đặc trưng} như là các dạng grid\index{grid} của ảnh đầu vào nhưng thay vì sử dụng một grid\index{grid} như YOLO thì SSD sử dụng nhiều grid\index{grid} từ nhiều bản đồ đặc trưng\index{bản đồ đặc trưng} có cách kích thước khác nhau.
     Với mỗi grid\index{grid} tạo bởi một bản đồ đặc trưng\index{bản đồ đặc trưng} có kích thước $m × n$, SSD trả đầu ra dự đoán có kích thước $m × n × (k × (c + 4))$.
@@ -50,6 +43,13 @@
     - Giá trị 4 là 4 giá trị x, y, w, h đại diện cho hộp giới hạn\index{hộp giới hạn} được dự đoán. \\
     - Giá trị c là số lượng lớp đối tượng\index{lớp đối tượng} trong bài toán nhận diện đối tượng\index{nhận diện đối tượng}.
     Mỗi giá trị dự đoán trong c là giá trị xác suất khu vực mỏ neo\index{khu vực mỏ neo} đó là đối tượng nào.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=11cm] {images/ssd_anchor}
+        \caption{Cách đề xuất khu vực mỏ neo\index{khu vực mỏ neo} của mô hình SSD. (Nguồn: \cite{liu2016ssd})}
+        \label{fig:ssd_anchor}
+    \end{figure}
 
     \noindent
     Với ý tưởng khởi tạo khu vực mỏ neo\index{khu vực mỏ neo} như trên, nhóm tác giả của RetinaNet\index{RetinaNet} đã chỉ ra một vấn đề nghiêm trọng mà các mô hình nhận diện đối tượng\index{nhận diện đối tượng} một pha\index{một pha} nói chung gặp phải đó là vấn đề mất cân bằng dữ liệu\index{mất cân bằng dữ liệu} trong quá trình huấn luyện mô hình.
@@ -135,11 +135,6 @@
     \end{equation}
     
     \subsubsection*{Kiến trúc mô hình RetinaNet}
-    RetinaNet\index{RetinaNet} gồm có các thành phần: \\
-    - Phần \textit{mô hình xương sống FPN} được sử dụng nhằm trích xuất đặc trưng của ảnh đầu vào với nhiều kích thước đặc trưng khác nhau. \\
-    - Phần trích xuất khu vực mỏ neo\index{khu vực mỏ neo} được thực hiện tương tự với cách trích xuất của mô hình RPN. \\
-    Tuy nhiên, nhóm tác giả đã thử nghiệm và bổ sung thêm các kích thước $2^{0}$, $2^{1/3}$, $2^{2/3}$ của khu vực mỏ neo\index{khu vực mỏ neo} để đạt kết quả tốt hơn.
-    Các khu vực mỏ neo\index{khu vực mỏ neo} được gán groundtruth\index{groundtruth} với chiến lược tương tự như trong Faster R-CNN\index{Faster R-CNN} \cite{ren2015faster} và (2) thay đổi threshold IoU\index{IoU} để gán nhãn cho từng khu vực mỏ neo\index{khu vực mỏ neo}.
 
     \begin{figure}[H]
         \centering
@@ -147,6 +142,12 @@
         \caption{Kiến trúc mô hình RetinaNet. (Nguồn: \cite{lin2017focal})}
         \label{fig:retinanet_model}
     \end{figure}
+
+    RetinaNet\index{RetinaNet} gồm có các thành phần: \\
+    - Phần \textit{mô hình xương sống FPN} được sử dụng nhằm trích xuất đặc trưng của ảnh đầu vào với nhiều kích thước đặc trưng khác nhau. \\
+    - Phần trích xuất khu vực mỏ neo\index{khu vực mỏ neo} được thực hiện tương tự với cách trích xuất của mô hình RPN. \\
+    Tuy nhiên, nhóm tác giả đã thử nghiệm và bổ sung thêm các kích thước $2^{0}$, $2^{1/3}$, $2^{2/3}$ của khu vực mỏ neo\index{khu vực mỏ neo} để đạt kết quả tốt hơn.
+    Các khu vực mỏ neo\index{khu vực mỏ neo} được gán groundtruth\index{groundtruth} với chiến lược tương tự như trong Faster R-CNN\index{Faster R-CNN} \cite{ren2015faster} và (2) thay đổi threshold IoU\index{IoU} để gán nhãn cho từng khu vực mỏ neo\index{khu vực mỏ neo}.
 
     \noindent
     - Phần \textit{Classification Subnet} được chia sẻ giữa tất cả các bản đồ đặc trưng\index{bản đồ đặc trưng} của mô hình xương sống FPN\index{FPN}, gồm các lớp Conv\index{lớp Conv} 3x3xC và lớp Conv\index{lớp Conv} cuối cùng 3x3xKA.

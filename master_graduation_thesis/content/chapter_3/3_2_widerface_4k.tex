@@ -5,7 +5,7 @@
         \centering
         \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_highres_1}}
         \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_highres_2}}
-        \subfigure[]{\includegraphics[width=9cm]{images/widerface_highres_3}}
+        \subfigure[]{\includegraphics[width=9.4cm]{images/widerface_highres_3}}
         \caption{Một ví dụ ảnh trong bộ dữ liệu WIDER FACE \cite{yang2016wider} (a) so sánh với bộ dữ liệu WIDER FACE kích thước lớn dạng lưới $2 X 2$ (b) và $3 X 3$ (c)}
         \label{fig:widerface_4k_example}
     \end{figure}
@@ -17,12 +17,11 @@
     \noindent
     Trong khuôn khổ của luận văn, tôi chỉ xây dựng các bộ dữ liệu WIDER FACE kích thước lớn với dạng lưới có kích thước $2 X 2$, và $3 X 3$, tuy nhiên, ý tưởng xây dựng bộ dữ liệu WIDER FACE kích thước lớn này hoàn toàn có thể áp dụng với các kích thước lưới lớn hơn $n X n$ nhằm tạo ra bộ dữ liệu ảnh có kích thước lớn hơn nữa.
 
-    % , trim={2.5cm 0cm 1.7cm 3.3cm}, clip
     \begin{figure}[H]
         \centering
-        \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_nk_img_size_1K}}
-        \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_nk_img_size_2K}}
-        \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_nk_img_size_3K}}
+        \subfigure[]{\includegraphics[width=7.3cm, trim={0.5cm 0.5cm 3cm 2cm}, clip]{images/widerface_nk_img_size_1K}}
+        \subfigure[]{\includegraphics[width=7.3cm, trim={0.5cm 0.5cm 3cm 2cm}, clip]{images/widerface_nk_img_size_2K}}
+        \subfigure[]{\includegraphics[width=7.3cm, trim={0.5cm 0.5cm 3cm 2cm}, clip]{images/widerface_nk_img_size_3K}}
         \caption{Phân phối về kích thước ảnh trong bộ dữ liệu WIDER FACE \cite{yang2016wider} (a) so sánh với bộ dữ liệu WIDER FACE kích thước lớn dạng lưới $2 X 2$ (b) và $3 X 3$ (c)}
         \label{fig:widerface_4k_img_size}
     \end{figure}
@@ -36,9 +35,9 @@
 
     \begin{figure}[H]
         \centering
-        \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_nk_scale_1K}}
-        \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_nk_scale_2K}}
-        \subfigure[]{\includegraphics[width=7.3cm]{images/widerface_nk_scale_3K}}
+        \subfigure[]{\includegraphics[width=7.3cm, trim={0.5cm 0.5cm 3cm 3cm}, clip]{images/widerface_nk_scale_1K}}
+        \subfigure[]{\includegraphics[width=7.3cm, trim={0.5cm 0.5cm 3cm 3cm}, clip]{images/widerface_nk_scale_2K}}
+        \subfigure[]{\includegraphics[width=7.3cm, trim={0.2cm 0.5cm 3cm 3cm}, clip]{images/widerface_nk_scale_3K}}
         \caption{Phân phối về tỷ lệ giữa kích thước của hộp giới hạn và kích thước ảnh trong bộ dữ liệu WIDER FACE \cite{yang2016wider} (a) so sánh với bộ dữ liệu WIDER FACE kích thước lớn dạng lưới $2 X 2$ (b) và $3 X 3$ (c)}
         \label{fig:widerface_4k_scale}
     \end{figure}
