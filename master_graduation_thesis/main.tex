@@ -1,4 +1,4 @@
-\documentclass[a4paper,14pt]{extarticle}
+\documentclass[a4paper,14pt,oneside]{extarticle}
 % Thay doi chieu cao cua header va top margin
 % de fix warning `\headheight is too small`
 \setlength{\headheight}{17pt}
@@ -8,7 +8,7 @@
 \usepackage[utf8]{vietnam}
 
 % Package can le tren, duoi, trai, phai
-\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[left=3.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
 
 % Packages de viet cong thuc Toan hoc
 \usepackage{amsmath,amssymb, amsthm}
@@ -48,13 +48,18 @@
 
 % Package su dung cho viec danh `chi muc tu khoa`
 \usepackage{imakeidx}
-\makeindex[columns=2, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
+\makeindex[columns=3, columnsep=0.5em, title=Chỉ mục từ khoá, intoc]
 
 % Package su dung cho `khungtrangbia`
 \usepackage{tikz}
 
 % Package su dung cho `pythoncodestyle`
 \usepackage{listings}
+
+\usepackage{tocbasic}
+\DeclareTOCStyleEntry[dynnumwidth=true, numsep=1em]{tocline}{section}
+\renewcommand*{\thesection}{Chương \arabic{section}}
+\renewcommand*{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
 % Package su dung cho `headerfooterstyle`
 \usepackage{fancyhdr}
@@ -79,23 +84,17 @@
     % Xoa header - footer
     \pagestyle{plain}
 
-    \input{utils/trang_bia.tex}
+    \input{utils/trang_bia/trang_bia.tex}
     \trangbia
 
     \newpage
-    \input{utils/nhan_xet.tex}
-    \nhanxet
-
-    \newpage
-    \input{utils/loi_cam_on.tex}
+    \input{utils/cac_trang_chuc_nang/loi_cam_on.tex}
     \loicamon
+    \input{utils/cac_trang_chuc_nang/tom_tat_noi_dung.tex}
+    \tomtatnoidung
 
     % Bat dau danh so trang page number
     \pagenumbering{arabic}
-
-    \newpage
-    \input{utils/tom_tat_noi_dung.tex}
-    \tomtatnoidung
 
     \newpage
     \tableofcontents
@@ -104,52 +103,39 @@
     \listoffigures
     \addcontentsline{toc}{section}{Danh sách hình vẽ}
 
-    \newpage
-    \listoftables
-    \addcontentsline{toc}{section}{Danh sách bảng biểu}
     % KET THUC CAC TRANG CHUC NANG
 
     % BAT DAU PHAN NOI DUNG CHINH
+    \newpage
+    \input{content/0_problems.tex}
+    \problems
+    
     % Bat dau hien header - footer tu trang nay ve sau
+    \newpage
     \pagestyle{fancy}
+    \input{content/1_theory.tex}
+    \theory
+    
+    \newpage
+    \input{content/2_proposed_model.tex}
+    \proposedmodel
 
     \newpage
-    \input{content/1_problems.tex}
-    \cacbaitoan
-
-    \newpage
-    \input{content/2_object_detection.tex}
-    \objectdetection
-
-    \newpage
-    \input{content/3_object_detection_high_res.tex}
-    \objectdetectionhighres
-
-    \newpage
-    \input{content/4_face_detection.tex}
-    \facedetection
-
-    \newpage
-    \input{content/5_retinafocus.tex}
-    \retinafocus
+    \input{content/3_datasets_and_experiments.tex}
+    \datasetsandexperiments
 
     % % KET THUC PHAN NOI DUNG CHINH
 
     % BAT DAU CAC TRANG CHUC NANG KHAC
     % Xoa header - footer
-    \pagestyle{plain}
-
+    
     \newpage
-    \input{utils/tong_ket.tex}
+    \pagestyle{plain}
+    \input{utils/cac_trang_chuc_nang/tong_ket.tex}
     \tongket
 
     \newpage
     \printindex
-
-
-    % \newpage
-    % \input{utils/code.tex}
-    % \code
 
     \newpage
     \addcontentsline{toc}{section}{Tài liệu tham khảo}
