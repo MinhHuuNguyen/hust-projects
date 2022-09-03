@@ -88,7 +88,7 @@
     Nhóm tác giả nêu ra ba phương án để huấn luyện mô hình RPN kết hợp với Fast R-CNN: \\
     - Cách 1: \textit{Alternating training}: Nhóm tác giả huấn luyện mô hình RPN trước sử dụng những hàm mất mát\index{hàm mất mát} của RPN nói trên.
     Sau khi huấn luyện xong mô hình RPN, tác giả sử dụng những khu vực được đề xuất bởi RPN để huấn luyện mô hình Fast R-CNN.
-    Mô hình mô hình xương sống\index{mô hình xương sống} sau khi được huấn luyện bởi Fast R-CNN tiếp tục được sử dụng để huấn luyện mô hình RPN mới và vòng lặp này tiếp tục diễn ra cho đến khi kết quả của mô hình hội tụ. \\
+    Mô hình xương sống\index{mô hình xương sống} sau khi được huấn luyện bởi Fast R-CNN tiếp tục được sử dụng để huấn luyện mô hình RPN mới và vòng lặp này tiếp tục diễn ra cho đến khi kết quả của mô hình hội tụ. \\
     - Cách 2: \textit{Approximate joint training}: Phương pháp này kết hợp RPN và Fast R-CNN thành một mô hình duy nhất trong quá trình huấn luyện.
     Các khu vực được đề xuất bởi RPN được coi như là tất định đối với nhánh Fast R-CNN và khiến cho phương pháp huấn luyện này được gọi là \textit{approximate} bởi vì những thông tin từ nhánh Fast R-CNN sẽ không được cập nhật cho nhánh RPN.
     Quá trình lan truyền ngược\index{lan truyền ngược} được thực hiện độc lập giữa RPN và Fast R-CNN, riêng phần mô hình xương sống\index{mô hình xương sống} chung của RPN và Fast R-CNN được cập nhật theo giá trị hàm mất mát\index{hàm mất mát} của cả RPN và Fast R-CNN.
